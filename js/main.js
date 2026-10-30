@@ -24,6 +24,14 @@
     marco.setAttribute('data-expand', parseFloat(arriba.toFixed(2)) + '% ' + parseFloat(lados.toFixed(2)) + '%');
   }
 
+  /* ---------- Vídeo spot: vuelve al principio al salir de pantalla ----------
+     E29 lo pausa al salir y lo reanuda al volver; al rebobinarlo en la pausa,
+     cada vez que vuelve a verse empieza desde el inicio. */
+  var spot = document.querySelector('.video-sec__video');
+  if (spot) {
+    spot.addEventListener('pause', function () { spot.currentTime = 0; });
+  }
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {
