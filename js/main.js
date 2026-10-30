@@ -97,6 +97,30 @@
     }
   }
 
+  /* ---------- Mapa en móvil y tablet: la caja de cada pin aparece al tocarlo ----------
+     (en escritorio con ratón aparece al pasar por encima, solo con CSS) */
+  var cajas = document.querySelectorAll('.oficina');
+  var esPantallaGrande = window.matchMedia('(min-width: 1024px)');
+  var cerrarCajas = function () {
+    cajas.forEach(function (c) { c.classList.remove('is-activa'); });
+  };
+  document.querySelectorAll('.pin').forEach(function (pin) {
+    var region = (pin.className.match(/pin--(\w+)/) || [])[1];
+    var caja = document.querySelector('.oficina--' + region);
+    if (!caja) return;
+    pin.addEventListener('click', function (e) {
+      if (esPantallaGrande.matches) return;
+      e.stopPropagation();
+      var abierta = caja.classList.contains('is-activa');
+      cerrarCajas();
+      if (!abierta) caja.classList.add('is-activa');
+    });
+  });
+  // Tocar fuera de un pin cierra la caja abierta
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.pin')) cerrarCajas();
+  });
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {

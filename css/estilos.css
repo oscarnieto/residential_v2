@@ -283,9 +283,11 @@ em { font-style: italic; }
 .red__texto p + p { margin-top: 1.15em; }
 .red__texto strong { font-weight: 700; }
 
-/* Mapa: en móvil, las cajas de oficinas van en fila sobre el mapa */
-.mapa { position: relative; display: flex; flex-direction: column; margin-top: 48px; }
-.mapa__fondo { position: relative; order: 1; aspect-ratio: 1440 / 443; overflow: hidden; }
+/* Mapa. Hasta 1024 px: las cajas están ocultas y aparecen al tocar su pin
+   (js/main.js añade .is-activa). El margen superior deja sitio a las cajas
+   de los pines más altos. */
+.mapa { --pin-w: max(12px, 2.0833%); position: relative; margin-top: 100px; }
+.mapa__fondo { position: relative; aspect-ratio: 1440 / 443; overflow: hidden; }
 .mapa__img {
   position: absolute;
   top: 0;
@@ -294,23 +296,28 @@ em { font-style: italic; }
   max-width: none;
 }
 .mapa__pines { position: absolute; inset: 0; }
-.pin { position: absolute; width: max(12px, 2.0833%); }
+.pin {
+  position: absolute;
+  width: var(--pin-w);
+  /* zona táctil más grande sin cambiar el tamaño ni la posición del pin */
+  box-sizing: content-box;
+  padding: 10px;
+  margin: -10px 0 0 -10px;
+  cursor: pointer;
+}
 .pin--america { left: 11.944%; top: 77.878%; }
 .pin--uk      { left: 38.75%;  top: 6.095%; }
 .pin--spain   { left: 42.778%; top: 26.411%; }
 .pin--europe  { left: 51.875%; top: 19.187%; }
 .pin--apac    { left: 76.875%; top: 41.084%; }
 
-.oficinas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 var(--pad) 24px;
-}
+.oficinas { position: absolute; inset: 0; pointer-events: none; }
 .oficina {
-  position: relative;
+  position: absolute;
   width: 84px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
   aspect-ratio: 84 / 99;
   background: url("../icons/bocadillo.svg") center / 100% 100% no-repeat;
   line-height: 1.1;
@@ -320,6 +327,13 @@ em { font-style: italic; }
 .oficina__zona { top: 10.1%; }
 .oficina__num { top: 18.2%; color: var(--amarillo); font-size: 42px; font-weight: 500; }
 .oficina__txt { top: 58.6%; }
+.oficina.is-activa { opacity: 1; transform: none; }
+/* Caja centrada sobre su pin, 5 px por encima de la punta */
+.oficina--america { left: calc(11.944% + var(--pin-w) / 2 - 42px); top: calc(77.878% - 104px); }
+.oficina--uk      { left: calc(38.75% + var(--pin-w) / 2 - 42px);  top: calc(6.095% - 104px); }
+.oficina--spain   { left: calc(42.778% + var(--pin-w) / 2 - 42px); top: calc(26.411% - 104px); }
+.oficina--europe  { left: calc(51.875% + var(--pin-w) / 2 - 42px); top: calc(19.187% - 104px); }
+.oficina--apac    { left: calc(76.875% + var(--pin-w) / 2 - 42px); top: calc(41.084% - 104px); }
 
 /* ---------- Savills en España ---------- */
 .zona { padding-block: 64px 80px; color: var(--navy); text-align: center; }
@@ -521,7 +535,6 @@ em { font-style: italic; }
   .zona__cabecera { order: 1; padding-inline: 34px; }
   .zona__textos { order: 2; padding-inline: 34px; }
   .zona .cifra { order: 3; margin-top: 0; }
-  .zona__col--centro .zona__img { order: 4; }
   .zona__col--lado .zona__img { display: none; }
 
   .zona__titulo { margin-top: 29px; font-size: 32px; }
@@ -538,11 +551,8 @@ em { font-style: italic; }
   }
   .zona__col:last-child .cifra::before { margin-top: 51px; }
 
-  .zona__col--centro .zona__img {
-    margin-top: 55px;
-    aspect-ratio: 402 / 482;
-    object-position: 50% 50%;
-  }
+  .zona { padding-bottom: 64px; }
+  .zona__col--centro .zona__img { display: none; }
 }
 
 /* =========================================================
@@ -657,10 +667,9 @@ em { font-style: italic; }
   }
 
   /* Mapa: cajas y pines posicionados sobre el mapa, escalan con su ancho */
-  .mapa { display: block; margin-top: calc(110 * var(--s)); container-type: inline-size; }
-  .pin { width: 2.0833%; }
-  .oficinas { position: absolute; inset: auto 0 0; aspect-ratio: 1440 / 443; padding: 0; }
-  .oficina { position: absolute; width: 5.8333%; }
+  .mapa { --pin-w: 2.0833%; margin-top: calc(110 * var(--s)); container-type: inline-size; }
+  .pin { padding: 0; margin: 0; cursor: default; }
+  .oficina { width: 5.8333%; opacity: 1; transform: none; transition: none; }
   .oficina__zona, .oficina__txt { font-size: 0.8333cqw; }
   .oficina__num { font-size: 2.9167cqw; }
   .oficina--america { left: 10.069%; top: 54.40%; }
