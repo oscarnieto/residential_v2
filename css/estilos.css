@@ -626,7 +626,7 @@ em { font-style: italic; }
   .intro__texto {
     margin-top: 0;
     max-width: calc(367 * var(--s));
-    font-size: max(14px, calc(18 * var(--s)));
+    font-size: max(12px, calc(14 * var(--s)));
   }
 
   .diferentes {
@@ -643,7 +643,7 @@ em { font-style: italic; }
   .acordeon__contenido p {
     margin-bottom: calc(8 * var(--s));
     padding: calc(15 * var(--s)) 0 calc(21 * var(--s));
-    font-size: max(14px, calc(18 * var(--s)));
+    font-size: max(12px, calc(14 * var(--s)));
   }
 
   /* Red internacional */
@@ -663,7 +663,7 @@ em { font-style: italic; }
     max-width: calc(840 * var(--s));
     margin-top: calc(30 * var(--s));
     padding: 0;
-    font-size: max(14px, calc(16 * var(--s)));
+    font-size: max(12px, calc(12 * var(--s)));
   }
 
   /* Mapa: cajas y pines posicionados sobre el mapa, escalan con su ancho */
@@ -708,7 +708,7 @@ em { font-style: italic; }
   .zona__texto {
     max-width: calc(677 * var(--s));
     margin-top: calc(81 * var(--s));
-    font-size: max(14px, calc(16 * var(--s)));
+    font-size: max(12px, calc(12 * var(--s)));
   }
   .zona__texto p:last-child { margin-bottom: 1.15em; }
 
