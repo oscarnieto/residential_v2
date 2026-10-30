@@ -63,6 +63,7 @@ em { font-style: italic; }
   letter-spacing: 0.04em;
 }
 .pendiente--texto { position: static; display: inline-block; }
+.pendiente--centro { left: 50%; top: 50%; bottom: auto; transform: translate(-50%, -50%); }
 
 /* ---------- Cabecera ---------- */
 .cabecera {
@@ -127,18 +128,19 @@ em { font-style: italic; }
 .hero__scroll img { width: 100%; }
 
 /* ---------- Retos ---------- */
-.intro { padding-block: 80px 80px; color: var(--navy); }
+.intro { padding-top: 80px; color: var(--navy); }
+.diferentes-sec { padding-bottom: 80px; color: var(--navy); }
 .intro__titulo {
   font: 400 clamp(28px, 5vw, 51px)/1.15 var(--serif);
 }
 .intro__titulo em { font-weight: 500; letter-spacing: -0.02em; }
 
-.video {
-  position: relative;
-  margin-top: 40px;
-  aspect-ratio: 1270 / 715;
-  background: var(--gris);
-}
+/* Vídeo (E19). En móvil es un recuadro normal; desde 768 px la sección
+   ocupa la pantalla y el marco se abre hasta llenarla. El margen negativo
+   de arriba compensan el recorte inicial para que el hueco visible sea el de Figma. */
+.video-sec { padding: 40px var(--pad) 0; }
+.video-sec__marco { position: relative; aspect-ratio: 1270 / 715; }
+.video-sec__media { position: absolute; inset: 0; background: var(--gris); }
 
 .intro__texto {
   margin-top: 24px;
@@ -359,6 +361,17 @@ em { font-style: italic; }
   letter-spacing: -0.02em;
 }
 .pie__lema em { letter-spacing: -0.07em; }
+.pie__lema[data-foco] {
+  --x: 50%;
+  --y: 50%;
+  background: radial-gradient(circle at var(--x) var(--y),
+    rgba(239, 232, 227, 0.95) 0,
+    rgba(230, 219, 211, 0.45) 1.6em,
+    rgba(230, 219, 211, 0.1) 4.5em);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .pie__subir { display: block; width: 34px; margin: 40px auto 0; }
 .pie__subir img { width: 100%; }
 .pie__marca {
@@ -385,7 +398,7 @@ em { font-style: italic; }
   overscroll-behavior: contain;
   background: var(--crema);
   color: #000;
-  transform: translateX(-100%);
+  transform: translateY(-100%);
   visibility: hidden;
   transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1), visibility 0s 0.7s;
 }
@@ -452,6 +465,18 @@ em { font-style: italic; }
 @media (min-width: 768px) {
   :root { --pad: 40px; }
 
+  .video-sec {
+    --vid-h: calc((100% - 2 * var(--pad)) * 715 / 1270);
+    --vid-recorte: max(0px, (100vh - var(--vid-h)) / 2);
+    position: relative;
+    height: 100vh;
+    padding: 0;
+    margin-top: calc(var(--gap-arriba, 40px) - var(--vid-recorte));
+    margin-bottom: var(--gap-abajo, 24px); /* al final el vídeo ocupa toda la pantalla */
+  }
+  .video-sec__marco { position: absolute; inset: 0; aspect-ratio: auto; }
+  .intro__texto { margin-top: 0; }
+
   .cifras {
     display: flex;
     justify-content: space-between;
@@ -497,11 +522,12 @@ em { font-style: italic; }
   .hero__scroll { bottom: calc(11 * var(--s)); width: calc(42 * var(--s)); }
 
   /* Retos */
-  .intro { padding-block: calc(156 * var(--s)) calc(133 * var(--s)); }
+  .intro { padding-top: calc(156 * var(--s)); }
+  .diferentes-sec { padding-bottom: calc(133 * var(--s)); }
+  .video-sec { --gap-arriba: calc(92 * var(--s)); --gap-abajo: calc(39 * var(--s)); }
   .intro__titulo { max-width: calc(840 * var(--s)); font-size: calc(51 * var(--s)); }
-  .video { margin-top: calc(92 * var(--s)); }
   .intro__texto {
-    margin-top: calc(39 * var(--s));
+    margin-top: 0;
     max-width: calc(367 * var(--s));
     font-size: max(14px, calc(18 * var(--s)));
   }

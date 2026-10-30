@@ -14,7 +14,11 @@
 
 ## Animaciones y efectos de scroll
 
-- **De momento NO añadir animaciones ni efectos de ScrollKit** (sin atributos `data-reveal`, `data-zoom`, etc.). Mantener solo el código de instalación del kit en cada página. Las animaciones se añadirán más adelante, cuando se pidan caso por caso.
+- Añadir animaciones solo cuando se pidan, con el efecto de ScrollKit indicado. En `index.html` ya están aplicados: E01 (smooth scroll), E09/E12/E13/E14 (textos), E15 (cifras), E19 (vídeo de retos), E20 (imágenes de "Conocemos tu zona") y E24 (el pie se apila sobre la sección anterior).
+- Efectos fuera del kit, pedidos expresamente: foco de luz que sigue al ratón en el lema del pie (`data-foco`, en `js/main.js`), entrada del menú de arriba abajo, desplegables del acordeón y cajas del mapa al pasar el ratón (CSS).
+
+- En `data-expand` (E19) escribir los porcentajes sin ceros finales (`16.9%`, no `16.90%`): GSAP los interpola mal.
+- Elementos al final de la página (p. ej. la marca del pie) necesitan `data-start="top bottom"`: nunca llegan al 85 % de la pantalla y no se animarían.
 
 - Usar exclusivamente ScrollKit (skill `scrollkit`). Archivos del kit: `scroll-kit/css/scroll-kit.css` y `scroll-kit/js/scroll-kit.js`.
 - Catálogo de efectos con códigos E01–E31, snippets y recetas: `.claude/skills/scrollkit/EFECTOS.md`. Leerlo antes de añadir cualquier animación.

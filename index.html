@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-sk-lerp="0.08">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,8 +41,8 @@
         <source src="video/hero.mp4" type="video/mp4">
       </video>
       <h1 class="hero__titulo">
-        <span class="hero__sub">Obra nueva</span>
-        <span class="hero__main">RESIDENCIAL</span>
+        <span class="hero__sub" data-reveal="lines" data-delay="0.2">Obra nueva</span>
+        <span class="hero__main" data-reveal="lines" data-delay="0.4">RESIDENCIAL</span>
       </h1>
       <a class="hero__scroll" href="#retos" aria-label="Bajar al contenido">
         <img src="icons/scroll.svg" width="42" height="42" alt="">
@@ -52,18 +52,27 @@
     <!-- RETOS + DIFERENTES -->
     <section class="intro" id="retos">
       <div class="contenedor">
-        <h2 class="intro__titulo"><em>Cada promoción presenta retos distintos:</em> definir el producto adecuado, llegar al comprador correcto o mantener el ritmo comercial sin comprometer valor</h2>
+        <h2 class="intro__titulo" data-reveal="scrub" data-from="0.15"><em>Cada promoción presenta retos distintos:</em> definir el producto adecuado, llegar al comprador correcto o mantener el ritmo comercial sin comprometer valor</h2>
 
-        <div class="video">
-          <span class="pendiente">PENDIENTE: vídeo</span>
-        </div>
+      </div>
+    </section>
 
-        <p class="intro__texto">Ayudamos a los promotores a resolverlos desde las primeras fases del proyecto, combinando conocimiento de mercado, estrategia y capacidad comercial.</p>
+    <!-- Vídeo: marco que se abre a pantalla completa (E19) -->
+    <section class="video-sec">
+      <div class="video-sec__marco" data-expand="17% 5.9%" data-pin data-length="150%" data-mobile="off">
+        <div class="video-sec__media" data-media></div>
+        <span class="pendiente pendiente--centro">PENDIENTE: vídeo</span>
+      </div>
+    </section>
+
+    <section class="diferentes-sec">
+      <div class="contenedor">
+        <p class="intro__texto" data-reveal="up">Ayudamos a los promotores a resolverlos desde las primeras fases del proyecto, combinando conocimiento de mercado, estrategia y capacidad comercial.</p>
 
         <div class="diferentes">
-          <h2 class="diferentes__titulo">¿Qué nos hace <em>diferentes</em>?</h2>
+          <h2 class="diferentes__titulo" data-reveal="lines">¿Qué nos hace <em>diferentes</em>?</h2>
 
-          <div class="acordeon">
+          <div class="acordeon" data-reveal="children" data-stagger="0.1">
             <div class="acordeon__item is-open">
               <h3 class="acordeon__cabecera">
                 <button class="acordeon__boton" type="button" id="dif-1-btn" aria-expanded="true" aria-controls="dif-1">
@@ -142,17 +151,17 @@
           <source srcset="img/red-internacional.avif" type="image/avif">
           <img src="img/red-internacional.jpg" width="2880" height="1850" alt="Salón comedor amplio y luminoso de una vivienda de obra nueva" loading="lazy" decoding="async">
         </picture>
-        <ul class="cifras cifras--claras">
-          <li><span class="cifra__num">+42.000</span><span class="cifra__txt">empleados en el mundo</span></li>
-          <li><span class="cifra__num">+700</span><span class="cifra__txt">oficinas y asociados</span></li>
-          <li><span class="cifra__num">+70</span><span class="cifra__txt">países</span></li>
-          <li><span class="cifra__num">+£2,60 bn</span><span class="cifra__txt">facturación global 2025</span></li>
+        <ul class="cifras cifras--claras" data-reveal="children" data-stagger="0.12">
+          <li><span class="cifra__num">+<span data-count="42000">42.000</span></span><span class="cifra__txt">empleados en el mundo</span></li>
+          <li><span class="cifra__num">+<span data-count="700">700</span></span><span class="cifra__txt">oficinas y asociados</span></li>
+          <li><span class="cifra__num">+<span data-count="70">70</span></span><span class="cifra__txt">países</span></li>
+          <li><span class="cifra__num">+£<span data-count="2.60">2,60</span> bn</span><span class="cifra__txt">facturación global 2025</span></li>
         </ul>
       </div>
 
       <div class="red__contenido">
-        <h2 class="red__titulo">+300 líneas de negocio,<br> todas para dar servicio al real estate</h2>
-        <div class="red__texto">
+        <h2 class="red__titulo" data-reveal="lines">+300 líneas de negocio,<br> todas para dar servicio al real estate</h2>
+        <div class="red__texto" data-reveal="up">
           <p>Con más de <strong>170 años de experiencia en el mercado global</strong>, nuestro tamaño y diversificación nos proporciona un profundo conocimiento especializado de cada mercado local para ofrecer soluciones a medida para cualquier necesidad inmobiliaria.</p>
           <p><strong>700 oficinas en:</strong> América, Europa, Asia-Pacífico, África y Oriente Medio.</p>
           <p>Savills plc cotiza en la Bolsa de Londres.</p>
@@ -164,7 +173,7 @@
               <source srcset="img/mapa.avif" type="image/avif">
               <img class="mapa__img" src="img/mapa.jpg" width="2586" height="1140" alt="" loading="lazy" decoding="async">
             </picture>
-            <div class="mapa__pines" aria-hidden="true">
+            <div class="mapa__pines" aria-hidden="true" data-reveal="children" data-stagger="0.15" data-distance="30">
               <img class="pin pin--america" src="icons/pin.svg" width="30" height="43" alt="">
               <img class="pin pin--uk" src="icons/pin.svg" width="30" height="43" alt="">
               <img class="pin pin--spain" src="icons/pin.svg" width="30" height="43" alt="">
@@ -184,44 +193,47 @@
     </section>
 
     <!-- SAVILLS EN ESPAÑA -->
+  </main>
+
+  <!-- Capas que se apilan (E24): el pie sube por encima de la sección anterior -->
+  <div class="pila" data-stack data-shade="0.5">
     <section class="zona" id="espana">
       <div class="contenedor">
-        <p class="zona__antetitulo">SAVILLS EN ESPAÑA</p>
-        <h2 class="zona__titulo">Conocemos tu zona, también es la nuestra</h2>
+        <p class="zona__antetitulo" data-reveal="up">SAVILLS EN ESPAÑA</p>
+        <h2 class="zona__titulo" data-reveal="lines">Conocemos tu zona, también es la nuestra</h2>
       </div>
 
       <div class="zona__galeria">
-        <div class="zona__col zona__col--lado">
+        <div class="zona__col zona__col--lado" data-parallax="0.12" data-mobile="off">
           <picture>
             <source srcset="img/zona-1.avif" type="image/avif">
             <img class="zona__img" src="img/zona-1.jpg" width="678" height="1016" alt="Dormitorio luminoso con cama de matrimonio" loading="lazy" decoding="async">
           </picture>
-          <p class="cifra"><span class="cifra__num">+35</span><span class="cifra__txt">años de experiencia</span></p>
+          <p class="cifra" data-reveal="up"><span class="cifra__num">+<span data-count="35">35</span></span><span class="cifra__txt">años de experiencia</span></p>
         </div>
-        <div class="zona__col zona__col--centro">
+        <div class="zona__col zona__col--centro" data-parallax="-0.12" data-mobile="off">
           <picture>
             <source srcset="img/zona-2.avif" type="image/avif">
             <img class="zona__img" src="img/zona-2.jpg" width="882" height="1324" alt="Cocina abierta con isla y taburetes" loading="lazy" decoding="async">
           </picture>
-          <p class="cifra"><span class="cifra__num">+800</span><span class="cifra__txt">profesionales</span></p>
+          <p class="cifra" data-reveal="up"><span class="cifra__num">+<span data-count="800">800</span></span><span class="cifra__txt">profesionales</span></p>
         </div>
-        <div class="zona__col zona__col--lado">
+        <div class="zona__col zona__col--lado" data-parallax="0.12" data-mobile="off">
           <picture>
             <source srcset="img/zona-3.avif" type="image/avif">
             <img class="zona__img zona__img--espejo" src="img/zona-3.jpg" width="678" height="1016" alt="Salón y cocina de concepto abierto" loading="lazy" decoding="async">
           </picture>
-          <p class="cifra"><span class="cifra__num">+60</span><span class="cifra__txt">expertos en residencial</span></p>
+          <p class="cifra" data-reveal="up"><span class="cifra__num">+<span data-count="60">60</span></span><span class="cifra__txt">expertos en residencial</span></p>
         </div>
       </div>
 
       <div class="contenedor">
-        <div class="zona__texto">
+        <div class="zona__texto" data-reveal="up">
           <p>En España contamos con una sólida trayectoria en el sector inmobiliario, con equipos especializados en el mercado residencial y en la comercialización de obra nueva.</p>
           <p>Nuestra presencia local nos permite entender cada mercado en profundidad y adaptar la estrategia a las particularidades de cada proyecto.</p>
         </div>
       </div>
     </section>
-  </main>
 
   <!-- FOOTER -->
   <footer class="pie">
@@ -229,7 +241,7 @@
       <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
     </a>
     <nav aria-label="Pie de página">
-      <ul class="pie__nav">
+      <ul class="pie__nav" data-reveal="children" data-stagger="0.06" data-distance="20">
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#red-internacional">Red internacional</a></li>
         <li><a href="#servicios">Servicios</a></li>
@@ -238,12 +250,13 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
-    <p class="pie__lema">Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p>
+    <div data-reveal="up"><p class="pie__lema" data-foco>Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p></div>
     <a class="pie__subir" href="#inicio" aria-label="Volver arriba">
       <img src="icons/subir.svg" width="34" height="34" alt="">
     </a>
-    <p class="pie__marca">Savills residencial</p>
+    <p class="pie__marca" data-reveal="chars" data-stagger="0.03" data-start="top bottom">Savills residencial</p>
   </footer>
+  </div>
 
   <!-- MENÚ DESPLEGADO -->
   <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" inert>
