@@ -480,6 +480,72 @@ em { font-style: italic; }
 }
 
 /* =========================================================
+   Móvil (< 768): ajustes según el diseño móvil de Figma (402 px)
+   ========================================================= */
+@media (max-width: 767px) {
+  /* Datos: encuadre de la imagen y cifras en fila deslizable */
+  .red__imagen { aspect-ratio: 402 / 524; min-height: 0; overflow: hidden; }
+  .red__imagen img {
+    inset: auto;
+    left: -43.72%;
+    top: -20.29%;
+    width: 258.7%;
+    height: 127.48%;
+    max-width: none;
+    object-fit: fill;
+  }
+  .red__imagen::after { height: 74.6%; }
+  .cifras {
+    display: flex;
+    gap: 42px;
+    padding: 0 32px 36px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 32px;
+    scrollbar-width: none;
+  }
+  .cifras::-webkit-scrollbar { display: none; }
+  .cifras li { flex: none; scroll-snap-align: start; }
+  .cifra__num { font-size: 60px; }
+  .cifra__txt { margin-top: 13px; font-size: 20px; }
+
+  .red__contenido { padding-top: 40px; }
+  .red__titulo { padding-inline: 27px; font-size: 32px; }
+  .red__texto { margin-top: 26px; padding-inline: 27px; font-size: 14px; line-height: 1.25; }
+  .red__texto p + p { margin-top: 1.25em; }
+
+  /* Conocemos tu zona: texto antes de las cifras, cifras apiladas con
+     separadores y una sola foto a todo el ancho al final */
+  .zona { display: flex; flex-direction: column; padding: 36px 0 0; }
+  .zona__galeria, .zona__col { display: contents; }
+  .zona__cabecera { order: 1; padding-inline: 34px; }
+  .zona__textos { order: 2; padding-inline: 34px; }
+  .zona .cifra { order: 3; margin-top: 0; }
+  .zona__col--centro .zona__img { order: 4; }
+  .zona__col--lado .zona__img { display: none; }
+
+  .zona__titulo { margin-top: 29px; font-size: 32px; }
+  .zona__texto { margin-top: 39px; font-size: 14px; line-height: 1.25; }
+  .zona__texto p + p { margin-top: 1.25em; }
+
+  .zona__col:first-child .cifra { margin-top: 30px; }
+  .zona__col:not(:first-child) .cifra::before {
+    content: "";
+    display: block;
+    width: 216px;
+    margin: 39px auto 29px;
+    border-top: 0.75px solid rgba(141, 141, 141, 0.83);
+  }
+  .zona__col:last-child .cifra::before { margin-top: 51px; }
+
+  .zona__col--centro .zona__img {
+    margin-top: 55px;
+    aspect-ratio: 402 / 482;
+    object-position: 50% 50%;
+  }
+}
+
+/* =========================================================
    Tablet (768 – 1023)
    ========================================================= */
 @media (min-width: 768px) {
