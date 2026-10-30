@@ -14,8 +14,13 @@
   var abrir = document.querySelector('.cabecera__menu');
   var cerrar = menu.querySelector('.menu__cerrar');
 
+  var menuAbierto = false;
+
   function abrirMenu() {
-    menu.hidden = false;
+    menuAbierto = true;
+    mostrarFoto('inicio');
+    menu.inert = false;
+    menu.classList.add('is-abierto');
     abrir.setAttribute('aria-expanded', 'true');
     document.documentElement.style.overflow = 'hidden';
     if (window.ScrollKit) window.ScrollKit.stop();
@@ -23,7 +28,9 @@
   }
 
   function cerrarMenu(devolverFoco) {
-    menu.hidden = true;
+    menuAbierto = false;
+    menu.inert = true;
+    menu.classList.remove('is-abierto');
     abrir.setAttribute('aria-expanded', 'false');
     document.documentElement.style.overflow = '';
     if (window.ScrollKit) window.ScrollKit.start();
@@ -39,7 +46,7 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (menu.hidden) return;
+    if (!menuAbierto) return;
     if (e.key === 'Escape') { cerrarMenu(true); return; }
     if (e.key !== 'Tab') return;
     // Mantiene el foco dentro del menú
@@ -48,6 +55,19 @@
     var ultimo = focusables[focusables.length - 1];
     if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
     else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+  });
+
+  // Imagen del menú: muestra la de la sección del enlace señalado
+  var fotos = menu.querySelectorAll('.menu__foto');
+  function mostrarFoto(nombre) {
+    fotos.forEach(function (f) {
+      f.classList.toggle('is-activa', f.getAttribute('data-foto') === nombre);
+    });
+  }
+  menu.querySelectorAll('.menu__nav a').forEach(function (enlace) {
+    var nombre = enlace.getAttribute('data-foto');
+    enlace.addEventListener('mouseenter', function () { mostrarFoto(nombre); });
+    enlace.addEventListener('focus', function () { mostrarFoto(nombre); });
   });
 
   /* ---------- Acordeón (uno abierto a la vez; la animación va en CSS) ---------- */

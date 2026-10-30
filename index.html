@@ -246,15 +246,15 @@
   </footer>
 
   <!-- MENÚ DESPLEGADO -->
-  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" inert>
     <nav class="menu__nav" aria-label="Principal">
       <ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#red-internacional">Red Internacional</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#track-record">Track Record</a></li>
-        <li><a href="#equipo">Equipo</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#inicio" data-foto="inicio">Inicio</a></li>
+        <li><a href="#red-internacional" data-foto="red">Red Internacional</a></li>
+        <li><a href="#servicios" data-foto="servicios">Servicios</a></li>
+        <li><a href="#track-record" data-foto="track">Track Record</a></li>
+        <li><a href="#equipo" data-foto="equipo">Equipo</a></li>
+        <li><a href="#contacto" data-foto="contacto">Contacto</a></li>
       </ul>
     </nav>
 
@@ -262,8 +262,14 @@
       <button class="menu__cerrar" type="button" aria-label="Cerrar menú">
         <img src="icons/cerrar.svg" width="24" height="24" alt="">
       </button>
-      <div class="menu__imagen">
-        <span class="pendiente">PENDIENTE: imagen</span>
+      <!-- Imagen del hero de cada sección; cambia al pasar el ratón por cada enlace -->
+      <div class="menu__imagen" aria-hidden="true">
+        <img class="menu__foto is-activa" data-foto="inicio" src="img/hero-poster.jpg" width="1280" height="720" alt="" loading="lazy" decoding="async">
+        <div class="menu__foto" data-foto="red"><span class="pendiente">PENDIENTE: imagen hero de Red Internacional</span></div>
+        <div class="menu__foto" data-foto="servicios"><span class="pendiente">PENDIENTE: imagen hero de Servicios</span></div>
+        <div class="menu__foto" data-foto="track"><span class="pendiente">PENDIENTE: imagen hero de Track Record</span></div>
+        <div class="menu__foto" data-foto="equipo"><span class="pendiente">PENDIENTE: imagen hero de Equipo</span></div>
+        <div class="menu__foto" data-foto="contacto"><span class="pendiente">PENDIENTE: imagen hero de Contacto</span></div>
       </div>
     </div>
 

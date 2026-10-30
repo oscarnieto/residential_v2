@@ -385,13 +385,29 @@ em { font-style: italic; }
   overscroll-behavior: contain;
   background: var(--crema);
   color: #000;
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1), visibility 0s 0.7s;
 }
-.menu[hidden] { display: none; }
+.menu.is-abierto {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1), visibility 0s;
+}
 .menu__nav { grid-column: 1; grid-row: 1; padding-top: 40px; }
 .menu__nav ul {
   color: var(--navy);
   font: 400 clamp(36px, 4.3vw, 62px)/1.25 var(--serif);
 }
+.menu__nav a {
+  background: linear-gradient(to right, var(--gris-azul) 50%, var(--navy) 50%) 100% 0 / 200% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menu__nav a:hover,
+.menu__nav a:focus-visible { background-position: 0 0; }
 .menu__lateral { grid-column: 2; grid-row: 1; position: relative; }
 .menu__cerrar { display: block; width: 23px; padding: 0; }
 .menu__cerrar img { width: 100%; }
@@ -411,6 +427,24 @@ em { font-style: italic; }
 .menu__oficina + .menu__oficina { margin-top: 22px; }
 .menu__oficina span { display: block; color: #848484; text-transform: uppercase; }
 .menu__web { font: 500 12px/1.5 var(--sans); }
+
+/* Imagen del menú: una por sección, se funden al cambiar */
+.menu__foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 50%;
+  background: #999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.menu__foto.is-activa { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .menu, .menu.is-abierto, .menu__nav a, .menu__foto { transition: none; }
+}
 
 /* =========================================================
    Tablet (768 – 1023)
@@ -510,7 +544,7 @@ em { font-style: italic; }
   }
 
   /* Mapa: cajas y pines posicionados sobre el mapa, escalan con su ancho */
-  .mapa { display: block; margin-top: calc(214 * var(--s)); container-type: inline-size; }
+  .mapa { display: block; margin-top: calc(110 * var(--s)); container-type: inline-size; }
   .pin { width: 2.0833%; }
   .oficinas { position: absolute; inset: auto 0 0; aspect-ratio: 1440 / 443; padding: 0; }
   .oficina { position: absolute; width: 5.8333%; }
