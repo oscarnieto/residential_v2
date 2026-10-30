@@ -1,3 +1,10 @@
+## Publicación (obligatorio)
+
+- La web se publica con GitHub Pages desde la rama `main`: https://oscarnieto.github.io/residential_v2/
+- Después de cada cambio, sin esperar a que se pida: `git add -A`, commit con un mensaje breve en español y `git push origin main`. No dejar cambios sin subir al terminar un turno.
+- Trabajar siempre directamente sobre `main`, sin ramas ni pull requests.
+- Tras subir, dar el enlace de la web e indicar que tarda 1–2 minutos en actualizarse.
+
 ## Animaciones y efectos de scroll
 
 - Usar exclusivamente ScrollKit (skill `scrollkit`). Archivos del kit: `scroll-kit/css/scroll-kit.css` y `scroll-kit/js/scroll-kit.js`.
