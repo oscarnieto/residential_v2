@@ -139,8 +139,7 @@ em { font-style: italic; }
    ocupa la pantalla y el marco se abre hasta llenarla. El margen negativo
    de arriba compensan el recorte inicial para que el hueco visible sea el de Figma. */
 .video-sec { padding: 40px var(--pad) 0; }
-.video-sec__marco { position: relative; aspect-ratio: 1270 / 715; }
-.video-sec__media { position: absolute; inset: 0; background: var(--gris); }
+.video-sec__marco { position: relative; aspect-ratio: 1270 / 715; background: var(--gris); }
 
 .intro__texto {
   margin-top: 24px;
