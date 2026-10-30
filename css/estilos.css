@@ -699,18 +699,17 @@ em { font-style: italic; }
   }
 
   /* Savills en España */
-  .zona { padding-block: calc(91 * var(--s)) calc(103 * var(--s)); }
+  .zona { padding-block: calc(91 * var(--s)) calc(110 * var(--s)); }
   .zona__antetitulo { font-size: max(12px, calc(14 * var(--s))); }
   .zona__titulo { margin-top: calc(29 * var(--s)); font-size: calc(50 * var(--s)); }
-  .zona__galeria { margin-top: calc(73.5 * var(--s)); }
+  .zona__galeria { margin-top: calc(113 * var(--s)); }
   .zona .cifra { margin-top: calc(21 * var(--s)); }
   .zona__col--centro .cifra { margin-top: calc(23 * var(--s)); }
   .zona__texto {
     max-width: calc(677 * var(--s));
-    margin-top: calc(81 * var(--s));
+    margin-top: calc(56 * var(--s));
     font-size: max(12px, calc(12 * var(--s)));
   }
-  .zona__texto p:last-child { margin-bottom: 1.15em; }
 
   /* Pie */
   .pie__logo { width: calc(58 * var(--s)); }
