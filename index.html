@@ -3,28 +3,290 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Residential V2</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-CwWbBf7jQqvh/bJnN8zix/pIAcILUmqMV5j4DXi/Lmo='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Obra nueva residencial | Savills</title>
+  <meta name="description" content="Savills Residencial: estrategia, conocimiento de mercado y capacidad comercial para promociones de obra nueva.">
 
   <!-- ScrollKit: siempre primero en el head -->
   <script>document.documentElement.classList.add('sk-js');try{var s=sessionStorage,d=document.documentElement;if(s.getItem('sk-intro'))d.classList.add('sk-intro-seen');if(s.getItem('sk-transition'))d.classList.add('sk-arriving')}catch(e){}</script>
   <link rel="stylesheet" href="scroll-kit/css/scroll-kit.css">
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap">
 
   <!-- CSS del proyecto (diseño) -->
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-  <main id="top">
-    <section data-theme="light">
-      <h1>Residential V2</h1>
+  <header class="cabecera">
+    <button class="cabecera__menu" type="button" aria-expanded="false" aria-controls="menu">
+      <img src="icons/menu.svg" width="22" height="5" alt="">
+      <span>Menú</span>
+    </button>
+    <a class="cabecera__logo" href="#inicio" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
+    </a>
+    <a class="cabecera__web" href="https://www.savills.es" target="_blank" rel="noopener noreferrer">savills.es</a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <h1 class="hero__titulo">
+        <span class="hero__sub">Obra nueva</span>
+        <span class="hero__main">RESIDENCIAL</span>
+      </h1>
+      <a class="hero__scroll" href="#retos" aria-label="Bajar al contenido">
+        <img src="icons/scroll.svg" width="42" height="42" alt="">
+      </a>
+      <span class="pendiente pendiente--hero">PENDIENTE: imagen o vídeo de fondo</span>
+    </section>
+
+    <!-- RETOS + DIFERENTES -->
+    <section class="intro" id="retos">
+      <div class="contenedor">
+        <h2 class="intro__titulo"><em>Cada promoción presenta retos distintos:</em> definir el producto adecuado, llegar al comprador correcto o mantener el ritmo comercial sin comprometer valor</h2>
+
+        <div class="video">
+          <span class="pendiente">PENDIENTE: vídeo</span>
+        </div>
+
+        <p class="intro__texto">Ayudamos a los promotores a resolverlos desde las primeras fases del proyecto, combinando conocimiento de mercado, estrategia y capacidad comercial.</p>
+
+        <div class="diferentes">
+          <h2 class="diferentes__titulo">¿Qué nos hace <em>diferentes</em>?</h2>
+
+          <div class="acordeon">
+            <div class="acordeon__item">
+              <h3 class="acordeon__cabecera">
+                <button class="acordeon__boton" type="button" id="dif-1-btn" aria-expanded="true" aria-controls="dif-1">
+                  Visión estratégica
+                  <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
+                </button>
+              </h3>
+              <div class="acordeon__panel" id="dif-1" role="region" aria-labelledby="dif-1-btn">
+                <p>Cada proyecto necesita encajar en su mercado desde el inicio. Analizamos su contexto para definir un posicionamiento sólido.</p>
+              </div>
+            </div>
+            <div class="acordeon__item">
+              <h3 class="acordeon__cabecera">
+                <button class="acordeon__boton" type="button" id="dif-2-btn" aria-expanded="false" aria-controls="dif-2">
+                  Definición de producto
+                  <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
+                </button>
+              </h3>
+              <div class="acordeon__panel" id="dif-2" role="region" aria-labelledby="dif-2-btn" hidden>
+                <p><span class="pendiente pendiente--texto">PENDIENTE: texto</span></p>
+              </div>
+            </div>
+            <div class="acordeon__item">
+              <h3 class="acordeon__cabecera">
+                <button class="acordeon__boton" type="button" id="dif-3-btn" aria-expanded="false" aria-controls="dif-3">
+                  Conocimiento de mercado
+                  <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
+                </button>
+              </h3>
+              <div class="acordeon__panel" id="dif-3" role="region" aria-labelledby="dif-3-btn" hidden>
+                <p><span class="pendiente pendiente--texto">PENDIENTE: texto</span></p>
+              </div>
+            </div>
+            <div class="acordeon__item">
+              <h3 class="acordeon__cabecera">
+                <button class="acordeon__boton" type="button" id="dif-4-btn" aria-expanded="false" aria-controls="dif-4">
+                  Posicionamiento y pricing
+                  <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
+                </button>
+              </h3>
+              <div class="acordeon__panel" id="dif-4" role="region" aria-labelledby="dif-4-btn" hidden>
+                <p><span class="pendiente pendiente--texto">PENDIENTE: texto</span></p>
+              </div>
+            </div>
+            <div class="acordeon__item">
+              <h3 class="acordeon__cabecera">
+                <button class="acordeon__boton" type="button" id="dif-5-btn" aria-expanded="false" aria-controls="dif-5">
+                  Estrategia comercial
+                  <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
+                </button>
+              </h3>
+              <div class="acordeon__panel" id="dif-5" role="region" aria-labelledby="dif-5-btn" hidden>
+                <p><span class="pendiente pendiente--texto">PENDIENTE: texto</span></p>
+              </div>
+            </div>
+            <div class="acordeon__item">
+              <h3 class="acordeon__cabecera">
+                <button class="acordeon__boton" type="button" id="dif-6-btn" aria-expanded="false" aria-controls="dif-6">
+                  Seguimiento y optimización
+                  <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
+                </button>
+              </h3>
+              <div class="acordeon__panel" id="dif-6" role="region" aria-labelledby="dif-6-btn" hidden>
+                <p><span class="pendiente pendiente--texto">PENDIENTE: texto</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RED INTERNACIONAL -->
+    <section class="red" id="red-internacional">
+      <div class="red__imagen">
+        <picture>
+          <source srcset="img/red-internacional.avif" type="image/avif">
+          <img src="img/red-internacional.jpg" width="2880" height="1850" alt="Salón comedor amplio y luminoso de una vivienda de obra nueva" loading="lazy" decoding="async">
+        </picture>
+        <ul class="cifras cifras--claras">
+          <li><span class="cifra__num">+42.000</span><span class="cifra__txt">empleados en el mundo</span></li>
+          <li><span class="cifra__num">+700</span><span class="cifra__txt">oficinas y asociados</span></li>
+          <li><span class="cifra__num">+70</span><span class="cifra__txt">países</span></li>
+          <li><span class="cifra__num">+£2,60 bn</span><span class="cifra__txt">facturación global 2025</span></li>
+        </ul>
+      </div>
+
+      <div class="red__contenido">
+        <h2 class="red__titulo">+300 líneas de negocio,<br> todas para dar servicio al real estate</h2>
+        <div class="red__texto">
+          <p>Con más de <strong>170 años de experiencia en el mercado global</strong>, nuestro tamaño y diversificación nos proporciona un profundo conocimiento especializado de cada mercado local para ofrecer soluciones a medida para cualquier necesidad inmobiliaria.</p>
+          <p><strong>700 oficinas en:</strong> América, Europa, Asia-Pacífico, África y Oriente Medio.</p>
+          <p>Savills plc cotiza en la Bolsa de Londres.</p>
+        </div>
+
+        <div class="mapa">
+          <div class="mapa__fondo">
+            <picture>
+              <source srcset="img/mapa.avif" type="image/avif">
+              <img class="mapa__img" src="img/mapa.jpg" width="2586" height="1140" alt="" loading="lazy" decoding="async">
+            </picture>
+            <div class="mapa__pines" aria-hidden="true">
+              <img class="pin pin--america" src="icons/pin.svg" width="30" height="43" alt="">
+              <img class="pin pin--uk" src="icons/pin.svg" width="30" height="43" alt="">
+              <img class="pin pin--spain" src="icons/pin.svg" width="30" height="43" alt="">
+              <img class="pin pin--europe" src="icons/pin.svg" width="30" height="43" alt="">
+              <img class="pin pin--apac" src="icons/pin.svg" width="30" height="43" alt="">
+            </div>
+          </div>
+          <ul class="oficinas" aria-label="Oficinas de Savills por región">
+            <li class="oficina oficina--america"><span class="oficina__zona">América</span><span class="oficina__num">82</span><span class="oficina__txt">oficinas</span></li>
+            <li class="oficina oficina--uk"><span class="oficina__zona">Reino Unido</span><span class="oficina__num">131</span><span class="oficina__txt">oficinas</span></li>
+            <li class="oficina oficina--spain"><span class="oficina__zona">España</span><span class="oficina__num">5</span><span class="oficina__txt">oficinas</span></li>
+            <li class="oficina oficina--europe"><span class="oficina__zona">Europa</span><span class="oficina__num">129</span><span class="oficina__txt">oficinas</span></li>
+            <li class="oficina oficina--apac"><span class="oficina__zona">APAC</span><span class="oficina__num">75</span><span class="oficina__txt">oficinas</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAVILLS EN ESPAÑA -->
+    <section class="zona" id="espana">
+      <div class="contenedor">
+        <p class="zona__antetitulo">SAVILLS EN ESPAÑA</p>
+        <h2 class="zona__titulo">Conocemos tu zona, también es la nuestra</h2>
+      </div>
+
+      <div class="zona__galeria">
+        <div class="zona__col zona__col--lado">
+          <picture>
+            <source srcset="img/zona-1.avif" type="image/avif">
+            <img class="zona__img" src="img/zona-1.jpg" width="678" height="1016" alt="Dormitorio luminoso con cama de matrimonio" loading="lazy" decoding="async">
+          </picture>
+          <p class="cifra"><span class="cifra__num">+35</span><span class="cifra__txt">años de experiencia</span></p>
+        </div>
+        <div class="zona__col zona__col--centro">
+          <picture>
+            <source srcset="img/zona-2.avif" type="image/avif">
+            <img class="zona__img" src="img/zona-2.jpg" width="882" height="1324" alt="Cocina abierta con isla y taburetes" loading="lazy" decoding="async">
+          </picture>
+          <p class="cifra"><span class="cifra__num">+800</span><span class="cifra__txt">profesionales</span></p>
+        </div>
+        <div class="zona__col zona__col--lado">
+          <picture>
+            <source srcset="img/zona-3.avif" type="image/avif">
+            <img class="zona__img zona__img--espejo" src="img/zona-3.jpg" width="678" height="1016" alt="Salón y cocina de concepto abierto" loading="lazy" decoding="async">
+          </picture>
+          <p class="cifra"><span class="cifra__num">+60</span><span class="cifra__txt">expertos en residencial</span></p>
+        </div>
+      </div>
+
+      <div class="contenedor">
+        <div class="zona__texto">
+          <p>En España contamos con una sólida trayectoria en el sector inmobiliario, con equipos especializados en el mercado residencial y en la comercialización de obra nueva.</p>
+          <p>Nuestra presencia local nos permite entender cada mercado en profundidad y adaptar la estrategia a las particularidades de cada proyecto.</p>
+        </div>
+      </div>
     </section>
   </main>
 
+  <!-- FOOTER -->
+  <footer class="pie">
+    <a class="pie__logo" href="#inicio" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
+    </a>
+    <nav aria-label="Pie de página">
+      <ul class="pie__nav">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#red-internacional">Red internacional</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#track-record">Track Record</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <p class="pie__lema">Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p>
+    <a class="pie__subir" href="#inicio" aria-label="Volver arriba">
+      <img src="icons/subir.svg" width="34" height="34" alt="">
+    </a>
+    <p class="pie__marca">Savills residencial</p>
+  </footer>
+
+  <!-- MENÚ DESPLEGADO -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+    <nav class="menu__nav" aria-label="Principal">
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#red-internacional">Red Internacional</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#track-record">Track Record</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu__lateral">
+      <button class="menu__cerrar" type="button" aria-label="Cerrar menú">
+        <img src="icons/cerrar.svg" width="24" height="24" alt="">
+      </button>
+      <div class="menu__imagen">
+        <span class="pendiente">PENDIENTE: imagen</span>
+      </div>
+    </div>
+
+    <a class="menu__logo" href="#inicio" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="77" height="77" alt="Savills">
+    </a>
+
+    <div class="menu__pie">
+      <div class="menu__contacto">
+        <p class="menu__contacto-titulo">CONTACTO</p>
+        <p class="menu__oficina"><span>Barcelona</span>(+34) <a href="tel:+34934395454">934 39 54 54</a></p>
+        <p class="menu__oficina"><span>Madrid</span>(+34) <a href="tel:+34913191314">913 19 13 14</a></p>
+        <p class="menu__oficina"><span>Málaga</span>(+34) <a href="tel:+34952062782">952 06 27 82</a></p>
+      </div>
+      <a class="menu__web" href="https://www.savills.es" target="_blank" rel="noopener noreferrer">savills.es</a>
+    </div>
+  </div>
+
   <!-- ScrollKit: librerías al final, en este orden -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha384-SWJ0lLVRoipvHh59xj0pL7uC7Ih51F+5smaFtrG+2nr+TlDZU5SYJHmxfolbeNTr" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous"></script>
   <script src="scroll-kit/js/scroll-kit.js"></script>
+
+  <!-- JS del proyecto -->
+  <script src="js/main.js"></script>
 </body>
 </html>

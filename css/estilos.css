@@ -1,2 +1,536 @@
-body { margin: 0; font-family: system-ui, sans-serif; }
-main section { min-height: 100vh; display: grid; place-items: center; padding: 2rem; }
+/* =========================================================
+   Residential V2 · estilos del proyecto
+   Diseño de referencia: Figma a 1440 px de ancho.
+   Móvil primero; a partir de 1024 px se aplica el diseño
+   de escritorio, escalado con --s (1 = 1440 px).
+   ========================================================= */
+
+:root {
+  --crema: #efe8e3;
+  --navy: #25273a;
+  --gris: #3a3a3a;
+  --amarillo: #ffdf07;
+  --gris-azul: #76788e;
+  --linea: rgba(118, 120, 142, 0.38);
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Montserrat', Arial, sans-serif;
+
+  --pad: 20px;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: #000;
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+picture { display: contents; }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+em { font-style: italic; }
+
+:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 3px; }
+
+.contenedor {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* Marcador de contenido pendiente (se quitará al recibirlo) */
+.pendiente {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 2;
+  padding: 4px 8px;
+  background: var(--amarillo);
+  color: var(--navy);
+  font: 600 11px/1.3 var(--sans);
+  letter-spacing: 0.04em;
+}
+.pendiente--texto { position: static; display: inline-block; }
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 44px;
+  padding-inline: var(--pad);
+  color: #fff;
+  font: 400 12px/1.218 var(--sans);
+}
+.cabecera__menu { display: flex; align-items: center; gap: 10px; justify-self: start; padding-block: 10px; }
+.cabecera__logo { width: 44px; }
+.cabecera__logo img { width: 100%; }
+.cabecera__web { justify-self: end; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  background: var(--gris);
+  color: #fff;
+  text-align: center;
+}
+.hero__titulo { font-family: var(--serif); font-weight: 400; line-height: 1.218; }
+.hero__sub { display: block; font-style: italic; font-size: clamp(32px, 6vw, 50px); }
+.hero__main {
+  display: block;
+  font-size: clamp(30px, 8vw, 75px);
+  letter-spacing: 0.2em;
+  padding-left: 0.2em; /* compensa el espaciado tras la última letra */
+}
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 11px;
+  width: 42px;
+  transform: translateX(-50%);
+}
+.hero__scroll img { width: 100%; }
+.pendiente--hero { left: var(--pad); bottom: 70px; }
+
+/* ---------- Retos ---------- */
+.intro { padding-block: 80px 80px; color: var(--navy); }
+.intro__titulo {
+  font: 400 clamp(28px, 5vw, 51px)/1.15 var(--serif);
+}
+.intro__titulo em { font-weight: 500; letter-spacing: -0.02em; }
+
+.video {
+  position: relative;
+  margin-top: 40px;
+  aspect-ratio: 1270 / 715;
+  background: var(--gris);
+}
+
+.intro__texto {
+  margin-top: 24px;
+  max-width: 420px;
+  color: #000;
+  font: 300 16px/1.1 var(--sans);
+}
+
+/* ¿Qué nos hace diferentes? */
+.diferentes { display: grid; gap: 32px; margin-top: 80px; }
+.diferentes__titulo {
+  font: 400 clamp(28px, 4.5vw, 40px)/1.15 var(--serif);
+  letter-spacing: -0.02em;
+}
+.diferentes__titulo em { letter-spacing: -0.03em; }
+
+.acordeon__boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 11px 0 14px;
+  border-bottom: 0.7px solid var(--linea);
+  color: #000;
+  font: 500 19px/1.15 var(--sans);
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.acordeon__icono { flex: none; width: 7px; margin-right: 0.5px; transform: rotate(180deg); }
+.acordeon__boton[aria-expanded="true"] .acordeon__icono { transform: none; }
+.acordeon__panel {
+  padding: 15px 0 20px;
+  border-bottom: 0.7px solid var(--linea);
+  font: 400 16px/1.15 var(--sans);
+  letter-spacing: -0.02em;
+}
+.acordeon__panel[hidden] { display: none; }
+
+/* ---------- Red internacional ---------- */
+.red { background: var(--navy); color: #fff; }
+
+.red__imagen {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 560px;
+}
+.red__imagen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 69%;
+}
+.red__imagen::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 70%;
+  background: linear-gradient(to top, var(--navy) 0%, rgba(37, 39, 58, 0) 94%);
+}
+
+.cifras {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 16px;
+  width: 100%;
+  padding: 0 var(--pad) 32px;
+  text-align: center;
+}
+.cifra__num, .cifra__txt { display: block; line-height: 1.15; }
+.cifra__num {
+  font: 400 clamp(36px, 4.2vw, 60px)/1.15 var(--serif);
+  letter-spacing: -0.02em;
+}
+.cifra__txt {
+  margin-top: 8px;
+  font: 400 clamp(14px, 1.4vw, 20px)/1.15 var(--sans);
+  letter-spacing: -0.02em;
+}
+.cifras--claras .cifra__num { color: var(--crema); }
+
+.red__contenido { padding-top: 64px; text-align: center; }
+.red__titulo {
+  max-width: 846px;
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  font: 400 clamp(28px, 4vw, 50px)/1.15 var(--serif);
+  letter-spacing: -0.02em;
+}
+.red__texto {
+  max-width: 840px;
+  margin: 30px auto 0;
+  padding-inline: var(--pad);
+  font: 400 15px/1.15 var(--sans);
+  letter-spacing: -0.02em;
+}
+.red__texto p + p { margin-top: 1.15em; }
+.red__texto strong { font-weight: 700; }
+
+/* Mapa: en móvil, las cajas de oficinas van en fila sobre el mapa */
+.mapa { position: relative; display: flex; flex-direction: column; margin-top: 48px; }
+.mapa__fondo { position: relative; order: 1; aspect-ratio: 1440 / 443; overflow: hidden; }
+.mapa__img {
+  position: absolute;
+  top: 0;
+  left: -8.89%;
+  width: 117.78%;
+  max-width: none;
+}
+.mapa__pines { position: absolute; inset: 0; }
+.pin { position: absolute; width: max(12px, 2.0833%); }
+.pin--america { left: 11.944%; top: 77.878%; }
+.pin--uk      { left: 38.75%;  top: 6.095%; }
+.pin--spain   { left: 42.778%; top: 26.411%; }
+.pin--europe  { left: 51.875%; top: 19.187%; }
+.pin--apac    { left: 76.875%; top: 41.084%; }
+
+.oficinas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 var(--pad) 24px;
+}
+.oficina {
+  position: relative;
+  width: 84px;
+  aspect-ratio: 84 / 99;
+  background: url("../icons/bocadillo.svg") center / 100% 100% no-repeat;
+  line-height: 1.1;
+}
+.oficina span { position: absolute; left: 0; right: 0; text-align: center; }
+.oficina__zona, .oficina__txt { font-size: 12px; font-weight: 300; }
+.oficina__zona { top: 10.1%; }
+.oficina__num { top: 18.2%; color: var(--amarillo); font-size: 42px; font-weight: 500; }
+.oficina__txt { top: 58.6%; }
+
+/* ---------- Savills en España ---------- */
+.zona { padding-block: 64px 80px; color: var(--navy); text-align: center; }
+.zona__antetitulo {
+  font: 600 14px/1.15 var(--sans);
+  letter-spacing: -0.02em;
+}
+.zona__titulo {
+  margin-top: 20px;
+  font: 400 clamp(28px, 4vw, 50px)/1.15 var(--serif);
+  letter-spacing: -0.02em;
+}
+
+.zona__galeria { display: grid; gap: 48px; margin-top: 48px; padding-inline: var(--pad); }
+.zona__img { width: 100%; aspect-ratio: 445 / 509; object-fit: cover; }
+.zona__col--centro .zona__img { aspect-ratio: 459 / 663; object-position: 50% 98.5%; }
+.zona__img--espejo { transform: scaleX(-1); }
+.zona .cifra { margin-top: 21px; }
+.zona .cifra__txt { color: #000; }
+
+.zona__texto {
+  max-width: 677px;
+  margin: 64px auto 0;
+  color: #000;
+  font: 400 15px/1.15 var(--sans);
+  letter-spacing: -0.02em;
+}
+.zona__texto p + p { margin-top: 1.15em; }
+
+/* ---------- Pie ---------- */
+.pie {
+  overflow: hidden;
+  background: var(--navy);
+  color: #fff;
+  text-align: center;
+}
+.pie__logo { display: block; width: 58px; margin-inline: auto; }
+.pie__logo img { width: 100%; }
+.pie__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 24px;
+  margin-top: 32px;
+  padding-inline: var(--pad);
+  font: 400 14px/1.15 var(--sans);
+  letter-spacing: -0.02em;
+}
+.pie__lema {
+  margin-top: 72px;
+  color: rgba(230, 219, 211, 0.39);
+  font: 400 clamp(36px, 4vw, 58px)/0.9 var(--serif);
+  letter-spacing: -0.02em;
+}
+.pie__lema em { letter-spacing: -0.07em; }
+.pie__subir { display: block; width: 34px; margin: 40px auto 0; }
+.pie__subir img { width: 100%; }
+.pie__marca {
+  margin-top: 33px;
+  margin-bottom: -0.164em; /* la palabra queda cortada por el borde inferior, como en el diseño */
+  color: var(--crema);
+  font: 400 10.07vw/1.15 var(--serif);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- Menú desplegado ---------- */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+  gap: 32px 16px;
+  padding: 24px var(--pad) 32px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--crema);
+  color: #000;
+}
+.menu[hidden] { display: none; }
+.menu__nav { grid-column: 1; grid-row: 1; padding-top: 40px; }
+.menu__nav ul {
+  color: var(--navy);
+  font: 400 clamp(36px, 4.3vw, 62px)/1.25 var(--serif);
+}
+.menu__lateral { grid-column: 2; grid-row: 1; position: relative; }
+.menu__cerrar { display: block; width: 23px; padding: 0; }
+.menu__cerrar img { width: 100%; }
+.menu__imagen { display: none; }
+.menu__logo { grid-column: 1; grid-row: 2; align-self: end; width: 60px; }
+.menu__logo img { width: 100%; }
+.menu__pie {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.menu__contacto-titulo { font: 400 22px/1.32 var(--serif); }
+.menu__oficina { margin-top: 18px; font: 400 12px/1.5 var(--sans); }
+.menu__oficina + .menu__oficina { margin-top: 22px; }
+.menu__oficina span { display: block; color: #848484; text-transform: uppercase; }
+.menu__web { font: 500 12px/1.5 var(--sans); }
+
+/* =========================================================
+   Tablet (768 – 1023)
+   ========================================================= */
+@media (min-width: 768px) {
+  :root { --pad: 40px; }
+
+  .cifras {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+  }
+
+  .zona__galeria {
+    grid-template-columns: 30.903% 31.875% 30.903%;
+    justify-content: space-between;
+    gap: 0;
+    padding-inline: 0;
+  }
+  .zona__col--lado { margin-top: 5.139vw; }
+  .zona__col--centro .cifra { margin-top: 23px; }
+}
+
+/* =========================================================
+   Escritorio (≥ 1024): diseño de Figma a escala
+   --s = 1 px del diseño (a 1440 px de ancho, sin pasar de ahí)
+   ========================================================= */
+@media (min-width: 1024px) {
+  :root {
+    --s: calc(min(100vw, 1440px) / 1440);
+    --pad: calc(85 * var(--s));
+  }
+
+  .contenedor { padding-inline: max(var(--pad), calc((100% - 1270px) / 2)); }
+
+  /* Cabecera */
+  .cabecera {
+    height: calc(58 * var(--s));
+    padding-inline: max(var(--pad), calc((100% - 1270px) / 2));
+    font-size: max(12px, calc(12 * var(--s)));
+  }
+  .cabecera__menu { gap: calc(10 * var(--s)); }
+  .cabecera__logo { width: calc(58 * var(--s)); }
+
+  /* Hero */
+  .hero { min-height: calc(720 * var(--s)); }
+  .hero__sub { font-size: calc(50 * var(--s)); }
+  .hero__main { font-size: calc(75 * var(--s)); }
+  .hero__scroll { bottom: calc(11 * var(--s)); width: calc(42 * var(--s)); }
+  .pendiente--hero { left: max(var(--pad), calc((100% - 1270px) / 2)); bottom: calc(80 * var(--s)); }
+
+  /* Retos */
+  .intro { padding-block: calc(156 * var(--s)) calc(133 * var(--s)); }
+  .intro__titulo { max-width: calc(840 * var(--s)); font-size: calc(51 * var(--s)); }
+  .video { margin-top: calc(92 * var(--s)); }
+  .intro__texto {
+    margin-top: calc(39 * var(--s));
+    max-width: calc(367 * var(--s));
+    font-size: max(14px, calc(18 * var(--s)));
+  }
+
+  .diferentes {
+    grid-template-columns: 1fr calc(625 * var(--s));
+    gap: 0;
+    margin-top: calc(134 * var(--s));
+  }
+  .diferentes__titulo { font-size: calc(40 * var(--s)); }
+  .acordeon { margin-top: calc(3 * var(--s)); }
+  .acordeon__boton {
+    padding: calc(11 * var(--s)) 0 calc(13 * var(--s));
+    font-size: max(17px, calc(25 * var(--s)));
+  }
+  .acordeon__panel {
+    padding: calc(15 * var(--s)) 0 calc(21 * var(--s));
+    font-size: max(14px, calc(18 * var(--s)));
+  }
+  .acordeon__item:has(.acordeon__panel:not([hidden])) + .acordeon__item .acordeon__boton {
+    padding-top: calc(19 * var(--s));
+  }
+
+  /* Red internacional */
+  .red__imagen { aspect-ratio: 1440 / 634; min-height: 0; }
+  .red__imagen::after { height: 48.42%; }
+  .cifras {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: 0 calc(145 * var(--s)) calc(43 * var(--s));
+  }
+  .cifra__num { font-size: calc(60 * var(--s)); }
+  .cifra__txt { margin-top: calc(13 * var(--s)); font-size: max(14px, calc(20 * var(--s))); }
+
+  .red__contenido { padding-top: calc(111 * var(--s)); }
+  .red__titulo { max-width: calc(846 * var(--s)); padding: 0; font-size: calc(50 * var(--s)); }
+  .red__texto {
+    max-width: calc(840 * var(--s));
+    margin-top: calc(30 * var(--s));
+    padding: 0;
+    font-size: max(14px, calc(16 * var(--s)));
+  }
+
+  /* Mapa: cajas y pines posicionados sobre el mapa, escalan con su ancho */
+  .mapa { display: block; margin-top: calc(214 * var(--s)); container-type: inline-size; }
+  .pin { width: 2.0833%; }
+  .oficinas { position: absolute; inset: auto 0 0; aspect-ratio: 1440 / 443; padding: 0; }
+  .oficina { position: absolute; width: 5.8333%; }
+  .oficina__zona, .oficina__txt { font-size: 0.8333cqw; }
+  .oficina__num { font-size: 2.9167cqw; }
+  .oficina--america { left: 10.069%; top: 54.40%; }
+  .oficina--uk      { left: 36.875%; top: -17.38%; }
+  .oficina--spain   { left: 40.903%; top: 2.935%; }
+  .oficina--europe  { left: 50%;     top: -4.289%; }
+  .oficina--apac    { left: 75%;     top: 17.607%; }
+
+  /* Savills en España */
+  .zona { padding-block: calc(91 * var(--s)) calc(103 * var(--s)); }
+  .zona__antetitulo { font-size: max(12px, calc(14 * var(--s))); }
+  .zona__titulo { margin-top: calc(29 * var(--s)); font-size: calc(50 * var(--s)); }
+  .zona__galeria { margin-top: calc(73.5 * var(--s)); }
+  .zona .cifra { margin-top: calc(21 * var(--s)); }
+  .zona__col--centro .cifra { margin-top: calc(23 * var(--s)); }
+  .zona__texto {
+    max-width: calc(677 * var(--s));
+    margin-top: calc(81 * var(--s));
+    font-size: max(14px, calc(16 * var(--s)));
+  }
+  .zona__texto p:last-child { margin-bottom: 1.15em; }
+
+  /* Pie */
+  .pie__logo { width: calc(58 * var(--s)); }
+  .pie__nav {
+    gap: calc(50 * var(--s));
+    margin-top: calc(42 * var(--s));
+    padding: 0;
+    font-size: max(12px, calc(14 * var(--s)));
+  }
+  .pie__lema { margin-top: calc(102 * var(--s)); font-size: calc(58 * var(--s)); }
+  .pie__subir { width: calc(34 * var(--s)); margin-top: calc(49.6 * var(--s)); }
+  .pie__marca { margin-top: calc(33 * var(--s)); font-size: calc(145 * var(--s)); }
+
+  /* Menú */
+  .menu {
+    grid-template-columns: 1fr calc(410 * var(--s));
+    grid-template-rows: 1fr auto;
+    gap: 0;
+    padding: calc(48 * var(--s)) max(var(--pad), calc((100% - 1270px) / 2)) calc(65 * var(--s));
+  }
+  .menu__nav { padding: 0 0 0 calc(4 * var(--s)); }
+  .menu__nav ul { font-size: calc(62 * var(--s)); }
+  .menu__cerrar { position: absolute; top: 0; right: 0; width: calc(23 * var(--s)); }
+  .menu__imagen {
+    position: relative;
+    display: block;
+    width: calc(314 * var(--s));
+    height: calc(429 * var(--s));
+    margin-top: calc(39 * var(--s));
+    background: #999;
+  }
+  .menu__logo { grid-column: 1; grid-row: 2; width: calc(77 * var(--s)); margin-bottom: calc(4 * var(--s)); }
+  .menu__pie { grid-column: 2; grid-row: 2; align-self: end; }
+  .menu__contacto-titulo { font-size: max(16px, calc(22 * var(--s))); }
+}

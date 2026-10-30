@@ -9,7 +9,7 @@
 ## Maquetación desde Figma
 
 - Programar el diseño de Figma tal cual: medidas, tipografías, colores, espaciados y textos exactos. No inventar ni "mejorar" el diseño.
-- Imágenes: usar siempre las de Figma. Exportarlas a 2x del tamaño en que se muestran y optimizarlas en peso con buena resolución: AVIF (calidad ~60) con JPEG de respaldo (calidad ~78), o PNG si necesitan transparencia, con `<picture>`. Guardarlas en `img/`, con `width`/`height` y `loading="lazy"` salvo en la primera pantalla.
+- Imágenes: usar siempre las de Figma. Exportarlas a 2x del tamaño en que se muestran y optimizarlas en peso con buena resolución: AVIF (calidad ~60) con JPEG de respaldo (calidad ~78), o PNG si necesitan transparencia, con `<picture>`. Convertir con `sips` y **siempre con ancho y alto pares** (con medidas impares `sips` genera AVIF que se ven en blanco); si hace falta, recortar 1 px con `sips -c`. Guardarlas en `img/`, con `width`/`height` y `loading="lazy"` salvo en la primera pantalla.
 - Si falta algo (textos, imágenes, iconos, versión móvil, enlaces…), avisar en el momento y dejar un hueco visible marcado como `PENDIENTE`; nunca inventarlo.
 
 ## Animaciones y efectos de scroll
