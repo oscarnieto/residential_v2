@@ -15,6 +15,7 @@
 ## Animaciones y efectos de scroll
 
 - Añadir animaciones solo cuando se pidan, con el efecto de ScrollKit indicado. En `index.html` ya están aplicados: E01 (smooth scroll), E09/E12/E13/E14 (textos), E15 (cifras), E19 (vídeo de retos), E20 (imágenes de "Conocemos tu zona") y E24 (el pie se apila sobre la sección anterior).
+- Vídeo spot (sección de retos): la carga, reproducción, reinicio y sonido según visibilidad van en `js/main.js` con IntersectionObserver, no con E29 (dentro de una sección fijada E19, E29 calcula mal la entrada y salida). El botón de sonido es E30.
 - Efectos fuera del kit, pedidos expresamente: foco de luz que sigue al ratón en el lema del pie (`data-foco`, en `js/main.js`), entrada del menú de arriba abajo, desplegables del acordeón y cajas del mapa al pasar el ratón (CSS).
 
 - En `data-expand` (E19) escribir los porcentajes sin ceros finales (`16.9%`, no `16.90%`): GSAP los interpola mal.

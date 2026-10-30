@@ -57,10 +57,12 @@
       </div>
     </section>
 
-    <!-- Vídeo spot: marco que se abre a pantalla completa (E19) + carga diferida (E29) -->
+    <!-- Vídeo spot: marco que se abre a pantalla completa (E19) + botón de sonido (E30).
+         La carga, reproducción y sonido según visibilidad van en js/main.js -->
     <section class="video-sec">
       <div class="video-sec__marco" data-expand="17% 5.9%" data-pin data-length="150%" data-mobile="off">
-        <video class="video-sec__video" data-video data-src="video/spot.mp4" data-src-mobile="video/spot-movil.mp4" poster="img/spot-poster.jpg" muted playsinline preload="none" aria-label="Vídeo de presentación de Savills Residencial"></video>
+        <video class="video-sec__video" id="spot" data-spot="video/spot.mp4" data-spot-movil="video/spot-movil.mp4" poster="img/spot-poster.jpg" muted loop playsinline preload="none" aria-label="Vídeo de presentación de Savills Residencial"></video>
+        <button class="video-sec__sonido" type="button" data-sound-toggle="#spot" data-label-on="Silenciar" data-label-off="Activar sonido">Activar sonido</button>
       </div>
     </section>
 
@@ -249,7 +251,7 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
-    <div data-reveal="up"><p class="pie__lema" data-foco>Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p></div>
+    <div class="pie__centro" data-reveal="up"><p class="pie__lema" data-foco>Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p></div>
     <a class="pie__subir" href="#inicio" aria-label="Volver arriba">
       <img src="icons/subir.svg" width="34" height="34" alt="">
     </a>

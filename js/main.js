@@ -22,14 +22,79 @@
     var lados = pad / ancho * 100;
     // Sin ceros finales ("16.9%", no "16.90%"): GSAP interpola mal esos valores
     marco.setAttribute('data-expand', parseFloat(arriba.toFixed(2)) + '% ' + parseFloat(lados.toFixed(2)) + '%');
+    marco.style.setProperty('--recorte-y', arriba.toFixed(2) + '%');
+    marco.style.setProperty('--recorte-x', lados.toFixed(2) + '%');
   }
 
-  /* ---------- Vídeo spot: vuelve al principio al salir de pantalla ----------
-     E29 lo pausa al salir y lo reanuda al volver; al rebobinarlo en la pausa,
-     cada vez que vuelve a verse empieza desde el inicio. */
-  var spot = document.querySelector('.video-sec__video');
+  /* ---------- Vídeo spot ----------
+     - Se descarga al acercarse (versión ligera en móvil).
+     - Se reproduce mientras se ve; al salir se pausa y vuelve al principio.
+     - El sonido se oye mientras está en pantalla y se silencia al salir.
+       Los navegadores solo permiten audio si el visitante ya ha hecho clic,
+       tocado o pulsado una tecla en la página; si no, sigue en silencio y el
+       botón de sonido (E30) lo activa.
+     No usa E29 porque, dentro de una sección fijada (E19), ScrollKit calcula
+     mal cuándo entra y sale de pantalla. */
+  var spot = document.getElementById('spot');
   if (spot) {
-    spot.addEventListener('pause', function () { spot.currentTime = 0; });
+    var boton = document.querySelector('.video-sec__sonido');
+    var srcSpot = window.innerWidth < 768 ? spot.getAttribute('data-spot-movil') : spot.getAttribute('data-spot');
+    var visible = false;      // alguna parte en pantalla → se reproduce
+    var enPantalla = false;   // al menos un 30 % en pantalla → con sonido
+    var quiereSonido = true;  // false si el visitante lo silencia con el botón
+    spot.muted = true;
+
+    var puedeSonar = function () {
+      return !navigator.userActivation || navigator.userActivation.hasBeenActive;
+    };
+    var reproducir = function () {
+      var p = spot.play();
+      if (p && p.catch) p.catch(function () {
+        // Si el navegador no deja reproducir con sonido, sigue en silencio
+        if (!spot.muted) { spot.muted = true; spot.play().catch(function () {}); }
+      });
+    };
+    var aplicarSonido = function () {
+      var debeSonar = enPantalla && quiereSonido && puedeSonar();
+      if (debeSonar && spot.muted) { spot.muted = false; if (visible) reproducir(); }
+      else if (!debeSonar && !spot.muted) spot.muted = true;
+    };
+
+    // Precarga al acercarse
+    new IntersectionObserver(function (entradas, obs) {
+      if (!entradas[0].isIntersecting) return;
+      if (!spot.getAttribute('src')) spot.src = srcSpot; // asignarlo dos veces reinicia la carga
+      obs.disconnect();
+    }, { rootMargin: '300px 0px' }).observe(spot);
+
+    // Reproducción y sonido según lo que se ve
+    new IntersectionObserver(function (entradas) {
+      var ratio = entradas[0].intersectionRatio;
+      visible = entradas[0].isIntersecting;
+      enPantalla = ratio >= 0.3;
+      if (!spot.getAttribute('src') && visible) spot.src = srcSpot;
+      aplicarSonido();
+      if (visible && spot.paused) reproducir();
+      if (!visible && !spot.paused) { spot.pause(); spot.currentTime = 0; }
+    }, { threshold: [0, 0.3, 0.6] }).observe(spot);
+
+    // Primer clic, toque o tecla con el spot en pantalla: el audio se activa ya
+    ['pointerdown', 'keydown'].forEach(function (tipo) {
+      document.addEventListener(tipo, function (e) {
+        if (boton && e.target === boton) return;
+        setTimeout(aplicarSonido, 0);
+      }, true);
+    });
+
+    if (boton) {
+      // Se ejecuta antes que el de ScrollKit, que es el que cambia el silencio
+      boton.addEventListener('click', function () { quiereSonido = spot.muted; });
+      // Mantiene el texto del botón al día cuando el sonido cambia solo
+      spot.addEventListener('volumechange', function () {
+        boton.textContent = spot.muted ? boton.getAttribute('data-label-off') : boton.getAttribute('data-label-on');
+        boton.setAttribute('aria-pressed', String(!spot.muted));
+      });
+    }
   }
 
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */

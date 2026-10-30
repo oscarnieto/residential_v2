@@ -140,6 +140,21 @@ em { font-style: italic; }
    de arriba compensan el recorte inicial para que el hueco visible sea el de Figma. */
 .video-sec { padding: 40px var(--pad) 0; }
 .video-sec__marco { position: relative; aspect-ratio: 1270 / 715; background: var(--gris); }
+/* Botón de sonido (E30): siempre dentro de la parte visible del marco */
+.video-sec__sonido {
+  position: absolute;
+  right: calc(var(--recorte-x, 0%) + 12px);
+  bottom: calc(var(--recorte-y, 0%) + 12px);
+  z-index: 2;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font: 500 12px/1 var(--sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.video-sec__sonido:hover { background: rgba(0, 0, 0, 0.55); }
 
 .intro__texto {
   margin-top: 24px;
@@ -335,12 +350,19 @@ em { font-style: italic; }
 .zona__texto p + p { margin-top: 1.15em; }
 
 /* ---------- Pie ---------- */
+/* El pie ocupa al menos toda la pantalla: al llegar al final tapa por completo
+   la sección anterior (E24). El espacio sobrante se reparte alrededor del lema. */
 .pie {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   overflow: hidden;
   background: var(--navy);
   color: #fff;
   text-align: center;
 }
+.pie > nav { margin-bottom: 72px; }
+.pie__centro { margin-top: auto; }
 .pie__logo { display: block; width: 58px; margin-inline: auto; }
 .pie__logo img { width: 100%; }
 .pie__nav {
@@ -354,7 +376,6 @@ em { font-style: italic; }
   letter-spacing: -0.02em;
 }
 .pie__lema {
-  margin-top: 72px;
   color: rgba(230, 219, 211, 0.39);
   font: 400 clamp(36px, 4vw, 58px)/0.9 var(--serif);
   letter-spacing: -0.02em;
@@ -371,7 +392,7 @@ em { font-style: italic; }
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.pie__subir { display: block; width: 34px; margin: 40px auto 0; }
+.pie__subir { display: block; width: 34px; margin: 40px auto auto; }
 .pie__subir img { width: 100%; }
 .pie__marca {
   margin-top: 33px;
@@ -474,6 +495,7 @@ em { font-style: italic; }
     margin-bottom: var(--gap-abajo, 24px); /* al final el vídeo ocupa toda la pantalla */
   }
   .video-sec__marco { position: absolute; inset: 0; aspect-ratio: auto; }
+  .video-sec__sonido { right: calc(var(--recorte-x, 0%) + 24px); bottom: calc(var(--recorte-y, 0%) + 24px); }
   .intro__texto { margin-top: 0; }
 
   .cifras {
@@ -623,7 +645,8 @@ em { font-style: italic; }
     padding: 0;
     font-size: max(12px, calc(14 * var(--s)));
   }
-  .pie__lema { margin-top: calc(102 * var(--s)); font-size: calc(58 * var(--s)); }
+  .pie > nav { margin-bottom: calc(102 * var(--s)); }
+  .pie__lema { font-size: calc(58 * var(--s)); }
   .pie__subir { width: calc(34 * var(--s)); margin-top: calc(49.6 * var(--s)); }
   .pie__marca { margin-top: calc(33 * var(--s)); font-size: calc(145 * var(--s)); }
 
