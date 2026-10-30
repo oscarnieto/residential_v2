@@ -1,0 +1,115 @@
+/* ScrollKit v1.0 — estilos mínimos que necesitan los efectos.
+   No define diseño: solo lo imprescindible para que funcionen. */
+
+/* ---------- Lenis ---------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Ocultar antes de animar (evita parpadeo) ----------
+   La clase .sk-js se añade con un script en el <head>. Si JS falla, todo se ve. */
+.sk-js [data-reveal] { visibility: hidden; }
+
+/* ---------- Header ---------- */
+[data-header] {
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  transition: transform .6s cubic-bezier(.7,0,.3,1), color .4s cubic-bezier(.7,0,.3,1), background-color .4s cubic-bezier(.7,0,.3,1);
+}
+[data-header].is-hidden { transform: translateY(-100%); }
+/* Personaliza: [data-header][data-header-theme="dark"] { color:#fff } … */
+
+/* ---------- Image move ---------- */
+[data-image-move] { position: relative; overflow: hidden; }
+[data-image-move] > * { display: block; will-change: transform; }
+.sk-move-y > img, .sk-move-y > video, .sk-move-y > picture, .sk-move-y > canvas, .sk-move-y > [data-media] {
+  width: 100%; height: calc(100% + var(--sk-move, 20%)); object-fit: cover;
+}
+.sk-move-x > img, .sk-move-x > video, .sk-move-x > picture, .sk-move-x > canvas, .sk-move-x > [data-media] {
+  height: 100%; width: calc(100% + var(--sk-move, 20%)); object-fit: cover;
+}
+[data-image-move] picture > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Zoom / Expand / Clip ---------- */
+[data-zoom], [data-expand], [data-reveal="clip"] { overflow: hidden; }
+[data-zoom] > img, [data-zoom] > video,
+[data-expand] img, [data-expand] video,
+[data-reveal="clip"] img, [data-reveal="clip"] video {
+  display: block; width: 100%; height: 100%; object-fit: cover; will-change: transform;
+}
+
+/* ---------- Collage ---------- */
+[data-collage] { position: relative; overflow: hidden; }
+[data-collage-item] { will-change: transform, opacity; }
+[data-collage-item="main"] { transform-origin: center center; }
+
+/* ---------- Stack ---------- */
+.sk-stack-panel { position: relative; }
+.sk-stack-panel::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: #000; opacity: var(--sk-shade, 0);
+}
+
+/* ---------- Horizontal ---------- */
+[data-horizontal-track] { display: flex; }
+.sk-h-active { overflow: hidden; }
+.sk-h-active [data-horizontal-track] { flex-wrap: nowrap; width: max-content; height: 100%; will-change: transform; }
+.sk-h-active [data-horizontal-track] > * { flex-shrink: 0; }
+@media (max-width: 767px) {
+  [data-horizontal]:not(.sk-h-active) [data-horizontal-track] { flex-direction: column; }
+}
+
+/* ---------- Steps ---------- */
+/* Los elementos [data-step] (y [data-step-media]) se superponen en la misma celda */
+:has(> [data-step]), :has(> [data-step-media]) { display: grid; }
+[data-step], [data-step-media] { grid-area: 1 / 1; }
+[data-step-progress], [data-progress] { transform-origin: left center; transform: scaleX(0); }
+
+/* ---------- Highlight list ---------- */
+.sk-highlight > * { opacity: var(--sk-dim, .15); transition: opacity .35s cubic-bezier(.7,0,.3,1); }
+.sk-highlight > .is-active { opacity: 1; }
+:has(> [data-highlight-media]) { display: grid; }
+[data-highlight-media] { grid-area: 1 / 1; opacity: 0; transition: opacity .6s cubic-bezier(.7,0,.3,1); }
+[data-highlight-media].is-active { opacity: 1; }
+
+/* ---------- Sticky ---------- */
+[data-sticky] { position: sticky; top: 0; z-index: 2; }
+
+/* ---------- Blur-up ---------- */
+.sk-js img[data-blur] { filter: blur(24px); transition: filter 1.2s cubic-bezier(.29,.52,.5,1); }
+.sk-js img[data-blur].sk-loaded { filter: none; }
+
+/* ---------- Shrink to header ---------- */
+[data-shrink-to] { will-change: transform; transition: opacity .4s cubic-bezier(.7,0,.3,1); }
+/* Cuando ya ha llegado al header, se oculta y aparece con él */
+.sk-header-hidden [data-shrink-to].sk-shrunk { opacity: 0; }
+
+/* ---------- Cursor (estilo base, personalízalo) ---------- */
+[data-cursor] {
+  position: fixed; top: 0; left: 0; z-index: 10000; pointer-events: none;
+  width: 12px; height: 12px; border-radius: 50%; background: currentColor; color: #fff; mix-blend-mode: difference;
+  display: grid; place-items: center; opacity: 0;
+  transition: width .4s cubic-bezier(.7,0,.3,1), height .4s cubic-bezier(.7,0,.3,1), opacity .3s, background-color .3s;
+}
+[data-cursor].is-visible { opacity: 1; }
+[data-cursor].is-hover { width: 48px; height: 48px; }
+[data-cursor].has-text { width: 96px; height: 96px; mix-blend-mode: normal; background: #fff; color: #000; }
+[data-cursor].is-down { width: 32px; height: 32px; }
+[data-cursor] [data-cursor-label] { font: 600 11px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: inherit; mix-blend-mode: normal; }
+[data-cursor]:not(.has-text) [data-cursor-label] { display: none; }
+.sk-no-cursor, .sk-no-cursor * { cursor: none !important; }
+
+/* ---------- Intro ---------- */
+[data-intro] { position: fixed; inset: 0; z-index: 9999; will-change: transform; }
+.sk-intro-seen [data-intro] { display: none; }
+.sk-intro-active { overflow: hidden; }
+
+/* ---------- Transición entre páginas ---------- */
+[data-transition] { position: fixed; inset: 0; z-index: 9998; pointer-events: none; transform: translateY(100%); }
+.sk-arriving [data-transition] { transform: none; }
+
+/* ---------- Accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .sk-js [data-reveal] { visibility: visible; }
+  [data-step-progress], [data-progress] { transform: none; }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Título de la página</title>
+
+  <!-- ScrollKit: siempre primero en el head -->
+  <script>document.documentElement.classList.add('sk-js');try{var s=sessionStorage,d=document.documentElement;if(s.getItem('sk-intro'))d.classList.add('sk-intro-seen');if(s.getItem('sk-transition'))d.classList.add('sk-arriving')}catch(e){}</script>
+  <link rel="stylesheet" href="scroll-kit/css/scroll-kit.css">
+
+  <!-- CSS del proyecto (diseño) -->
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header data-header>
+    <a href="#top" id="logo-slot">Logo</a>
+    <nav><!-- enlaces --></nav>
+  </header>
+
+  <main id="top">
+    <section data-theme="dark" style="position:relative;height:100vh;overflow:clip">
+      <div data-zoom="1.25" style="position:absolute;inset:0">
+        <img src="img/hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <h1 data-reveal="lines" style="position:relative">Titular principal</h1>
+    </section>
+
+    <section data-theme="light">
+      <p data-reveal="fade-words">Texto de presentación.</p>
+    </section>
+  </main>
+
+  <footer data-theme="light"></footer>
+
+  <!-- ScrollKit: librerías al final, en este orden -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+  <script src="scroll-kit/js/scroll-kit.js"></script>
+</body>
+</html>
