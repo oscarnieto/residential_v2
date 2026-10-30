@@ -94,7 +94,22 @@ em { font-style: italic; }
   color: #fff;
   text-align: center;
 }
-.hero__titulo { font-family: var(--serif); font-weight: 400; line-height: 1.218; }
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Velo oscuro para que el texto blanco se lea sobre el vídeo */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+.hero__titulo, .hero__scroll { z-index: 1; }
+.hero__titulo { position: relative; font-family: var(--serif); font-weight: 400; line-height: 1.218; }
 .hero__sub { display: block; font-style: italic; font-size: clamp(32px, 6vw, 50px); }
 .hero__main {
   display: block;
@@ -110,7 +125,6 @@ em { font-style: italic; }
   transform: translateX(-50%);
 }
 .hero__scroll img { width: 100%; }
-.pendiente--hero { left: var(--pad); bottom: 70px; }
 
 /* ---------- Retos ---------- */
 .intro { padding-block: 80px 80px; color: var(--navy); }
@@ -422,7 +436,6 @@ em { font-style: italic; }
   .hero__sub { font-size: calc(50 * var(--s)); }
   .hero__main { font-size: calc(75 * var(--s)); }
   .hero__scroll { bottom: calc(11 * var(--s)); width: calc(42 * var(--s)); }
-  .pendiente--hero { left: max(var(--pad), calc((100% - 1270px) / 2)); bottom: calc(80 * var(--s)); }
 
   /* Retos */
   .intro { padding-block: calc(156 * var(--s)) calc(133 * var(--s)); }

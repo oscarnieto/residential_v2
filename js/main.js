@@ -2,6 +2,13 @@
 (function () {
   'use strict';
 
+  /* ---------- Vídeo del hero: quieto si el usuario pide menos movimiento ---------- */
+  var video = document.querySelector('.hero__video');
+  if (video && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.removeAttribute('autoplay');
+    video.pause();
+  }
+
   /* ---------- Menú ---------- */
   var menu = document.getElementById('menu');
   var abrir = document.querySelector('.cabecera__menu');
