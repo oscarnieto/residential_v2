@@ -50,21 +50,26 @@
     else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
   });
 
-  /* ---------- Acordeón (uno abierto a la vez) ---------- */
+  /* ---------- Acordeón (uno abierto a la vez; la animación va en CSS) ---------- */
   var botones = document.querySelectorAll('.acordeon__boton');
+  var refrescar;
 
   botones.forEach(function (boton) {
     boton.addEventListener('click', function () {
       var abierto = boton.getAttribute('aria-expanded') === 'true';
       botones.forEach(function (b) {
         b.setAttribute('aria-expanded', 'false');
-        document.getElementById(b.getAttribute('aria-controls')).hidden = true;
+        b.closest('.acordeon__item').classList.remove('is-open');
       });
       if (!abierto) {
         boton.setAttribute('aria-expanded', 'true');
-        document.getElementById(boton.getAttribute('aria-controls')).hidden = false;
+        boton.closest('.acordeon__item').classList.add('is-open');
       }
-      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      // Recalcula posiciones de scroll cuando termina la animación
+      clearTimeout(refrescar);
+      refrescar = setTimeout(function () {
+        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      }, 500);
     });
   });
 })();

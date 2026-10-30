@@ -168,15 +168,39 @@ em { font-style: italic; }
   letter-spacing: -0.02em;
   text-align: left;
 }
-.acordeon__icono { flex: none; width: 7px; margin-right: 0.5px; transform: rotate(180deg); }
+.acordeon__icono {
+  flex: none;
+  width: 7px;
+  margin-right: 0.5px;
+  transform: rotate(180deg);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
 .acordeon__boton[aria-expanded="true"] .acordeon__icono { transform: none; }
+
+/* El panel se despliega animando la altura (0fr → 1fr) */
 .acordeon__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.45s;
+}
+.acordeon__item.is-open .acordeon__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
+}
+.acordeon__contenido { min-height: 0; overflow: hidden; }
+.acordeon__contenido p {
+  margin-bottom: 8px;
   padding: 15px 0 20px;
   border-bottom: 0.7px solid var(--linea);
   font: 400 16px/1.15 var(--sans);
   letter-spacing: -0.02em;
 }
-.acordeon__panel[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .acordeon__panel, .acordeon__item.is-open .acordeon__panel, .acordeon__icono { transition: none; }
+}
 
 /* ---------- Red internacional ---------- */
 .red { background: var(--navy); color: #fff; }
@@ -412,20 +436,21 @@ em { font-style: italic; }
 
 /* =========================================================
    Escritorio (≥ 1024): diseño de Figma a escala
-   --s = 1 px del diseño (a 1440 px de ancho, sin pasar de ahí)
+   --s = 1 px del diseño de 1440 px; todo escala con el ancho
+   de pantalla para mantener la proporción (tope en 2560 px)
    ========================================================= */
 @media (min-width: 1024px) {
   :root {
-    --s: calc(min(100vw, 1440px) / 1440);
+    --s: calc(min(100vw, 2560px) / 1440);
     --pad: calc(85 * var(--s));
   }
 
-  .contenedor { padding-inline: max(var(--pad), calc((100% - 1270px) / 2)); }
+  .contenedor { max-width: calc(1440 * var(--s)); padding-inline: var(--pad); }
 
   /* Cabecera */
   .cabecera {
     height: calc(58 * var(--s));
-    padding-inline: max(var(--pad), calc((100% - 1270px) / 2));
+    padding-inline: max(var(--pad), calc((100% - 1270 * var(--s)) / 2));
     font-size: max(12px, calc(12 * var(--s)));
   }
   .cabecera__menu { gap: calc(10 * var(--s)); }
@@ -458,19 +483,17 @@ em { font-style: italic; }
     padding: calc(11 * var(--s)) 0 calc(13 * var(--s));
     font-size: max(17px, calc(25 * var(--s)));
   }
-  .acordeon__panel {
+  .acordeon__contenido p {
+    margin-bottom: calc(8 * var(--s));
     padding: calc(15 * var(--s)) 0 calc(21 * var(--s));
     font-size: max(14px, calc(18 * var(--s)));
-  }
-  .acordeon__item:has(.acordeon__panel:not([hidden])) + .acordeon__item .acordeon__boton {
-    padding-top: calc(19 * var(--s));
   }
 
   /* Red internacional */
   .red__imagen { aspect-ratio: 1440 / 634; min-height: 0; }
   .red__imagen::after { height: 48.42%; }
   .cifras {
-    max-width: 1440px;
+    max-width: calc(1440 * var(--s));
     margin-inline: auto;
     padding: 0 calc(145 * var(--s)) calc(43 * var(--s));
   }
@@ -498,6 +521,26 @@ em { font-style: italic; }
   .oficina--spain   { left: 40.903%; top: 2.935%; }
   .oficina--europe  { left: 50%;     top: -4.289%; }
   .oficina--apac    { left: 75%;     top: 17.607%; }
+
+  /* Con ratón: las cajas aparecen suavemente al pasar por encima del pin */
+  @media (hover: hover) {
+    .oficinas { pointer-events: none; }
+    .oficina {
+      opacity: 0;
+      transform: translateY(calc(8 * var(--s)));
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .pin { cursor: pointer; }
+    .mapa:has(.pin--america:hover) .oficina--america,
+    .mapa:has(.pin--uk:hover) .oficina--uk,
+    .mapa:has(.pin--spain:hover) .oficina--spain,
+    .mapa:has(.pin--europe:hover) .oficina--europe,
+    .mapa:has(.pin--apac:hover) .oficina--apac,
+    .oficina:focus-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
   /* Savills en España */
   .zona { padding-block: calc(91 * var(--s)) calc(103 * var(--s)); }
@@ -530,7 +573,7 @@ em { font-style: italic; }
     grid-template-columns: 1fr calc(410 * var(--s));
     grid-template-rows: 1fr auto;
     gap: 0;
-    padding: calc(48 * var(--s)) max(var(--pad), calc((100% - 1270px) / 2)) calc(65 * var(--s));
+    padding: calc(48 * var(--s)) max(var(--pad), calc((100% - 1270 * var(--s)) / 2)) calc(65 * var(--s));
   }
   .menu__nav { padding: 0 0 0 calc(4 * var(--s)); }
   .menu__nav ul { font-size: calc(62 * var(--s)); }

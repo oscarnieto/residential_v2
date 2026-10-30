@@ -64,7 +64,7 @@
           <h2 class="diferentes__titulo">¿Qué nos hace <em>diferentes</em>?</h2>
 
           <div class="acordeon">
-            <div class="acordeon__item">
+            <div class="acordeon__item is-open">
               <h3 class="acordeon__cabecera">
                 <button class="acordeon__boton" type="button" id="dif-1-btn" aria-expanded="true" aria-controls="dif-1">
                   Visión estratégica
@@ -72,7 +72,7 @@
                 </button>
               </h3>
               <div class="acordeon__panel" id="dif-1" role="region" aria-labelledby="dif-1-btn">
-                <p>Cada proyecto necesita encajar en su mercado desde el inicio. Analizamos su contexto para definir un posicionamiento sólido.</p>
+                <div class="acordeon__contenido"><p>Cada proyecto necesita encajar en su mercado desde el inicio. Analizamos su contexto para definir un posicionamiento sólido.</p></div>
               </div>
             </div>
             <div class="acordeon__item">
@@ -82,8 +82,8 @@
                   <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
                 </button>
               </h3>
-              <div class="acordeon__panel" id="dif-2" role="region" aria-labelledby="dif-2-btn" hidden>
-                <p>Uno de los principales retos es acertar con el producto. Lo ajustamos a la demanda para maximizar su valor y atractivo.</p>
+              <div class="acordeon__panel" id="dif-2" role="region" aria-labelledby="dif-2-btn">
+                <div class="acordeon__contenido"><p>Uno de los principales retos es acertar con el producto. Lo ajustamos a la demanda para maximizar su valor y atractivo.</p></div>
               </div>
             </div>
             <div class="acordeon__item">
@@ -93,8 +93,8 @@
                   <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
                 </button>
               </h3>
-              <div class="acordeon__panel" id="dif-3" role="region" aria-labelledby="dif-3-btn" hidden>
-                <p>Tomar decisiones sin información puede comprometer el resultado. Trabajamos con un conocimiento actualizado de cada mercado.</p>
+              <div class="acordeon__panel" id="dif-3" role="region" aria-labelledby="dif-3-btn">
+                <div class="acordeon__contenido"><p>Tomar decisiones sin información puede comprometer el resultado. Trabajamos con un conocimiento actualizado de cada mercado.</p></div>
               </div>
             </div>
             <div class="acordeon__item">
@@ -104,8 +104,8 @@
                   <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
                 </button>
               </h3>
-              <div class="acordeon__panel" id="dif-4" role="region" aria-labelledby="dif-4-btn" hidden>
-                <p>Encontrar el equilibrio entre velocidad de ventas y valor es clave. Diseñamos la estrategia de precios y posicionamiento adaptadas a cada proyecto.</p>
+              <div class="acordeon__panel" id="dif-4" role="region" aria-labelledby="dif-4-btn">
+                <div class="acordeon__contenido"><p>Encontrar el equilibrio entre velocidad de ventas y valor es clave. Diseñamos la estrategia de precios y posicionamiento adaptadas a cada proyecto.</p></div>
               </div>
             </div>
             <div class="acordeon__item">
@@ -115,8 +115,8 @@
                   <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
                 </button>
               </h3>
-              <div class="acordeon__panel" id="dif-5" role="region" aria-labelledby="dif-5-btn" hidden>
-                <p>Una buena estrategia marca la diferencia en la comercialización. Definimos planes adaptados a cada promoción y a su público objetivo.</p>
+              <div class="acordeon__panel" id="dif-5" role="region" aria-labelledby="dif-5-btn">
+                <div class="acordeon__contenido"><p>Una buena estrategia marca la diferencia en la comercialización. Definimos planes adaptados a cada promoción y a su público objetivo.</p></div>
               </div>
             </div>
             <div class="acordeon__item">
@@ -126,8 +126,8 @@
                   <img class="acordeon__icono" src="icons/triangulo.svg" width="7" height="6" alt="">
                 </button>
               </h3>
-              <div class="acordeon__panel" id="dif-6" role="region" aria-labelledby="dif-6-btn" hidden>
-                <p>El mercado evoluciona constantemente. Monitorizamos el rendimiento y ajustamos la estrategia para optimizar resultados.</p>
+              <div class="acordeon__panel" id="dif-6" role="region" aria-labelledby="dif-6-btn">
+                <div class="acordeon__contenido"><p>El mercado evoluciona constantemente. Monitorizamos el rendimiento y ajustamos la estrategia para optimizar resultados.</p></div>
               </div>
             </div>
           </div>
@@ -173,11 +173,11 @@
             </div>
           </div>
           <ul class="oficinas" aria-label="Oficinas de Savills por región">
-            <li class="oficina oficina--america"><span class="oficina__zona">América</span><span class="oficina__num">82</span><span class="oficina__txt">oficinas</span></li>
-            <li class="oficina oficina--uk"><span class="oficina__zona">Reino Unido</span><span class="oficina__num">131</span><span class="oficina__txt">oficinas</span></li>
-            <li class="oficina oficina--spain"><span class="oficina__zona">España</span><span class="oficina__num">5</span><span class="oficina__txt">oficinas</span></li>
-            <li class="oficina oficina--europe"><span class="oficina__zona">Europa</span><span class="oficina__num">129</span><span class="oficina__txt">oficinas</span></li>
-            <li class="oficina oficina--apac"><span class="oficina__zona">APAC</span><span class="oficina__num">75</span><span class="oficina__txt">oficinas</span></li>
+            <li tabindex="0" class="oficina oficina--america"><span class="oficina__zona">América</span><span class="oficina__num">82</span><span class="oficina__txt">oficinas</span></li>
+            <li tabindex="0" class="oficina oficina--uk"><span class="oficina__zona">Reino Unido</span><span class="oficina__num">131</span><span class="oficina__txt">oficinas</span></li>
+            <li tabindex="0" class="oficina oficina--spain"><span class="oficina__zona">España</span><span class="oficina__num">5</span><span class="oficina__txt">oficinas</span></li>
+            <li tabindex="0" class="oficina oficina--europe"><span class="oficina__zona">Europa</span><span class="oficina__num">129</span><span class="oficina__txt">oficinas</span></li>
+            <li tabindex="0" class="oficina oficina--apac"><span class="oficina__zona">APAC</span><span class="oficina__num">75</span><span class="oficina__txt">oficinas</span></li>
           </ul>
         </div>
       </div>
