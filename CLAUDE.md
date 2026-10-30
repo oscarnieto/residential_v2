@@ -3,7 +3,8 @@
 - La web se publica con GitHub Pages desde la rama `main`: https://oscarnieto.github.io/residential_v2/
 - Después de cada cambio, sin esperar a que se pida: `git add -A`, commit con un mensaje breve en español y `git push origin main`. No dejar cambios sin subir al terminar un turno.
 - Trabajar siempre directamente sobre `main`, sin ramas ni pull requests.
-- Tras subir, dar el enlace de la web e indicar que tarda 1–2 minutos en actualizarse.
+- **Cada vez que se haga un cambio**, terminar la respuesta con el enlace de GitHub Pages para verlo, con `?v=<hash corto del commit>` al final para evitar la caché (p. ej. `https://oscarnieto.github.io/residential_v2/?v=a1b2c3d`). Si el cambio es en otra página, enlazar esa página.
+- Antes de dar el enlace, esperar a que el despliegue termine: consultar `https://api.github.com/repos/oscarnieto/residential_v2/actions/runs?per_page=1` hasta que `head_sha` coincida con el commit subido y `status` sea `completed` (si `conclusion` no es `success`, avisar).
 
 ## Maquetación desde Figma
 
