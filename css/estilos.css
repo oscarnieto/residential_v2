@@ -405,6 +405,10 @@ em { font-style: italic; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  /* El fondo solo se pinta dentro de la caja: se amplía para que no se corten
+     las letras que bajan o suben (g, j…) y se compensa con margen negativo */
+  padding-block: 0.25em;
+  margin-block: -0.25em;
 }
 .pie__subir { display: block; width: 34px; margin: 40px auto auto; }
 .pie__subir img { width: 100%; }
