@@ -284,10 +284,22 @@
       <!-- Imagen del hero de cada sección; cambia al pasar el ratón por cada enlace -->
       <div class="menu__imagen" aria-hidden="true">
         <img class="menu__foto is-activa" data-foto="inicio" src="img/hero-poster.jpg" width="1280" height="720" alt="" loading="lazy" decoding="async">
-        <div class="menu__foto" data-foto="red"><span class="pendiente">PENDIENTE: imagen hero de Red Internacional</span></div>
-        <div class="menu__foto" data-foto="servicios"><span class="pendiente">PENDIENTE: imagen hero de Servicios</span></div>
-        <div class="menu__foto" data-foto="track"><span class="pendiente">PENDIENTE: imagen hero de Track Record</span></div>
-        <div class="menu__foto" data-foto="equipo"><span class="pendiente">PENDIENTE: imagen hero de Equipo</span></div>
+        <picture>
+          <source srcset="img/hero-red.avif" type="image/avif">
+          <img class="menu__foto" data-foto="red" src="img/hero-red.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-servicios.avif" type="image/avif">
+          <img class="menu__foto" data-foto="servicios" src="img/hero-servicios.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-track.avif" type="image/avif">
+          <img class="menu__foto" data-foto="track" src="img/hero-track.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-equipo.avif" type="image/avif">
+          <img class="menu__foto" data-foto="equipo" src="img/hero-equipo.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
         <div class="menu__foto" data-foto="contacto"><span class="pendiente">PENDIENTE: imagen hero de Contacto</span></div>
       </div>
     </div>
