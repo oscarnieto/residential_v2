@@ -15,6 +15,8 @@
 ## Animaciones y efectos de scroll
 
 - Añadir animaciones solo cuando se pidan, con el efecto de ScrollKit indicado. En `index.html` ya están aplicados: E01 (smooth scroll), E13 con `data-distance` negativo en la cabecera (baja desde arriba al cargar), E09/E12/E13/E14 (textos), E15 (cifras), E19 (vídeo de retos), E20 (imágenes de "Conocemos tu zona") y E24 (el pie se apila sobre la sección anterior).
+- En `red-internacional.html`: E19 sin fijar en la imagen de "Expertise 360" (se abre al hacer scroll), E31 en la línea vertical, E15 en las cifras, E18 (cortina) en la imagen de "Equipos especializados" y E24 con el pie. Si E19 o E18 llevan `<picture>`, darle `display: block` y tamaño completo: el kit escala el primer `<picture>` que encuentra.
+- Cabecera, menú y pie se repiten en cada página HTML: al cambiarlos, actualizar todas las páginas. `<body data-pagina="…">` indica qué imagen muestra el menú al abrirse.
 - Vídeo spot (sección de retos): la carga, reproducción, reinicio y sonido según visibilidad van en `js/main.js` con IntersectionObserver, no con E29 (dentro de una sección fijada E19, E29 calcula mal la entrada y salida). El botón de sonido es E30.
 - Efectos fuera del kit, pedidos expresamente: foco de luz que sigue al ratón en el lema del pie (`data-foco`, en `js/main.js`), entrada del menú de arriba abajo, desplegables del acordeón y cajas del mapa al pasar el ratón (CSS).
 

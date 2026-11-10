@@ -750,3 +750,170 @@ em { font-style: italic; }
   .menu__pie { grid-column: 2; grid-row: 2; align-self: end; }
   .menu__contacto-titulo { font-size: max(16px, calc(22 * var(--s))); }
 }
+
+/* =========================================================
+   Página Red internacional (red-internacional.html)
+   Medidas de Figma a 1440 px; en escritorio escalan con --s.
+   ========================================================= */
+
+/* Hero con imagen: el <picture> sale del grid para no desplazar el título */
+.hero > picture { position: absolute; inset: 0; display: block; }
+
+/* El título largo necesita ser algo más pequeño en móvil para caber */
+@media (max-width: 1023px) {
+  .hero__main--largo { font-size: clamp(24px, 6.6vw, 75px); }
+}
+
+/* ---------- Expertise 360 ---------- */
+.ri-expertise {
+  padding: 64px 0 80px;
+  color: var(--navy);
+  text-align: center;
+}
+.ri-expertise__ante { font: 600 16px/1 var(--sans); }
+
+.ri-expertise__grid {
+  --linea-arriba: 40px;
+  --linea-alto: 80px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "img img" "izq der";
+  gap: 32px 16px;
+  margin-top: 64px;
+  padding-inline: var(--pad);
+}
+/* Línea vertical que baja hasta la imagen y la atraviesa (E31) */
+.ri-expertise__linea {
+  position: absolute;
+  top: calc(-1 * var(--linea-arriba));
+  left: 50%;
+  z-index: 1;
+  width: 3px;
+  height: var(--linea-alto);
+  margin-left: -1.5px;
+  overflow: visible;
+}
+.ri-expertise__marco {
+  grid-area: img;
+  justify-self: center;
+  width: min(100%, 320px);
+  aspect-ratio: 486 / 648;
+}
+/* E19 escala el primer <picture>: necesita caja propia */
+.ri-expertise__marco picture,
+.ri-equipos__foto picture { display: block; width: 100%; height: 100%; }
+
+.ri-stat--izq { grid-area: izq; }
+.ri-stat--der { grid-area: der; }
+.ri-stat__num, .ri-stat__txt { display: block; }
+.ri-stat__num { font: 400 56px/1.218 var(--serif); }
+.ri-stat__txt {
+  max-width: 230px;
+  margin: 4px auto 0;
+  color: #000;
+  font: 300 15px/1.1 var(--sans);
+}
+
+.ri-expertise__titulo {
+  max-width: 863px;
+  margin: 48px auto 0;
+  padding-inline: var(--pad);
+  font: 400 clamp(28px, 4vw, 51px)/1.15 var(--serif);
+  letter-spacing: -0.04em;
+}
+.ri-expertise__titulo em { font-weight: 500; letter-spacing: -0.019em; }
+.ri-expertise__texto {
+  max-width: 582px;
+  margin: 32px auto 0;
+  padding-inline: var(--pad);
+  color: #000;
+  font: 300 16px/1.1 var(--sans);
+}
+
+/* ---------- Equipos especializados ---------- */
+.ri-equipos { position: relative; background: var(--navy); color: #fff; }
+/* Móvil y tablet: foto arriba fundida con el azul y el texto debajo */
+.ri-equipos__foto { position: relative; margin: 0; aspect-ratio: 4 / 3; }
+.ri-equipos__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ri-equipos__velo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--navy) 0%, rgba(37, 39, 58, 0) 60%);
+}
+.ri-equipos__texto {
+  position: relative;
+  margin-top: -32px;
+  padding: 0 var(--pad) 56px;
+}
+.ri-equipos__titulo {
+  color: var(--crema);
+  font: 400 30px/1.06 var(--serif);
+}
+.ri-equipos__parrafos {
+  margin-top: 20px;
+  font: 300 15px/1.1 var(--sans);
+}
+.ri-equipos__parrafos p + p { margin-top: 1.1em; }
+
+@media (min-width: 768px) {
+  .ri-expertise__marco { width: min(100%, 420px); }
+}
+
+@media (min-width: 1024px) {
+  .ri-expertise { padding: calc(88.6 * var(--s)) 0 calc(156 * var(--s)); }
+  .ri-expertise__ante { font-size: max(14px, calc(20 * var(--s))); }
+
+  /* [cifra] [imagen] [cifra]: la imagen centrada; la cifra derecha va 13 px
+     a la izquierda del centro de su columna, como en Figma */
+  .ri-expertise__grid {
+    --linea-arriba: calc(59.5 * var(--s));
+    --linea-alto: calc(116 * var(--s));
+    grid-template-columns: 1fr calc(486 * var(--s)) 1fr;
+    grid-template-areas: "izq img der";
+    gap: 0;
+    margin-top: calc(92.2 * var(--s));
+    padding-inline: var(--pad);
+  }
+  .ri-expertise__marco { width: 100%; }
+  .ri-stat { align-self: start; margin-top: calc(230.3 * var(--s)); }
+  .ri-stat--der { padding-right: calc(26 * var(--s)); }
+  .ri-stat__num { font-size: calc(85 * var(--s)); }
+  .ri-stat__txt {
+    max-width: calc(230 * var(--s));
+    margin-top: calc(6.5 * var(--s));
+    font-size: max(14px, calc(18 * var(--s)));
+  }
+
+  .ri-expertise__titulo {
+    max-width: calc(863 * var(--s));
+    margin-top: calc(31.5 * var(--s));
+    padding: 0;
+    font-size: calc(51 * var(--s));
+  }
+  .ri-expertise__texto {
+    max-width: calc(582 * var(--s));
+    margin-top: calc(45.5 * var(--s));
+    padding: 0;
+    font-size: max(12px, calc(14 * var(--s)));
+  }
+
+  /* Velo de Figma: elipse muy ancha (≈3500 × 1100 px) centrada abajo a la izquierda */
+  .ri-equipos__velo {
+    background: radial-gradient(ellipse 245% 135% at 22.7% 92%, var(--navy) 0%, rgba(37, 39, 58, 0) 100%);
+  }
+  .ri-equipos__foto { aspect-ratio: 1440 / 810; }
+  .ri-equipos__texto {
+    position: absolute;
+    left: calc(72 * var(--s));
+    margin: 0;
+    padding: 0;
+    bottom: calc(65 * var(--s));
+    max-width: calc(920 * var(--s));
+  }
+  .ri-equipos__titulo { font-size: calc(45 * var(--s)); }
+  .ri-equipos__parrafos {
+    margin-top: calc(26.6 * var(--s));
+    font-size: max(12px, calc(14 * var(--s)));
+  }
+}

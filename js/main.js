@@ -155,7 +155,7 @@
 
   function abrirMenu() {
     menuAbierto = true;
-    mostrarFoto('inicio');
+    mostrarFoto(document.body.getAttribute('data-pagina') || 'inicio'); // imagen de la página actual
     menu.inert = false;
     menu.classList.add('is-abierto');
     abrir.setAttribute('aria-expanded', 'true');
