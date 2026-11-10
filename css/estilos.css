@@ -801,8 +801,7 @@ em { font-style: italic; }
   aspect-ratio: 486 / 648;
 }
 /* E19 escala el primer <picture>: necesita caja propia */
-.ri-expertise__marco picture,
-.ri-equipos__foto picture { display: block; width: 100%; height: 100%; }
+.ri-expertise__marco picture { display: block; width: 100%; height: 100%; }
 
 .ri-stat--izq { grid-area: izq; }
 .ri-stat--der { grid-area: der; }
@@ -835,7 +834,6 @@ em { font-style: italic; }
 .ri-equipos { position: relative; background: var(--navy); color: #fff; }
 /* Móvil y tablet: foto arriba fundida con el azul y el texto debajo */
 .ri-equipos__foto { position: relative; margin: 0; aspect-ratio: 4 / 3; }
-.ri-equipos__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ri-equipos__velo {
   position: absolute;
   inset: 0;
@@ -941,9 +939,9 @@ em { font-style: italic; }
   padding-inline: var(--pad);
   text-align: left;
 }
-.ri-card { position: relative; aspect-ratio: 299 / 521.37; overflow: hidden; }
+.ri-card__caja { position: relative; aspect-ratio: 299 / 521.37; overflow: hidden; }
 .ri-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.ri-card::after {
+.ri-card__caja::after {
   content: "";
   position: absolute;
   inset: 0;

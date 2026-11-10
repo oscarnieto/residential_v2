@@ -83,10 +83,10 @@
       <p class="ri-expertise__texto" data-reveal="up">Trabajamos con equipos especializados en el sector residencial en todo el mundo para ampliar el alcance de cada proyecto y optimizar su comercialización.</p>
     </section>
 
-    <!-- EQUIPOS: la imagen aparece como una cortina de abajo arriba (E18)
-         y después el título por líneas (E09) y el texto (E13) -->
+    <!-- EQUIPOS: parallax de la imagen de fondo dentro de su marco (E16),
+         título por líneas (E09) y texto (E13) -->
     <section class="ri-equipos" id="equipos">
-      <figure class="ri-equipos__foto" data-reveal="clip">
+      <figure class="ri-equipos__foto" data-image-move="25">
         <picture>
           <source srcset="img/ri-equipos.avif" type="image/avif">
           <img src="img/ri-equipos.jpg" width="1920" height="1080" alt="Salón de una vivienda de obra nueva con sofá blanco y cuadro de colores" loading="lazy" decoding="async">
@@ -94,46 +94,55 @@
         <div class="ri-equipos__velo"></div>
       </figure>
       <div class="ri-equipos__texto">
-        <h2 class="ri-equipos__titulo" data-reveal="lines" data-delay="0.6"><em>Equipos especializados</em><br> en obra nueva en todo el mundo</h2>
-        <div class="ri-equipos__parrafos" data-reveal="up" data-delay="0.85">
+        <h2 class="ri-equipos__titulo" data-reveal="lines"><em>Equipos especializados</em><br> en obra nueva en todo el mundo</h2>
+        <div class="ri-equipos__parrafos" data-reveal="up" data-delay="0.2">
           <p>Como una de las principales consultoras internacionales especializadas en obra nueva, confiamos en nuestra capacidad para generar demanda y mantener un ritmo de ventas constante, así como lograr la comercialización completa de los proyectos dentro de los plazos previstos.</p>
           <p>Todo ello es posible gracias a nuestra presencia en mercados globales, que incluye una red de más de 480 oficinas en América, Reino Unido y Europa, Asia-Pacífico, África y Oriente Medio. De este modo, allí donde se encuentren los compradores adecuados, cada desarrollo puede llegar a ellos.</p>
         </div>
       </div>
     </section>
 
-    <!-- RED DE PROFESIONALES: título (E09), texto (E13), tarjetas escalonadas (E14) con contador (E15) -->
+    <!-- RED DE PROFESIONALES: título (E09), texto (E13), tarjetas que entran escalonadas (E13)
+         con parallax a distintas velocidades (E20) y contador (E15) -->
     <section class="ri-red" id="red">
       <h2 class="ri-red__titulo" data-reveal="lines">Una red internacional de profesionales especializados en el sector residencial, con <em>presencia consolidada en los principales mercados.</em></h2>
       <p class="ri-red__texto" data-reveal="up">Relaciones desarrolladas a lo largo de los años que permiten combinar conocimiento local y capacidad global en la comercialización de proyectos.</p>
-      <ul class="ri-red__cards" data-reveal="children" data-stagger="0.12">
-        <li class="ri-card">
-          <picture>
-            <source srcset="img/ri-card-28m.avif" type="image/avif">
-            <img src="img/ri-card-28m.jpg" width="600" height="568" alt="" loading="lazy" decoding="async">
-          </picture>
-          <p class="ri-card__dato"><span class="ri-card__num">+<span data-count="28">28</span>M</span><span class="ri-card__txt">visitas a nuestra búsqueda global de propiedades en 2022</span></p>
+      <ul class="ri-red__cards">
+        <li class="ri-card" data-parallax="0.08" data-mobile="off">
+          <div class="ri-card__caja" data-reveal="up">
+            <picture>
+              <source srcset="img/ri-card-28m.avif" type="image/avif">
+              <img src="img/ri-card-28m.jpg" width="600" height="568" alt="" loading="lazy" decoding="async">
+            </picture>
+            <p class="ri-card__dato"><span class="ri-card__num">+<span data-count="28">28</span>M</span><span class="ri-card__txt">visitas a nuestra búsqueda global de propiedades en 2022</span></p>
+          </div>
         </li>
-        <li class="ri-card">
-          <picture>
-            <source srcset="img/ri-card-22.avif" type="image/avif">
-            <img src="img/ri-card-22.jpg" width="800" height="1200" alt="" loading="lazy" decoding="async">
-          </picture>
-          <p class="ri-card__dato"><span class="ri-card__num"><span data-count="22">22</span></span><span class="ri-card__txt">Nuestra web está disponible en 22 idiomas</span></p>
+        <li class="ri-card" data-parallax="-0.06" data-mobile="off">
+          <div class="ri-card__caja" data-reveal="up" data-delay="0.12">
+            <picture>
+              <source srcset="img/ri-card-22.avif" type="image/avif">
+              <img src="img/ri-card-22.jpg" width="800" height="1200" alt="" loading="lazy" decoding="async">
+            </picture>
+            <p class="ri-card__dato"><span class="ri-card__num"><span data-count="22">22</span></span><span class="ri-card__txt">Nuestra web está disponible en 22 idiomas</span></p>
+          </div>
         </li>
-        <li class="ri-card">
-          <picture>
-            <source srcset="img/ri-card-10m.avif" type="image/avif">
-            <img src="img/ri-card-10m.jpg" width="800" height="1220" alt="" loading="lazy" decoding="async">
-          </picture>
-          <p class="ri-card__dato"><span class="ri-card__num">+<span data-count="10">10</span>M</span><span class="ri-card__txt">visitas a la web desde fuera del Reino Unido</span></p>
+        <li class="ri-card" data-parallax="0.14" data-mobile="off">
+          <div class="ri-card__caja" data-reveal="up" data-delay="0.24">
+            <picture>
+              <source srcset="img/ri-card-10m.avif" type="image/avif">
+              <img src="img/ri-card-10m.jpg" width="800" height="1220" alt="" loading="lazy" decoding="async">
+            </picture>
+            <p class="ri-card__dato"><span class="ri-card__num">+<span data-count="10">10</span>M</span><span class="ri-card__txt">visitas a la web desde fuera del Reino Unido</span></p>
+          </div>
         </li>
-        <li class="ri-card">
-          <picture>
-            <source srcset="img/ri-card-244.avif" type="image/avif">
-            <img src="img/ri-card-244.jpg" width="800" height="1198" alt="" loading="lazy" decoding="async">
-          </picture>
-          <p class="ri-card__dato"><span class="ri-card__num"><span data-count="244">244</span></span><span class="ri-card__txt">visitas a la web desde 244 países</span></p>
+        <li class="ri-card" data-parallax="-0.02" data-mobile="off">
+          <div class="ri-card__caja" data-reveal="up" data-delay="0.36">
+            <picture>
+              <source srcset="img/ri-card-244.avif" type="image/avif">
+              <img src="img/ri-card-244.jpg" width="800" height="1198" alt="" loading="lazy" decoding="async">
+            </picture>
+            <p class="ri-card__dato"><span class="ri-card__num"><span data-count="244">244</span></span><span class="ri-card__txt">visitas a la web desde 244 países</span></p>
+          </div>
         </li>
       </ul>
     </section>
@@ -149,7 +158,7 @@
           <div class="ri-proyecto__media">
             <picture>
               <source srcset="img/ri-proyecto-dono.avif" type="image/avif">
-              <img src="img/ri-proyecto-dono.jpg" width="870" height="1024" alt="Vista exterior de la promoción Dono en Roma" loading="lazy" decoding="async">
+              <img src="img/ri-proyecto-dono.jpg" width="2560" height="3010" alt="Vista exterior de la promoción Dono en Roma" loading="lazy" decoding="async">
             </picture>
           </div>
           <div class="ri-proyecto__info">
@@ -162,7 +171,7 @@
           <div class="ri-proyecto__media">
             <picture>
               <source srcset="img/ri-proyecto-miramar.avif" type="image/avif">
-              <img src="img/ri-proyecto-miramar.jpg" width="1024" height="768" alt="Torre residencial Miramar Tower en Oporto" loading="lazy" decoding="async">
+              <img src="img/ri-proyecto-miramar.jpg" width="1280" height="960" alt="Torre residencial Miramar Tower en Oporto" loading="lazy" decoding="async">
             </picture>
           </div>
           <div class="ri-proyecto__info">
@@ -175,7 +184,7 @@
           <div class="ri-proyecto__media">
             <picture>
               <source srcset="img/ri-proyecto-sixsenses.avif" type="image/avif">
-              <img src="img/ri-proyecto-sixsenses.jpg" width="1024" height="512" alt="Viviendas Six Sense Residences en Comporta" loading="lazy" decoding="async">
+              <img src="img/ri-proyecto-sixsenses.jpg" width="2880" height="1440" alt="Viviendas Six Sense Residences en Comporta" loading="lazy" decoding="async">
             </picture>
           </div>
           <div class="ri-proyecto__info">
