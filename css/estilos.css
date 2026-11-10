@@ -917,3 +917,152 @@ em { font-style: italic; }
     font-size: max(12px, calc(14 * var(--s)));
   }
 }
+
+/* ---------- Red de profesionales (sección 3) ---------- */
+.ri-red { padding: 64px 0 80px; color: #2d2e45; text-align: center; }
+.ri-red__titulo {
+  max-width: 840px;
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  font: 400 clamp(28px, 4vw, 45px)/1.06 var(--serif);
+}
+.ri-red__texto {
+  max-width: 766px;
+  margin: 28px auto 0;
+  padding-inline: var(--pad);
+  color: #000;
+  font: 300 16px/1.1 var(--sans);
+}
+.ri-red__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 40px;
+  padding-inline: var(--pad);
+  text-align: left;
+}
+.ri-card { position: relative; aspect-ratio: 299 / 521.37; overflow: hidden; }
+.ri-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ri-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(45, 46, 69, 0) 46.9%, rgba(45, 46, 69, 0.75) 76.1%);
+}
+.ri-card__dato { position: absolute; left: 8px; right: 8px; bottom: 14px; z-index: 1; color: #fff; }
+.ri-card__num, .ri-card__txt { display: block; }
+.ri-card__num { font: 400 40px/1.218 var(--serif); }
+.ri-card__txt { font: 300 13px/1.1 var(--sans); }
+
+/* ---------- Proyectos (sección 4) ----------
+   Sin JS (o con «reducir movimiento») las diapositivas se apilan sin más.
+   Con JS (.is-animado) la escena queda fija y cada imagen se descubre de
+   abajo arriba con el scroll (js/main.js). */
+.ri-proyectos { position: relative; background: var(--navy); color: #fff; }
+.ri-proyectos__escena { position: relative; }
+.ri-proyecto { position: relative; height: 100vh; min-height: 480px; overflow: hidden; }
+.ri-proyecto__media { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+.ri-proyecto__media picture { display: block; width: 100%; height: 100%; }
+.ri-proyecto__media img { width: 100%; height: 100%; object-fit: cover; }
+.ri-proyecto--dono .ri-proyecto__media img { object-position: 50% 100%; }
+
+.ri-proyecto__info {
+  --nombre: 13.47vw;
+  position: absolute;
+  left: var(--pad);
+  right: var(--pad);
+  bottom: 16px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 16px;
+}
+.ri-proyecto--miramar .ri-proyecto__info { --nombre: 7.22vw; }
+.ri-proyecto--sixsenses .ri-proyecto__info { --nombre: 6.46vw; }
+.ri-proyecto__nombre {
+  flex-basis: 100%;
+  overflow: hidden;
+  font: 400 var(--nombre)/1.06 var(--serif);
+  white-space: nowrap;
+}
+.ri-proyecto__nombre span { display: inline-block; }
+.ri-proyecto__lugar { font: 500 14px/1.6 var(--sans); white-space: nowrap; }
+.ri-proyecto__linea { flex: 1; height: 2px; background: #fff; transform-origin: left center; }
+
+.ri-proyectos__titulo {
+  position: absolute;
+  top: 72px;
+  left: var(--pad);
+  z-index: 3;
+  font: 400 28px/0.96 var(--serif);
+}
+
+/* Con la animación activa */
+.ri-proyectos.is-animado { height: calc(var(--diapositivas, 3) * 100vh); }
+.ri-proyectos.is-animado .ri-proyectos__escena {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: clip;
+}
+.ri-proyectos.is-animado .ri-proyecto { position: absolute; inset: 0; height: auto; min-height: 0; overflow: visible; }
+.ri-proyectos.is-animado .ri-proyecto__nombre span {
+  transform: translateY(105%);
+  transition: transform 0.6s cubic-bezier(0.7, 0, 0.84, 0);
+}
+.ri-proyectos.is-animado .ri-proyecto__lugar { opacity: 0; transition: opacity 0.4s ease; }
+.ri-proyectos.is-animado .ri-proyecto__linea {
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.84, 0);
+}
+.ri-proyectos.is-animado .ri-proyecto.is-activa .ri-proyecto__nombre span {
+  transform: none;
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+.ri-proyectos.is-animado .ri-proyecto.is-activa .ri-proyecto__lugar { opacity: 1; transition: opacity 0.8s ease 0.45s; }
+.ri-proyectos.is-animado .ri-proyecto.is-activa .ri-proyecto__linea {
+  transform: none;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+}
+
+@media (min-width: 1024px) {
+  .ri-red { padding: calc(118.9 * var(--s)) 0 calc(114.8 * var(--s)); }
+  .ri-red__titulo { max-width: calc(840 * var(--s)); padding: 0; font-size: calc(45 * var(--s)); }
+  .ri-red__texto {
+    max-width: calc(766 * var(--s));
+    margin-top: calc(47 * var(--s));
+    padding: 0;
+    font-size: max(12px, calc(14 * var(--s)));
+  }
+  .ri-red__cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(24 * var(--s));
+    margin-top: calc(88 * var(--s));
+    padding-inline: var(--pad);
+  }
+  .ri-card__dato { left: calc(10 * var(--s)); right: calc(10 * var(--s)); bottom: calc(19.7 * var(--s)); }
+  .ri-card__num { font-size: calc(85 * var(--s)); }
+  .ri-card__txt { font-size: max(14px, calc(18 * var(--s))); }
+
+  /* Fila del nombre: nombre + lugar + línea hasta el margen derecho */
+  .ri-proyecto__info {
+    --nombre: calc(194 * var(--s));
+    left: calc(78 * var(--s));
+    right: var(--pad);
+    bottom: 0;
+    flex-wrap: nowrap;
+    column-gap: calc(28 * var(--s));
+  }
+  .ri-proyecto--miramar .ri-proyecto__info { --nombre: calc(104 * var(--s)); }
+  .ri-proyecto--sixsenses .ri-proyecto__info { --nombre: calc(93 * var(--s)); }
+  .ri-proyecto__nombre { flex-basis: auto; }
+  /* En Figma el lugar y la línea quedan algo por debajo del centro del nombre */
+  .ri-proyecto__lugar, .ri-proyecto__linea { position: relative; top: calc(var(--nombre) * 0.085); }
+  .ri-proyecto__lugar { font-size: max(12px, calc(14 * var(--s))); }
+  .ri-proyectos__titulo {
+    top: calc(40 * var(--s));
+    left: calc(78 * var(--s));
+    font-size: calc(45 * var(--s));
+  }
+}

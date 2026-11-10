@@ -82,10 +82,7 @@
       <h2 class="ri-expertise__titulo" data-reveal="lines">Conectamos cada proyecto con compradores en distintos mercados a través de la <em>red global de Savills</em></h2>
       <p class="ri-expertise__texto" data-reveal="up">Trabajamos con equipos especializados en el sector residencial en todo el mundo para ampliar el alcance de cada proyecto y optimizar su comercialización.</p>
     </section>
-  </main>
 
-  <!-- Capas que se apilan (E24): el pie sube por encima de la sección anterior -->
-  <div class="pila" data-stack data-shade="0.5">
     <!-- EQUIPOS: la imagen aparece como una cortina de abajo arriba (E18)
          y después el título por líneas (E09) y el texto (E13) -->
     <section class="ri-equipos" id="equipos">
@@ -102,6 +99,92 @@
           <p>Como una de las principales consultoras internacionales especializadas en obra nueva, confiamos en nuestra capacidad para generar demanda y mantener un ritmo de ventas constante, así como lograr la comercialización completa de los proyectos dentro de los plazos previstos.</p>
           <p>Todo ello es posible gracias a nuestra presencia en mercados globales, que incluye una red de más de 480 oficinas en América, Reino Unido y Europa, Asia-Pacífico, África y Oriente Medio. De este modo, allí donde se encuentren los compradores adecuados, cada desarrollo puede llegar a ellos.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- RED DE PROFESIONALES: título (E09), texto (E13), tarjetas escalonadas (E14) con contador (E15) -->
+    <section class="ri-red" id="red">
+      <h2 class="ri-red__titulo" data-reveal="lines">Una red internacional de profesionales especializados en el sector residencial, con <em>presencia consolidada en los principales mercados.</em></h2>
+      <p class="ri-red__texto" data-reveal="up">Relaciones desarrolladas a lo largo de los años que permiten combinar conocimiento local y capacidad global en la comercialización de proyectos.</p>
+      <ul class="ri-red__cards" data-reveal="children" data-stagger="0.12">
+        <li class="ri-card">
+          <picture>
+            <source srcset="img/ri-card-28m.avif" type="image/avif">
+            <img src="img/ri-card-28m.jpg" width="600" height="568" alt="" loading="lazy" decoding="async">
+          </picture>
+          <p class="ri-card__dato"><span class="ri-card__num">+<span data-count="28">28</span>M</span><span class="ri-card__txt">visitas a nuestra búsqueda global de propiedades en 2022</span></p>
+        </li>
+        <li class="ri-card">
+          <picture>
+            <source srcset="img/ri-card-22.avif" type="image/avif">
+            <img src="img/ri-card-22.jpg" width="800" height="1200" alt="" loading="lazy" decoding="async">
+          </picture>
+          <p class="ri-card__dato"><span class="ri-card__num"><span data-count="22">22</span></span><span class="ri-card__txt">Nuestra web está disponible en 22 idiomas</span></p>
+        </li>
+        <li class="ri-card">
+          <picture>
+            <source srcset="img/ri-card-10m.avif" type="image/avif">
+            <img src="img/ri-card-10m.jpg" width="800" height="1220" alt="" loading="lazy" decoding="async">
+          </picture>
+          <p class="ri-card__dato"><span class="ri-card__num">+<span data-count="10">10</span>M</span><span class="ri-card__txt">visitas a la web desde fuera del Reino Unido</span></p>
+        </li>
+        <li class="ri-card">
+          <picture>
+            <source srcset="img/ri-card-244.avif" type="image/avif">
+            <img src="img/ri-card-244.jpg" width="800" height="1198" alt="" loading="lazy" decoding="async">
+          </picture>
+          <p class="ri-card__dato"><span class="ri-card__num"><span data-count="244">244</span></span><span class="ri-card__txt">visitas a la web desde 244 países</span></p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Capas que se apilan (E24): el pie sube por encima de los proyectos -->
+  <div class="pila" data-stack data-shade="0.5">
+    <!-- PROYECTOS: escena fija; cada imagen se descubre de abajo arriba al hacer
+         scroll (efecto tipo Floema, en js/main.js) -->
+    <section class="ri-proyectos" id="proyectos" data-proyectos>
+      <div class="ri-proyectos__escena">
+        <article class="ri-proyecto ri-proyecto--dono">
+          <div class="ri-proyecto__media">
+            <picture>
+              <source srcset="img/ri-proyecto-dono.avif" type="image/avif">
+              <img src="img/ri-proyecto-dono.jpg" width="870" height="1024" alt="Vista exterior de la promoción Dono en Roma" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="ri-proyecto__info">
+            <h3 class="ri-proyecto__nombre"><span>DONO</span></h3>
+            <p class="ri-proyecto__lugar">Roma, Italia</p>
+            <span class="ri-proyecto__linea" aria-hidden="true"></span>
+          </div>
+        </article>
+        <article class="ri-proyecto ri-proyecto--miramar">
+          <div class="ri-proyecto__media">
+            <picture>
+              <source srcset="img/ri-proyecto-miramar.avif" type="image/avif">
+              <img src="img/ri-proyecto-miramar.jpg" width="1024" height="768" alt="Torre residencial Miramar Tower en Oporto" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="ri-proyecto__info">
+            <h3 class="ri-proyecto__nombre"><span>MIRAMAR TOWER</span></h3>
+            <p class="ri-proyecto__lugar">Oporto, Portugal</p>
+            <span class="ri-proyecto__linea" aria-hidden="true"></span>
+          </div>
+        </article>
+        <article class="ri-proyecto ri-proyecto--sixsenses">
+          <div class="ri-proyecto__media">
+            <picture>
+              <source srcset="img/ri-proyecto-sixsenses.avif" type="image/avif">
+              <img src="img/ri-proyecto-sixsenses.jpg" width="1024" height="512" alt="Viviendas Six Sense Residences en Comporta" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="ri-proyecto__info">
+            <h3 class="ri-proyecto__nombre"><span>SIX SENSE RESIDENCES</span></h3>
+            <p class="ri-proyecto__lugar">Comporta, Portugal</p>
+            <span class="ri-proyecto__linea" aria-hidden="true"></span>
+          </div>
+        </article>
+        <h2 class="ri-proyectos__titulo" data-reveal="lines">Algunos de<br> nuestros proyectos<br> <em>a nivel global</em></h2>
       </div>
     </section>
 

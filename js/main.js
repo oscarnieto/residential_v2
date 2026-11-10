@@ -121,6 +121,59 @@
     if (!e.target.closest('.pin')) cerrarCajas();
   });
 
+  /* ---------- Proyectos (Red internacional): efecto tipo Floema ----------
+     La escena queda fija (position: sticky) y, al hacer scroll, cada imagen se
+     descubre de abajo arriba (clip-path) mientras la anterior sube un poco y
+     se acerca. El nombre de cada proyecto cambia a mitad de la transición.
+     ScrollKit no tiene este efecto; se monta con GSAP + ScrollTrigger del kit. */
+  var proyectos = document.querySelector('[data-proyectos]');
+  var menosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (proyectos && window.gsap && window.ScrollTrigger && !menosMovimiento) {
+    var iniciarProyectos = function () {
+      var gsap = window.gsap;
+      gsap.registerPlugin(window.ScrollTrigger);
+      var diapositivas = Array.prototype.slice.call(proyectos.querySelectorAll('.ri-proyecto'));
+      var n = diapositivas.length;
+      if (n < 2) return;
+      proyectos.style.setProperty('--diapositivas', n);
+      proyectos.classList.add('is-animado');
+
+      var activa = -1;
+      var activar = function (i) {
+        if (i === activa) return;
+        activa = i;
+        diapositivas.forEach(function (d, k) { d.classList.toggle('is-activa', k === i); });
+      };
+      activar(0);
+
+      var tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: proyectos,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) { activar(Math.round(self.progress * (n - 1))); }
+        }
+      });
+      diapositivas.forEach(function (d, i) {
+        if (i === 0) return;
+        var media = d.querySelector('.ri-proyecto__media');
+        var img = media.querySelector('img');
+        var anterior = diapositivas[i - 1].querySelector('.ri-proyecto__media img');
+        tl.fromTo(media, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1 }, i - 1)
+          .fromTo(img, { yPercent: 12, scale: 1.08 }, { yPercent: 0, scale: 1, duration: 1 }, i - 1)
+          .to(anterior, { yPercent: -8, scale: 1.04, duration: 1 }, i - 1);
+      });
+      window.ScrollTrigger.refresh();
+    };
+    // Después de que arranque ScrollKit (espera a las fuentes, igual que el kit)
+    document.addEventListener('DOMContentLoaded', function () {
+      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(iniciarProyectos);
+    });
+  }
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {
