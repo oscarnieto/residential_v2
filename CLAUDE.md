@@ -22,6 +22,8 @@
 - Efectos fuera del kit, pedidos expresamente: foco de luz que sigue al ratón en el lema del pie (`data-foco`, en `js/main.js`), entrada del menú de arriba abajo, desplegables del acordeón y cajas del mapa al pasar el ratón (CSS).
 
 - En `data-expand` (E19) escribir los porcentajes sin ceros finales (`16.9%`, no `16.90%`): GSAP los interpola mal.
+- Las máscaras de E09/E10 se amplían por abajo en `estilos.css` (`[data-reveal="lines"] > div`) para no cortar g, p, y. No quitar esa regla.
+- Con E16, el marco necesita alto explícito (no `aspect-ratio`): Safari no resuelve la altura en % de la imagen y aparece una franja del fondo.
 - Elementos al final de la página (p. ej. la marca del pie) necesitan `data-start="top bottom"`: nunca llegan al 85 % de la pantalla y no se animarían.
 
 - Usar exclusivamente ScrollKit (skill `scrollkit`). Archivos del kit: `scroll-kit/css/scroll-kit.css` y `scroll-kit/js/scroll-kit.js`.

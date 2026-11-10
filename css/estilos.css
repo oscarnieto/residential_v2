@@ -50,6 +50,16 @@ em { font-style: italic; }
   padding-inline: var(--pad);
 }
 
+/* Animaciones de texto por líneas o letras (E09/E10): SplitText envuelve cada
+   línea o palabra en una máscara del alto de la línea, que corta los trazos que
+   bajan (g, p, y, j) cuando el interlineado es ajustado. Se amplía la máscara por
+   abajo y se compensa con margen negativo para no mover el texto. */
+[data-reveal="lines"] > div,
+[data-reveal="chars"] > div {
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+}
+
 /* Marcador de contenido pendiente (se quitará al recibirlo) */
 .pendiente {
   position: absolute;
@@ -832,8 +842,10 @@ em { font-style: italic; }
 
 /* ---------- Equipos especializados ---------- */
 .ri-equipos { position: relative; background: var(--navy); color: #fff; }
-/* Móvil y tablet: foto arriba fundida con el azul y el texto debajo */
-.ri-equipos__foto { position: relative; margin: 0; aspect-ratio: 4 / 3; }
+/* Móvil y tablet: foto arriba fundida con el azul y el texto debajo.
+   Alto explícito (no aspect-ratio): el parallax (E16) da a la imagen un alto
+   en %, que Safari no resuelve sobre un alto calculado con aspect-ratio. */
+.ri-equipos__foto { position: relative; margin: 0; height: 75vw; }
 .ri-equipos__velo {
   position: absolute;
   inset: 0;
@@ -880,7 +892,7 @@ em { font-style: italic; }
   .ri-stat__txt {
     max-width: calc(230 * var(--s));
     margin-top: calc(6.5 * var(--s));
-    font-size: max(14px, calc(18 * var(--s)));
+    font-size: max(12px, calc(14 * var(--s)));
   }
 
   .ri-expertise__titulo {
@@ -900,7 +912,7 @@ em { font-style: italic; }
   .ri-equipos__velo {
     background: radial-gradient(ellipse 245% 135% at 22.7% 92%, var(--navy) 0%, rgba(37, 39, 58, 0) 100%);
   }
-  .ri-equipos__foto { aspect-ratio: 1440 / 810; }
+  .ri-equipos__foto { height: calc(810 * var(--s)); }
   .ri-equipos__texto {
     position: absolute;
     left: calc(72 * var(--s));
@@ -1041,7 +1053,7 @@ em { font-style: italic; }
   }
   .ri-card__dato { left: calc(10 * var(--s)); right: calc(10 * var(--s)); bottom: calc(19.7 * var(--s)); }
   .ri-card__num { font-size: calc(85 * var(--s)); }
-  .ri-card__txt { font-size: max(14px, calc(18 * var(--s))); }
+  .ri-card__txt { font-size: max(12px, calc(14 * var(--s))); }
 
   /* Fila del nombre: nombre + lugar + línea hasta el margen derecho */
   .ri-proyecto__info {
