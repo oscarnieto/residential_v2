@@ -805,13 +805,17 @@ em { font-style: italic; }
   overflow: visible;
 }
 .ri-expertise__marco {
+  /* Ancho y alto explícitos (no aspect-ratio): lo necesita el parallax E16 */
+  --marco-w: min(calc(100vw - 2 * var(--pad)), 320px);
   grid-area: img;
   justify-self: center;
-  width: min(100%, 320px);
-  aspect-ratio: 486 / 648;
+  width: var(--marco-w);
+  height: calc(var(--marco-w) * 648 / 486);
 }
-/* E19 escala el primer <picture>: necesita caja propia */
-.ri-expertise__marco picture { display: block; width: 100%; height: 100%; }
+/* E19 escala el primer <picture>: necesita caja propia. La altura la pone
+   E16 (100 % + recorrido del parallax), por eso aquí no se fija */
+.ri-expertise__marco picture { display: block; width: 100%; }
+.ri-expertise__marco picture img { height: 100%; }
 
 .ri-stat--izq { grid-area: izq; }
 .ri-stat--der { grid-area: der; }
@@ -867,7 +871,7 @@ em { font-style: italic; }
 .ri-equipos__parrafos p + p { margin-top: 1.1em; }
 
 @media (min-width: 768px) {
-  .ri-expertise__marco { width: min(100%, 420px); }
+  .ri-expertise__marco { --marco-w: 420px; }
 }
 
 @media (min-width: 1024px) {
@@ -885,7 +889,7 @@ em { font-style: italic; }
     margin-top: calc(92.2 * var(--s));
     padding-inline: var(--pad);
   }
-  .ri-expertise__marco { width: 100%; }
+  .ri-expertise__marco { --marco-w: calc(486 * var(--s)); }
   .ri-stat { align-self: start; margin-top: calc(230.3 * var(--s)); }
   .ri-stat--der { padding-right: calc(26 * var(--s)); }
   .ri-stat__num { font-size: calc(85 * var(--s)); }

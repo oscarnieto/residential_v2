@@ -39,8 +39,8 @@
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero" id="inicio">
+    <!-- HERO: parallax de la imagen de fondo (E16) -->
+    <section class="hero" id="inicio" data-image-move="25">
       <picture>
         <source srcset="img/hero-red.avif" type="image/avif">
         <img class="hero__video" src="img/hero-red.jpg" width="1440" height="1080" alt="" fetchpriority="high">
@@ -54,7 +54,7 @@
       </a>
     </section>
 
-    <!-- EXPERTISE 360: la imagen se abre (E19 sin fijar), la línea se dibuja (E31),
+    <!-- EXPERTISE 360: la imagen se abre (E19 sin fijar) con parallax (E16), la línea se dibuja (E31),
          cifras con contador (E15) y textos (E09 / E13) -->
     <section class="ri-expertise" id="expertise">
       <p class="ri-expertise__ante" data-reveal="up">EXPERTISE 360 EN REAL ESTATE</p>
@@ -63,7 +63,7 @@
         <svg class="ri-expertise__linea" viewBox="0 0 3 116" preserveAspectRatio="none" aria-hidden="true" data-draw>
           <line x1="1.5" y1="0" x2="1.5" y2="116" stroke="#25273A" stroke-width="3" fill="none"/>
         </svg>
-        <div class="ri-expertise__marco" data-expand="22% 22%">
+        <div class="ri-expertise__marco" data-expand="22% 22%" data-image-move="20">
           <picture>
             <source srcset="img/ri-expertise.avif" type="image/avif">
             <img src="img/ri-expertise.jpg" width="852" height="1136" alt="Salón amplio y luminoso con techo abuhardillado" loading="lazy" decoding="async">
