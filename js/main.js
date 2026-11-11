@@ -217,6 +217,38 @@
     });
   }
 
+  /* ---------- Titular línea a línea de izquierda a derecha ----------
+     [data-lineas-izq]: cada línea, dentro de su máscara, entra deslizándose
+     desde la izquierda, una detrás de otra, al llegar al titular. ScrollKit
+     solo tiene la entrada de abajo arriba (E09); esto usa SplitText del kit. */
+  var titularesIzq = document.querySelectorAll('[data-lineas-izq]');
+  if (titularesIzq.length) {
+    document.addEventListener('DOMContentLoaded', function () {
+      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
+        var gsap = window.gsap;
+        titularesIzq.forEach(function (el) {
+          if (!gsap || !window.SplitText || !window.ScrollTrigger || menosMovimiento) {
+            el.style.visibility = 'visible';
+            return;
+          }
+          gsap.registerPlugin(window.ScrollTrigger, window.SplitText);
+          gsap.set(el, { autoAlpha: 1 });
+          window.SplitText.create(el, {
+            type: 'lines',
+            mask: 'lines',
+            autoSplit: true,
+            onSplit: function (self) {
+              return gsap.from(self.lines, {
+                xPercent: -105, duration: 1.3, ease: 'expo.out', stagger: 0.14,
+                scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+              });
+            }
+          });
+        });
+      });
+    });
+  }
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {
