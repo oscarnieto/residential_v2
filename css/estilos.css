@@ -1098,3 +1098,95 @@ em { font-style: italic; }
   .ri-card__num { font-size: 48px; }
   .ri-card__txt { font-size: 14px; }
 }
+
+/* ---------- Proyectos: enlace y botón «Ver propiedad» ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ri-proyecto--flow25 .ri-proyecto__info { --nombre: 13.89vw; }
+
+/* Enlace de cada proyecto: oculto a la vista (lo usa el teclado y los lectores
+   de pantalla); aparece al recibir el foco */
+.ri-proyecto__enlace {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  padding: 8px 14px;
+  border: 1px solid #fff;
+  color: #fff;
+  font: 500 14px/1.6 var(--sans);
+  opacity: 0;
+  pointer-events: none;
+}
+.ri-proyecto__enlace:focus-visible { opacity: 1; pointer-events: auto; }
+
+/* Botón que sigue al ratón: cuadrado con la imagen del proyecto y el texto.
+   js/main.js lo mueve (x, y) y le pone .is-visible */
+.ri-ver {
+  --ver-w: 110px;
+  --ver-h: 104px;
+  position: absolute;
+  bottom: 140px; /* en táctil, fijo encima del nombre del proyecto */
+  right: var(--pad);
+  z-index: 4;
+  display: block;
+  width: var(--ver-w);
+  height: var(--ver-h);
+  color: #fff;
+}
+.ri-ver__caja {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  padding-right: 12px;
+  overflow: hidden;
+}
+.ri-ver picture { display: contents; }
+.ri-ver__foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.ri-ver__foto.is-activa { opacity: 1; }
+.ri-ver__txt { position: relative; font: 500 13px/1.6 var(--sans); white-space: nowrap; }
+
+/* Con ratón: el botón aparece (escala y fundido) al entrar en la imagen y la sigue */
+@media (hover: hover) and (pointer: fine) {
+  .ri-proyectos.is-animado .ri-ver { top: 0; left: 0; right: auto; bottom: auto; pointer-events: none; }
+  .ri-proyectos.is-animado .ri-ver.is-visible { pointer-events: auto; }
+  .ri-proyectos.is-animado .ri-ver__caja {
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ri-proyectos.is-animado .ri-ver.is-visible .ri-ver__caja { opacity: 1; transform: none; }
+  .ri-proyectos.is-animado .ri-proyecto__media { cursor: pointer; }
+}
+/* Sin la escena animada, el botón no se usa: cada proyecto tiene su enlace */
+.ri-proyectos:not(.is-animado) .ri-ver { display: none; }
+.ri-proyectos:not(.is-animado) .ri-proyecto__enlace { position: static; opacity: 1; pointer-events: auto; }
+
+@media (min-width: 1024px) {
+  .ri-proyecto--flow25 .ri-proyecto__info { --nombre: calc(200 * var(--s)); }
+  .ri-ver {
+    --ver-w: calc(126.7 * var(--s));
+    --ver-h: calc(119.6 * var(--s));
+    top: calc(142 * var(--s));
+    bottom: auto;
+    right: calc(182.6 * var(--s));
+  }
+  .ri-ver__caja { padding-right: calc(14.9 * var(--s)); }
+  .ri-ver__txt { font-size: max(12px, calc(14 * var(--s))); }
+}

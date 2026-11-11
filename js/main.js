@@ -138,13 +138,56 @@
       proyectos.style.setProperty('--diapositivas', n);
       proyectos.classList.add('is-animado');
 
+      /* Botón «Ver propiedad»: muestra la imagen y el enlace del proyecto que
+         hay bajo el ratón (o del proyecto activo si no hay ratón) y lo sigue */
+      var ver = proyectos.querySelector('.ri-ver');
+      var verFotos = ver ? ver.querySelectorAll('.ri-ver__foto') : [];
+      var mostrarProyecto = function (diapositiva) {
+        if (!ver || !diapositiva) return;
+        var clave = diapositiva.getAttribute('data-proyecto');
+        ver.href = diapositiva.getAttribute('data-url');
+        verFotos.forEach(function (f) { f.classList.toggle('is-activa', f.getAttribute('data-proyecto') === clave); });
+      };
+
       var activa = -1;
+      var conRaton = false;
       var activar = function (i) {
         if (i === activa) return;
         activa = i;
         diapositivas.forEach(function (d, k) { d.classList.toggle('is-activa', k === i); });
+        if (!conRaton) mostrarProyecto(diapositivas[i]);
       };
       activar(0);
+
+      if (ver && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        var escena = proyectos.querySelector('.ri-proyectos__escena');
+        var moverX = gsap.quickTo(ver, 'x', { duration: 0.6, ease: 'power3.out' });
+        var moverY = gsap.quickTo(ver, 'y', { duration: 0.6, ease: 'power3.out' });
+        var colocado = false;
+        escena.addEventListener('mousemove', function (e) {
+          var r = escena.getBoundingClientRect();
+          var x = e.clientX - r.left - ver.offsetWidth / 2;
+          var y = e.clientY - r.top - ver.offsetHeight / 2;
+          if (!colocado) { gsap.set(ver, { x: x, y: y }); colocado = true; }
+          moverX(x); moverY(y);
+          conRaton = true;
+          ver.classList.add('is-visible');
+          // Proyecto cuya imagen está bajo el ratón (ignorando el propio botón;
+          // el clip-path hace que solo cuente la parte visible de cada imagen)
+          var bajo = null;
+          document.elementsFromPoint(e.clientX, e.clientY).some(function (el) {
+            if (ver.contains(el)) return false;
+            bajo = el.closest('.ri-proyecto');
+            return !!bajo;
+          });
+          mostrarProyecto(bajo || diapositivas[activa]);
+        });
+        escena.addEventListener('mouseleave', function () {
+          conRaton = false;
+          colocado = false;
+          ver.classList.remove('is-visible');
+        });
+      }
 
       var tl = gsap.timeline({
         defaults: { ease: 'none' },

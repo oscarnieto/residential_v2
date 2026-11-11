@@ -154,7 +154,7 @@
          scroll (efecto tipo Floema, en js/main.js) -->
     <section class="ri-proyectos" id="proyectos" data-proyectos>
       <div class="ri-proyectos__escena">
-        <article class="ri-proyecto ri-proyecto--dono">
+        <article class="ri-proyecto ri-proyecto--dono" data-proyecto="dono" data-url="https://search.savills.com/property-detail/gbsroeroe240182">
           <div class="ri-proyecto__media">
             <picture>
               <source srcset="img/ri-proyecto-dono.avif" type="image/avif">
@@ -165,9 +165,10 @@
             <h3 class="ri-proyecto__nombre"><span>DONO</span></h3>
             <p class="ri-proyecto__lugar">Roma, Italia</p>
             <span class="ri-proyecto__linea" aria-hidden="true"></span>
+            <a class="ri-proyecto__enlace" href="https://search.savills.com/property-detail/gbsroeroe240182" target="_blank" rel="noopener noreferrer">Ver propiedad<span class="sr-only"> DONO (se abre en otra pestaña)</span></a>
           </div>
         </article>
-        <article class="ri-proyecto ri-proyecto--miramar">
+        <article class="ri-proyecto ri-proyecto--miramar" data-proyecto="miramar" data-url="https://residencial.savills.pt/empreendimento/miramar-tower/21209127">
           <div class="ri-proyecto__media">
             <picture>
               <source srcset="img/ri-proyecto-miramar.avif" type="image/avif">
@@ -178,9 +179,10 @@
             <h3 class="ri-proyecto__nombre"><span>MIRAMAR TOWER</span></h3>
             <p class="ri-proyecto__lugar">Oporto, Portugal</p>
             <span class="ri-proyecto__linea" aria-hidden="true"></span>
+            <a class="ri-proyecto__enlace" href="https://residencial.savills.pt/empreendimento/miramar-tower/21209127" target="_blank" rel="noopener noreferrer">Ver propiedad<span class="sr-only"> MIRAMAR TOWER (se abre en otra pestaña)</span></a>
           </div>
         </article>
-        <article class="ri-proyecto ri-proyecto--sixsenses">
+        <article class="ri-proyecto ri-proyecto--sixsenses" data-proyecto="sixsenses" data-url="https://search.savills.com/list/property-for-sale/portugal/setubal/troia-comporta-melides?IsRemoved=yes">
           <div class="ri-proyecto__media">
             <picture>
               <source srcset="img/ri-proyecto-sixsenses.avif" type="image/avif">
@@ -191,8 +193,45 @@
             <h3 class="ri-proyecto__nombre"><span>SIX SENSE RESIDENCES</span></h3>
             <p class="ri-proyecto__lugar">Comporta, Portugal</p>
             <span class="ri-proyecto__linea" aria-hidden="true"></span>
+            <a class="ri-proyecto__enlace" href="https://search.savills.com/list/property-for-sale/portugal/setubal/troia-comporta-melides?IsRemoved=yes" target="_blank" rel="noopener noreferrer">Ver propiedad<span class="sr-only"> SIX SENSE RESIDENCES (se abre en otra pestaña)</span></a>
           </div>
         </article>
+        <article class="ri-proyecto ri-proyecto--flow25" data-proyecto="flow25" data-url="https://search.savills.com/property-detail/gbgnhxlai260087">
+          <div class="ri-proyecto__media">
+            <picture>
+              <source srcset="img/ri-proyecto-flow25.avif" type="image/avif">
+              <img src="img/ri-proyecto-flow25.jpg" width="2880" height="1620" alt="Edificio residencial FLOW25 en Abu Dhabi, con terrazas curvas" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="ri-proyecto__info">
+            <h3 class="ri-proyecto__nombre"><span>FLOW25</span></h3>
+            <p class="ri-proyecto__lugar">Abu Dhabi</p>
+            <span class="ri-proyecto__linea" aria-hidden="true"></span>
+            <a class="ri-proyecto__enlace" href="https://search.savills.com/property-detail/gbgnhxlai260087" target="_blank" rel="noopener noreferrer">Ver propiedad<span class="sr-only"> FLOW25 (se abre en otra pestaña)</span></a>
+          </div>
+        </article>
+        <!-- Botón «Ver propiedad»: sigue al ratón sobre la imagen y lleva al enlace del proyecto -->
+        <a class="ri-ver" href="https://search.savills.com/property-detail/gbsroeroe240182" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <span class="ri-ver__caja">
+            <picture>
+              <source srcset="img/ri-mini-dono.avif" type="image/avif">
+              <img class="ri-ver__foto" data-proyecto="dono" src="img/ri-mini-dono.jpg" width="254" height="240" alt="" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source srcset="img/ri-mini-miramar.avif" type="image/avif">
+              <img class="ri-ver__foto" data-proyecto="miramar" src="img/ri-mini-miramar.jpg" width="254" height="240" alt="" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source srcset="img/ri-mini-sixsenses.avif" type="image/avif">
+              <img class="ri-ver__foto" data-proyecto="sixsenses" src="img/ri-mini-sixsenses.jpg" width="254" height="240" alt="" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source srcset="img/ri-mini-flow25.avif" type="image/avif">
+              <img class="ri-ver__foto" data-proyecto="flow25" src="img/ri-mini-flow25.jpg" width="254" height="240" alt="" loading="lazy" decoding="async">
+            </picture>
+            <span class="ri-ver__txt">Ver propiedad</span>
+          </span>
+        </a>
         <h2 class="ri-proyectos__titulo" data-reveal="lines">Algunos de<br> nuestros proyectos<br> <em>a nivel global</em></h2>
       </div>
     </section>
