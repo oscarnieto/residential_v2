@@ -860,6 +860,7 @@ em { font-style: italic; }
   justify-content: space-between;
   gap: 48px;
   min-height: 680px;
+  min-height: max(680px, 100svh); /* ocupa el alto de la pantalla */
   padding: 96px var(--pad) 48px;
   background: #0f1d16;
   color: #fff;
@@ -922,9 +923,16 @@ em { font-style: italic; }
     font-size: max(12px, calc(14 * var(--s)));
   }
 
-  /* Figma: sección de 929 px; titular con su base a 449,7 px y texto
-     alineado a la derecha, a 89,8 px del borde y 76,6 px del final */
-  .ri-equipos { display: block; height: calc(929 * var(--s)); min-height: 0; padding: 0; }
+  /* Alto de la pantalla (en Figma, 929 px). Titular arriba a la izquierda y
+     texto abajo a la derecha, a 89,8 px del borde y 76,6 px del final.
+     El mínimo evita que se monten en pantallas muy bajas. */
+  .ri-equipos {
+    display: block;
+    height: 100vh;
+    height: 100svh;
+    min-height: calc(720 * var(--s));
+    padding: 0;
+  }
   .ri-equipos__titulo {
     position: absolute;
     top: calc(83.4 * var(--s));
