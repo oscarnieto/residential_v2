@@ -252,8 +252,9 @@
   /* ---------- Servicios: círculo ----------
      - Al pulsar un punto se muestra su servicio (pestañas accesibles: flechas,
        Inicio y Fin también funcionan).
-     - Con el scroll, la línea se dibuja siguiendo el círculo y cada punto crece
-       (de pequeño a su tamaño) cuando la línea llega a él; al final, la flecha.
+     - Al aparecer en pantalla, la línea se dibuja entera siguiendo el círculo y
+       cada punto crece (de pequeño a su tamaño) cuando la línea llega a él;
+       al final, la flecha.
      ScrollKit no tiene este efecto combinado; se monta con GSAP + ScrollTrigger. */
   var circulo = document.querySelector('[data-circulo]');
   if (circulo) {
@@ -294,43 +295,41 @@
         gsap.set(arco, { strokeDasharray: largo, strokeDashoffset: largo });
         gsap.set(flecha, { autoAlpha: 0 });
         gsap.set(puntos, { scale: 0 });
+        // Se dibuja entero en cuanto aparece en pantalla (una sola vez)
+        var duracion = 2.2;
         var tl = gsap.timeline({
-          scrollTrigger: { trigger: circulo, start: 'top 85%', end: 'center 45%', scrub: 0.6 }
+          scrollTrigger: { trigger: circulo, start: 'top 75%', once: true }
         });
-        tl.to(arco, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0);
+        tl.to(arco, { strokeDashoffset: 0, ease: 'none', duration: duracion }, 0); // lineal: así cada punto crece justo al llegar la línea
         puntos.forEach(function (b, i) {
-          tl.to(b, { scale: 1, ease: 'back.out(2.5)', duration: 0.1 }, angulos[i] / 345 - 0.02);
+          tl.to(b, { scale: 1, ease: 'back.out(2.5)', duration: 0.45 }, duracion * angulos[i] / 345 - 0.1);
         });
-        tl.to(flecha, { autoAlpha: 1, duration: 0.05 }, 0.96);
+        tl.to(flecha, { autoAlpha: 1, duration: 0.3 }, duracion - 0.1);
       });
     }
   }
 
-  /* ---------- Servicios: tarjetas que se apilan (como Orchid) ----------
-     Cada tarjeta es sticky un poco más abajo que la anterior (CSS). Aquí, al
-     taparse, las de debajo se reducen un poco para que asome su borde. */
+  /* ---------- Servicios: tarjetas que se apilan ----------
+     La escena (titular + tarjetas) es sticky; con el scroll, cada tarjeta sube
+     desde abajo hasta quedar exactamente encima de la anterior. */
   var apilar = document.querySelector('[data-apilar]');
   if (apilar && window.gsap && window.ScrollTrigger && !menosMovimiento) {
     document.addEventListener('DOMContentLoaded', function () {
       var gsap = window.gsap;
       gsap.registerPlugin(window.ScrollTrigger);
       var tarjetas = Array.prototype.slice.call(apilar.querySelectorAll('.sv-card'));
-      var ultima = tarjetas[tarjetas.length - 1];
-      tarjetas.forEach(function (t, i) {
-        if (t === ultima) return;
-        gsap.to(t.querySelector('.sv-card__caja'), {
-          scale: 1 - 0.04 * (tarjetas.length - 1 - i),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: tarjetas[i + 1],
-            start: 'top bottom',
-            endTrigger: ultima,
-            end: function () { return 'top ' + (parseFloat(getComputedStyle(ultima).top) || 0) + 'px'; },
-            scrub: true,
-            invalidateOnRefresh: true
-          }
-        });
+      if (tarjetas.length < 2) return;
+      apilar.style.setProperty('--tarjetas', tarjetas.length);
+      apilar.classList.add('is-animado');
+      var tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: { trigger: apilar, start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true }
       });
+      tarjetas.forEach(function (t, i) {
+        if (i === 0) return;
+        tl.fromTo(t, { y: function () { return window.innerHeight; } }, { y: 0, duration: 1 }, i - 1);
+      });
+      window.ScrollTrigger.refresh();
     });
   }
 

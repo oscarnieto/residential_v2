@@ -1261,7 +1261,7 @@ em { font-style: italic; }
 
 /* En móvil el servicio activo va debajo del círculo; desde tablet, dentro */
 .sv-circulo__info { display: grid; margin-top: 32px; }
-.sv-servicio { grid-area: 1 / 1; }
+.sv-servicio { grid-area: 1 / 1; align-self: start; } /* solo el alto de su texto: no tapa los puntos de abajo */
 .sv-servicio.is-activo { animation: sv-aparecer 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes sv-aparecer { from { opacity: 0; transform: translateY(14px); } }
 .sv-servicio__num { font: 400 48px/1.218 var(--serif); }
@@ -1279,21 +1279,25 @@ em { font-style: italic; }
   text-align: center;
 }
 .sv-cards {
-  --apilar-top: 76px;
-  --apilar-paso: 14px;
   margin-top: 40px;
   padding-inline: var(--pad);
 }
-/* Cada tarjeta se queda fija un poco más abajo que la anterior (como Orchid) */
-.sv-card {
-  position: sticky;
-  top: calc(var(--apilar-top) + var(--i, 0) * var(--apilar-paso));
-  margin-bottom: 16px;
-}
+.sv-card { margin-bottom: 16px; }
 .sv-card:last-child { margin-bottom: 0; }
-.sv-card:nth-child(2) { --i: 1; }
-.sv-card:nth-child(3) { --i: 2; }
-.sv-card:nth-child(4) { --i: 3; }
+
+/* Con JS (.is-animado): la escena (titular + tarjetas) queda fija a pantalla
+   completa mientras se recorre la sección; las tarjetas ocupan la misma celda
+   y js/main.js sube cada una desde abajo hasta tapar la anterior */
+.sv-tipos.is-animado { height: calc(100vh + (var(--tarjetas, 4) - 1) * 80vh); padding: 0; }
+.sv-tipos.is-animado .sv-tipos__escena {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding-top: 64px;
+  overflow: clip;
+}
+.sv-tipos.is-animado .sv-cards { display: grid; }
+.sv-tipos.is-animado .sv-card { grid-area: 1 / 1; margin: 0; }
 .sv-card__caja {
   display: grid;
   gap: 16px;
@@ -1347,11 +1351,8 @@ em { font-style: italic; }
 
   .sv-tipos { padding: calc(134 * var(--s)) 0 calc(137 * var(--s)); }
   .sv-tipos__titulo { max-width: calc(1061 * var(--s)); padding: 0; font-size: calc(45 * var(--s)); }
-  .sv-cards {
-    --apilar-top: max(90px, calc(50vh - 166 * var(--s) - 30px));
-    --apilar-paso: 20px;
-    margin-top: calc(93 * var(--s));
-  }
+  .sv-cards { margin-top: calc(93 * var(--s)); }
+  .sv-tipos.is-animado .sv-tipos__escena { padding-top: calc(134 * var(--s)); }
   .sv-card { margin-bottom: calc(19.6 * var(--s)); }
   .sv-card__caja {
     grid-template-columns: calc(493.3 * var(--s)) 1fr;
