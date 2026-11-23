@@ -345,11 +345,13 @@
      WebGL curvadas sobre un cilindro y, con el scroll, giran de derecha a
      izquierda mientras la escena queda fija (sticky). Misma geometría que la
      original: cilindro de radio 15, cámara a 22 del centro (focal de 22,56 mm),
-     tarjetas de 5 × 2,83 separadas 0,065 vueltas (0,056 en móvil) y la escena
-     desplazada un 15 % hacia abajo (5 % en móvil). Gira mientras la sección
-     entra, hasta centrar la primera ciudad, y durante los 200vh que queda fija,
-     hasta centrar la última. El nombre y la cifra de la ciudad centrada son HTML
-     colocado sobre y bajo la imagen central. */
+     tarjetas de 5 × 2,83 separadas 0,065 vueltas (0,056 en móvil). El conjunto
+     (nombre, imagen central y cifra) queda centrado en la pantalla en ambos ejes.
+     Gira mientras la sección entra, hasta centrar la primera ciudad; durante los
+     200vh que queda fija, cada ciudad se detiene centrada un tramo y gira hasta
+     la siguiente, y al soltar el scroll entre dos se ajusta a la más cercana.
+     El nombre y la cifra de la ciudad centrada son HTML colocado sobre y bajo la
+     imagen central. */
   var ciudades = document.querySelector('[data-ciudades]');
   if (ciudades && window.gsap && window.ScrollTrigger && !menosMovimiento) {
     document.addEventListener('DOMContentLoaded', function () {
@@ -368,8 +370,8 @@
       var FRENTE = 0.75;                                // punto del cilindro delante de la cámara
       var config = function () {
         return window.innerWidth < 768
-          ? { inicio: 0.18025, paso: 0.056, desvio: -0.05 }
-          : { inicio: 0.16225, paso: 0.065, desvio: -0.15 };
+          ? { inicio: 0.18025, paso: 0.056 }
+          : { inicio: 0.16225, paso: 0.065 };
       };
       var cfg = config();
 
@@ -432,6 +434,7 @@
 
       var giro = 0;        // vueltas que han girado las tarjetas
       var pend = [1, 1];
+      var desvio = 0;      // desplazamiento vertical de la escena (coordenadas de -1 a 1)
       var activa = -1;
       var tarjetas = [];
       var pendiente = false;
@@ -439,7 +442,7 @@
         pendiente = false;
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.uniform2f(uPend, pend[0], pend[1]);
-        gl.uniform1f(uDesvio, 2 * cfg.desvio);
+        gl.uniform1f(uDesvio, desvio);
         var centrada = 0, menor = Infinity;
         tarjetas.forEach(function (t, i) {
           var pos = BASE + cfg.inicio + i * cfg.paso - giro;
@@ -504,8 +507,10 @@
         cerca.observe(ciudades);
       }
 
-      // Campo de visión como PerspectiveCamera.setFocalLength de three.js y
-      // posición del nombre y la cifra respecto a la tarjeta centrada (a 7 de la cámara)
+      // Campo de visión como PerspectiveCamera.setFocalLength de three.js. La
+      // tarjeta centrada (a 7 de la cámara) se coloca para que el conjunto nombre
+      // (sobresale 0,735em por arriba) + imagen + cifra (0,39em + 1,06em por
+      // abajo) quede centrado en vertical
       var medir = function () {
         cfg = config();
         var w = escena.clientWidth, h = escena.clientHeight;
@@ -515,25 +520,59 @@
         gl.viewport(0, 0, lienzo.width, lienzo.height);
         var pv = 0.5 * (35 / Math.max(w / h, 1)) / FOCAL;
         pend = [pv * w / h, pv];
-        var mitad = ALTO / 2 / ((CAMARA - RADIO) * pv);
-        var desvio = 2 * cfg.desvio;
-        ciudades.style.setProperty('--tr-arriba', ((1 - desvio - mitad) / 2 * h).toFixed(1) + 'px');
-        ciudades.style.setProperty('--tr-abajo', ((1 - desvio + mitad) / 2 * h).toFixed(1) + 'px');
+        var alto = ALTO / ((CAMARA - RADIO) * pv) / 2 * h;
+        var sobre = 0.735 * parseFloat(getComputedStyle(items[0].querySelector('.tr-ciudad__nombre')).fontSize);
+        var bajo = 1.45 * parseFloat(getComputedStyle(items[0].querySelector('.tr-ciudad__dato')).fontSize);
+        var arriba = (h - alto - sobre - bajo) / 2 + sobre;
+        desvio = 1 - 2 * (arriba + alto / 2) / h;
+        ciudades.style.setProperty('--tr-arriba', arriba.toFixed(1) + 'px');
+        ciudades.style.setProperty('--tr-abajo', (arriba + alto).toFixed(1) + 'px');
         pedirPintado();
       };
       medir();
       window.ScrollTrigger.addEventListener('refresh', medir);
 
-      // Giro con el scroll: entrando la sección llega la primera ciudad (frenando)
-      // y, con la escena fija, pasan las demás hasta parar en la última
+      // Giro con el scroll (en tramos de 100vh): entrando la sección llega la
+      // primera ciudad (frenando); con la escena fija, cada ciudad se queda
+      // centrada un tramo (PAUSA) y gira hasta la siguiente (GIRO)
+      var FIJA = 2;                                    // 200vh fija (la sección mide 300vh)
+      var TOTAL = 1 + FIJA;
+      var PAUSA = 0.3;
+      var GIRO = (FIJA - n * PAUSA) / (n - 1);
+      var centrar = function (i) {
+        return function () { return BASE + cfg.inicio + i * cfg.paso - FRENTE; };
+      };
+      // Al soltar el scroll entre dos ciudades, se ajusta a la más cercana
+      // (snap de ScrollTrigger, como E26 del kit); entrando la sección, no
+      var ajustar = function (v) {
+        var u = v * TOTAL, mejor = v, menor = Infinity;
+        if (u < 1) return v;
+        for (var i = 0; i < n; i++) {
+          var a = 1 + i * (PAUSA + GIRO), b = a + PAUSA;
+          if (u >= a && u <= b) return v;
+          if (Math.abs(u - a) < menor) { menor = Math.abs(u - a); mejor = a / TOTAL; }
+          if (Math.abs(u - b) < menor) { menor = Math.abs(u - b); mejor = b / TOTAL; }
+        }
+        return mejor;
+      };
       var estado = { giro: 0 };
-      gsap.timeline({
+      var tl = gsap.timeline({
         defaults: { ease: 'none' },
         onUpdate: function () { giro = estado.giro; pedirPintado(); },
-        scrollTrigger: { trigger: ciudades, start: 'top bottom', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true }
-      })
-        .to(estado, { giro: function () { return BASE + cfg.inicio - FRENTE; }, ease: 'power1.out', duration: 1 })
-        .to(estado, { giro: function () { return BASE + cfg.inicio + (n - 1) * cfg.paso - FRENTE; }, ease: 'sine.inOut', duration: 2 });
+        scrollTrigger: {
+          trigger: ciudades,
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: true,
+          invalidateOnRefresh: true,
+          snap: { snapTo: ajustar, duration: { min: 0.2, max: 0.6 }, ease: 'power2.inOut' }
+        }
+      });
+      tl.to(estado, { giro: centrar(0), ease: 'power1.out', duration: 1 });
+      for (var i = 1; i < n; i++) {
+        tl.to(estado, { giro: centrar(i), ease: 'power2.inOut', duration: GIRO }, 1 + i * PAUSA + (i - 1) * GIRO);
+      }
+      tl.to({}, { duration: PAUSA }, TOTAL - PAUSA);
       window.ScrollTrigger.refresh();
     });
   }
