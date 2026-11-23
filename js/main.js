@@ -311,7 +311,7 @@
 
   /* ---------- Servicios: tarjetas que se apilan ----------
      La escena (titular + tarjetas) es sticky; con el scroll, cada tarjeta sube
-     desde abajo hasta quedar exactamente encima de la anterior. */
+     desde abajo y se apila sobre la anterior, dejando ver una franja de ella. */
   var apilar = document.querySelector('[data-apilar]');
   if (apilar && window.gsap && window.ScrollTrigger && !menosMovimiento) {
     document.addEventListener('DOMContentLoaded', function () {
@@ -325,9 +325,15 @@
         defaults: { ease: 'none' },
         scrollTrigger: { trigger: apilar, start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true }
       });
+      // Cada tarjeta queda un poco más abajo que la anterior y las de debajo se
+      // reducen un poco: así asoma una franja de cada una por arriba (como Orchid)
+      var paso = function () { return Math.max(10, Math.round(window.innerWidth / 1440 * 18)); };
       tarjetas.forEach(function (t, i) {
         if (i === 0) return;
-        tl.fromTo(t, { y: function () { return window.innerHeight; } }, { y: 0, duration: 1 }, i - 1);
+        tl.fromTo(t, { y: function () { return window.innerHeight; } }, { y: function () { return i * paso(); }, duration: 1 }, i - 1);
+        for (var j = 0; j < i; j++) {
+          tl.to(tarjetas[j].querySelector('.sv-card__caja'), { scale: 1 - (i - j) * 0.03, duration: 1 }, i - 1);
+        }
       });
       window.ScrollTrigger.refresh();
     });
