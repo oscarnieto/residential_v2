@@ -1367,3 +1367,219 @@ em { font-style: italic; }
 @media (prefers-reduced-motion: reduce) {
   .sv-servicio.is-activo { animation: none; }
 }
+
+/* =========================================================
+   Página Track Record (track-record.html)
+   ========================================================= */
+
+/* ---------- Trayectoria: titular (E11) y dos imágenes ---------- */
+.tr-intro {
+  display: grid;
+  grid-template-columns: 41fr 55fr;
+  column-gap: 4%;
+  align-items: end;
+  padding: 64px var(--pad) 80px;
+  color: var(--navy);
+}
+.tr-intro__titulo {
+  grid-column: 1 / -1;
+  margin-bottom: 40px;
+  font: 400 clamp(26px, 4.4vw, 45px)/1.06 var(--serif);
+}
+/* Evita que la coma tras una palabra en cursiva baje sola a la línea siguiente */
+.sin-corte { white-space: nowrap; }
+.tr-intro__foto img { width: 100%; height: 100%; object-fit: cover; }
+.tr-intro__foto--salon { aspect-ratio: 410 / 488.5; }
+.tr-intro__foto--cocina { aspect-ratio: 625 / 891; }
+
+/* ---------- Ciudades ----------
+   Sin animación: nombre, imagen y cifra apilados (Figma). Con .is-animado
+   (js/main.js): escena fija con las imágenes curvadas en un <canvas> (WebGL);
+   el nombre y la cifra de la ciudad centrada se colocan sobre y bajo la imagen
+   del centro (--tr-arriba / --tr-abajo, calculadas en js/main.js) */
+.tr-ciudades { position: relative; background: var(--navy); color: #fff; text-align: center; }
+.tr-ciudades__lista { display: grid; row-gap: 72px; padding: 80px var(--pad); }
+.tr-ciudad { position: relative; }
+.tr-ciudad__nombre {
+  position: relative;
+  z-index: 1;
+  font: italic 400 clamp(48px, 11vw, 85px)/1.06 var(--serif);
+  letter-spacing: -0.03em;
+}
+.tr-ciudad__nombre > span { display: block; }
+.tr-ciudad__foto { max-width: 840px; margin: -14px auto 0; }
+.tr-ciudad__foto img { width: 100%; aspect-ratio: 840 / 504; object-fit: cover; }
+.tr-ciudad__dato { margin-top: 9px; font: 400 16px/1.06 var(--sans); letter-spacing: -0.03em; }
+.tr-ciudad__dato strong { font-weight: 700; }
+
+.tr-ciudades.is-animado { height: 300vh; }
+.tr-ciudades.is-animado .tr-ciudades__escena { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.tr-ciudades__lienzo { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.tr-ciudades.is-animado .tr-ciudades__lista { position: absolute; inset: 0; display: block; padding: 0; }
+.tr-ciudades.is-animado .tr-ciudad { position: absolute; inset: 0; pointer-events: none; }
+/* Las fotos solo sirven de textura para el canvas */
+.tr-ciudades.is-animado .tr-ciudad__foto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+/* El nombre entra desde abajo dentro de su máscara y sale por arriba
+   (al volver hacia atrás, al revés). La máscara se amplía para los acentos y g */
+.tr-ciudades.is-animado .tr-ciudad__nombre {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--tr-arriba, 40vh) - 0.735em);
+  margin: -0.2em 0 -0.22em;
+  padding: 0.2em 0 0.22em;
+  overflow: hidden;
+}
+.tr-ciudades.is-animado .tr-ciudad__nombre > span {
+  transform: translateY(135%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tr-ciudades.is-animado .tr-ciudad.is-pasada .tr-ciudad__nombre > span { transform: translateY(-135%); }
+.tr-ciudades.is-animado .tr-ciudad.is-activa .tr-ciudad__nombre > span { transform: none; }
+.tr-ciudades.is-animado .tr-ciudad__dato {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--tr-abajo, 80vh) + 0.39em);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tr-ciudades.is-animado .tr-ciudad.is-activa .tr-ciudad__dato { opacity: 1; transform: none; transition-delay: 0.15s; }
+
+/* ---------- Producto nacional: carrusel ---------- */
+.tr-producto { padding: 64px 0 80px; background: var(--crema); color: var(--navy); }
+.tr-producto__titulo, .tr-producto__texto { margin-inline: var(--pad); }
+.tr-producto__titulo { font: 400 clamp(32px, 5vw, 45px)/1.06 var(--serif); }
+.tr-producto__texto { max-width: 717px; margin-top: 16px; color: #000; font: 300 14px/1.1 var(--sans); }
+.tr-producto__texto strong { font-weight: 700; }
+.tr-carrusel {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  padding-inline: var(--pad);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  scrollbar-width: none;
+}
+.tr-carrusel::-webkit-scrollbar { display: none; }
+.tr-proyecto { flex: 0 0 78%; scroll-snap-align: start; }
+.tr-proyecto__enlace { display: block; color: #000; -webkit-user-drag: none; }
+.tr-proyecto__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 348.34 / 336.97;
+  overflow: hidden;
+  background: #d9d9d9;
+}
+.tr-proyecto__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+  transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Velo que oscurece la imagen al pasar el ratón */
+.tr-proyecto__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.tr-proyecto__ver {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  padding: 14px 26px;
+  border: 1px solid #fff;
+  color: #fff;
+  font: 500 13px/1 var(--sans);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 14px));
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tr-proyecto__pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  padding-left: 3px;
+  font: 500 12px/1.1 var(--sans);
+}
+.tr-proyecto__enlace:focus-visible .tr-proyecto__media::after,
+.tr-proyecto__enlace:focus-visible .tr-proyecto__ver { opacity: 1; }
+.tr-proyecto__enlace:focus-visible .tr-proyecto__ver { transform: translate(-50%, -50%); }
+@media (hover: hover) and (pointer: fine) {
+  .tr-carrusel { cursor: grab; }
+  .tr-carrusel.is-arrastrando { cursor: grabbing; scroll-snap-type: none; }
+  .tr-carrusel.is-arrastrando .tr-proyecto__enlace { pointer-events: none; }
+  .tr-proyecto__enlace:hover .tr-proyecto__media img { filter: blur(6px); transform: scale(1.06); }
+  .tr-proyecto__enlace:hover .tr-proyecto__media::after,
+  .tr-proyecto__enlace:hover .tr-proyecto__ver { opacity: 1; }
+  .tr-proyecto__enlace:hover .tr-proyecto__ver { transform: translate(-50%, -50%); }
+}
+
+@media (min-width: 768px) {
+  .tr-proyecto { flex-basis: 40%; }
+}
+
+@media (min-width: 1024px) {
+  .tr-intro {
+    grid-template-columns: calc(645 * var(--s)) calc(625 * var(--s));
+    grid-template-rows: auto 1fr;
+    column-gap: 0;
+    align-items: start;
+    padding: calc(125 * var(--s)) var(--pad) calc(160 * var(--s));
+  }
+  .tr-intro__titulo {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: calc(592.24 * var(--s));
+    margin: 0;
+    font-size: calc(45 * var(--s));
+  }
+  .tr-intro__foto--salon {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    width: calc(410 * var(--s));
+    height: calc(488.54 * var(--s));
+    aspect-ratio: auto;
+  }
+  .tr-intro__foto--cocina {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    width: calc(625 * var(--s));
+    height: calc(890.94 * var(--s));
+    margin-top: calc(139 * var(--s));
+    aspect-ratio: auto;
+  }
+
+  .tr-ciudades__lista { row-gap: calc(92 * var(--s)); padding: calc(177.8 * var(--s)) 0 calc(145.6 * var(--s)); }
+  .tr-ciudad__nombre { font-size: calc(85 * var(--s)); }
+  .tr-ciudad__foto { width: calc(840 * var(--s)); max-width: none; margin-top: calc(-27.5 * var(--s)); }
+  .tr-ciudad__dato { margin-top: calc(8.6 * var(--s)); font-size: calc(22 * var(--s)); }
+
+  .tr-producto { padding: calc(179.4 * var(--s)) 0 calc(164.7 * var(--s)); }
+  .tr-producto__titulo { font-size: calc(45 * var(--s)); }
+  .tr-producto__texto { max-width: calc(717.37 * var(--s)); margin-top: calc(19.7 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+  .tr-carrusel { gap: calc(15.55 * var(--s)); margin-top: calc(33.5 * var(--s)); }
+  .tr-proyecto { flex-basis: calc(348.34 * var(--s)); }
+  .tr-proyecto__pie { margin-top: calc(7.4 * var(--s)); padding-left: calc(3 * var(--s)); font-size: max(12px, calc(12 * var(--s))); }
+  .tr-proyecto__ver { padding: calc(16 * var(--s)) calc(30 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+}

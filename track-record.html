@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es" data-sk-lerp="0.08">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-CwWbBf7jQqvh/bJnN8zix/pIAcILUmqMV5j4DXi/Lmo='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Track Record | Savills Residencial</title>
+  <meta name="description" content="Trayectoria de Savills Residencial en obra nueva: promociones activas en Málaga, Madrid y Barcelona y una muestra de proyectos de producto nacional.">
+
+  <!-- Favicon: logotipo de Savills -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- ScrollKit: siempre primero en el head -->
+  <script>document.documentElement.classList.add('sk-js');try{var s=sessionStorage,d=document.documentElement;if(s.getItem('sk-intro'))d.classList.add('sk-intro-seen');if(s.getItem('sk-transition'))d.classList.add('sk-arriving')}catch(e){}</script>
+  <link rel="stylesheet" href="scroll-kit/css/scroll-kit.css">
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap">
+
+  <!-- CSS del proyecto (diseño) -->
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="track">
+
+  <header class="cabecera" data-reveal="up" data-distance="-80" data-delay="0.1">
+    <button class="cabecera__menu" type="button" aria-expanded="false" aria-controls="menu">
+      <img src="icons/menu.svg" width="22" height="5" alt="">
+      <span>Menú</span>
+    </button>
+    <a class="cabecera__logo" href="index.html" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
+    </a>
+    <a class="cabecera__web" href="https://www.savills.es" target="_blank" rel="noopener noreferrer">savills.es</a>
+  </header>
+
+  <main>
+    <!-- HERO: parallax de la imagen de fondo (E16) -->
+    <section class="hero" id="inicio" data-image-move="25">
+      <picture>
+        <source srcset="img/hero-track.avif" type="image/avif">
+        <img class="hero__video" src="img/hero-track.jpg" width="1440" height="1080" alt="" fetchpriority="high">
+      </picture>
+      <h1 class="hero__titulo">
+        <span class="hero__sub" data-reveal="lines" data-delay="0.2">Nuestro</span>
+        <span class="hero__main" data-reveal="lines" data-delay="0.4">TRACK RECORD</span>
+      </h1>
+      <a class="hero__scroll" href="#trayectoria" aria-label="Bajar al contenido">
+        <img src="icons/scroll.svg" width="42" height="42" alt="">
+      </a>
+    </section>
+
+    <!-- TRAYECTORIA: el titular aparece letra a letra por opacidad (E11) -->
+    <section class="tr-intro" id="trayectoria">
+      <h2 class="tr-intro__titulo" data-reveal="fade-chars">Contamos con una trayectoria consolidada en proyectos que destacan por su <span class="sin-corte"><em>ubicación</em>,</span> <em>diseño</em> y <span class="sin-corte"><em>calidad</em>,</span> concebidos para responder a las necesidades del comprador actual</h2>
+      <div class="tr-intro__foto tr-intro__foto--salon">
+        <picture>
+          <source srcset="img/tr-salon.avif" type="image/avif">
+          <img src="img/tr-salon.jpg" width="630" height="788" alt="Salón con sofá curvo, mesa baja de madera y estantes en la pared" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="tr-intro__foto tr-intro__foto--cocina">
+        <picture>
+          <source srcset="img/tr-cocina.avif" type="image/avif">
+          <img src="img/tr-cocina.jpg" width="1206" height="1780" alt="Cocina abierta con isla oscura, taburetes de madera y lámparas colgantes" loading="lazy" decoding="async">
+        </picture>
+      </div>
+    </section>
+
+    <!-- CIUDADES: las imágenes van curvadas sobre un cilindro y giran de derecha a
+         izquierda con el scroll mientras la escena queda fija (efecto de
+         sobha-privy-collection.com, WebGL en js/main.js). Sin WebGL o con
+         movimiento reducido se ven apiladas, como en Figma -->
+    <section class="tr-ciudades" id="ciudades" data-ciudades aria-label="Promociones activas por ciudad">
+      <div class="tr-ciudades__escena">
+        <ol class="tr-ciudades__lista">
+          <li class="tr-ciudad">
+            <h3 class="tr-ciudad__nombre"><span>Málaga</span></h3>
+            <div class="tr-ciudad__foto">
+              <picture>
+                <source srcset="img/tr-malaga.avif" type="image/avif">
+                <img src="img/tr-malaga.jpg" width="1398" height="926" alt="Vista nocturna de Málaga con el puerto iluminado" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <p class="tr-ciudad__dato"><strong>10</strong> promociones activas</p>
+          </li>
+          <li class="tr-ciudad">
+            <h3 class="tr-ciudad__nombre"><span>Madrid</span></h3>
+            <div class="tr-ciudad__foto">
+              <picture>
+                <source srcset="img/tr-madrid.avif" type="image/avif">
+                <img src="img/tr-madrid.jpg" width="1400" height="934" alt="Edificios del centro de Madrid al atardecer" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <p class="tr-ciudad__dato"><strong>8</strong> promociones activas</p>
+          </li>
+          <li class="tr-ciudad">
+            <h3 class="tr-ciudad__nombre"><span>Barcelona</span></h3>
+            <div class="tr-ciudad__foto">
+              <picture>
+                <source srcset="img/tr-barcelona.avif" type="image/avif">
+                <img src="img/tr-barcelona.jpg" width="1400" height="934" alt="Vista aérea del Eixample de Barcelona con la Sagrada Familia" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <p class="tr-ciudad__dato"><strong>7</strong> promociones activas</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- Capas que se apilan (E24): el pie sube por encima de la última sección -->
+  <div class="pila" data-stack data-shade="0.5">
+    <!-- PRODUCTO NACIONAL: carrusel horizontal (arrastrar, deslizar o trackpad).
+         Al pasar el ratón, la imagen se oscurece, se desenfoca y aparece el botón -->
+    <section class="tr-producto" id="producto-nacional">
+      <h2 class="tr-producto__titulo" data-reveal="lines">Producto <em>Nacional</em></h2>
+      <p class="tr-producto__texto" data-reveal="up"><strong>Una muestra de promociones residenciales</strong> que han formado parte de nuestra trayectoria.</p>
+      <ul class="tr-carrusel" data-carrusel aria-label="Promociones de producto nacional">
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmalgmlg250085" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Artemisa, Málaga (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-artemisa.avif" type="image/avif">
+                <img src="img/tr-artemisa.jpg" width="900" height="506" alt="" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>ARTEMISA</span><span>Málaga</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmalgmlg250089" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Ykines, Málaga (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-ykines.avif" type="image/avif">
+                <img src="img/tr-ykines.jpg" width="900" height="506" alt="" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>YKINES</span><span>Málaga</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmalgmlg250096" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Brightbay Villas, Granada (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-brightbay.avif" type="image/avif">
+                <img src="img/tr-brightbay.jpg" width="900" height="506" alt="" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>BRIGHTBAY VILLAS</span><span>Granada</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmalgmlg260019" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Sagitta Silva, Málaga (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-sagitta.avif" type="image/avif">
+                <img src="img/tr-sagitta.jpg" width="900" height="506" alt="" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>SAGITTA SILVA</span><span>Málaga</span></span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+  <!-- FOOTER -->
+  <footer class="pie">
+    <a class="pie__logo" href="index.html" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
+    </a>
+    <nav aria-label="Pie de página">
+      <ul class="pie__nav" data-reveal="children" data-stagger="0.06" data-distance="20">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="red-internacional.html">Red internacional</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="track-record.html">Track Record</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="pie__centro" data-reveal="up"><p class="pie__lema" data-foco>Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p></div>
+    <a class="pie__subir" href="#inicio" aria-label="Volver arriba">
+      <img src="icons/subir.svg" width="34" height="34" alt="">
+    </a>
+    <p class="pie__marca" data-reveal="chars" data-stagger="0.03" data-start="top bottom">Savills residencial</p>
+  </footer>
+  </div>
+
+  <!-- MENÚ DESPLEGADO -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" inert>
+    <nav class="menu__nav" aria-label="Principal">
+      <ul>
+        <li><a href="index.html" data-foto="inicio">Inicio</a></li>
+        <li><a href="red-internacional.html" data-foto="red">Red Internacional</a></li>
+        <li><a href="servicios.html" data-foto="servicios">Servicios</a></li>
+        <li><a href="track-record.html" data-foto="track">Track Record</a></li>
+        <li><a href="#equipo" data-foto="equipo">Equipo</a></li>
+        <li><a href="#contacto" data-foto="contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu__lateral">
+      <button class="menu__cerrar" type="button" aria-label="Cerrar menú">
+        <img src="icons/cerrar.svg" width="24" height="24" alt="">
+      </button>
+      <!-- Imagen del hero de cada sección; cambia al pasar el ratón por cada enlace -->
+      <div class="menu__imagen" aria-hidden="true">
+        <img class="menu__foto is-activa" data-foto="inicio" src="img/hero-poster.jpg" width="1280" height="720" alt="" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="img/hero-red.avif" type="image/avif">
+          <img class="menu__foto" data-foto="red" src="img/hero-red.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-servicios.avif" type="image/avif">
+          <img class="menu__foto" data-foto="servicios" src="img/hero-servicios.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-track.avif" type="image/avif">
+          <img class="menu__foto" data-foto="track" src="img/hero-track.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-equipo.avif" type="image/avif">
+          <img class="menu__foto" data-foto="equipo" src="img/hero-equipo.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-contacto.avif" type="image/avif">
+          <img class="menu__foto" data-foto="contacto" src="img/hero-contacto.jpg" width="1440" height="960" alt="" loading="lazy" decoding="async">
+        </picture>
+      </div>
+    </div>
+
+    <a class="menu__logo" href="index.html" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="77" height="77" alt="Savills">
+    </a>
+
+    <div class="menu__pie">
+      <div class="menu__contacto">
+        <p class="menu__contacto-titulo">CONTACTO</p>
+        <p class="menu__oficina"><span>Barcelona</span>(+34) <a href="tel:+34934395454">934 39 54 54</a></p>
+        <p class="menu__oficina"><span>Madrid</span>(+34) <a href="tel:+34913191314">913 19 13 14</a></p>
+        <p class="menu__oficina"><span>Málaga</span>(+34) <a href="tel:+34952062782">952 06 27 82</a></p>
+      </div>
+      <a class="menu__web" href="https://www.savills.es" target="_blank" rel="noopener noreferrer">savills.es</a>
+    </div>
+  </div>
+
+  <!-- ScrollKit: librerías al final, en este orden -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha384-SWJ0lLVRoipvHh59xj0pL7uC7Ih51F+5smaFtrG+2nr+TlDZU5SYJHmxfolbeNTr" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous"></script>
+  <script src="scroll-kit/js/scroll-kit.js"></script>
+
+  <!-- JS del proyecto -->
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -339,6 +339,234 @@
     });
   }
 
+  /* ---------- Track Record: ciudades sobre un cilindro ----------
+     [data-ciudades]: efecto de «The three worlds» de sobha-privy-collection.com,
+     pedido expresamente (ScrollKit no lo tiene). Las imágenes se dibujan con
+     WebGL curvadas sobre un cilindro y, con el scroll, giran de derecha a
+     izquierda mientras la escena queda fija (sticky). Misma geometría que la
+     original: cilindro de radio 15, cámara a 22 del centro (focal de 22,56 mm),
+     tarjetas de 5 × 2,83 separadas 0,065 vueltas (0,056 en móvil) y la escena
+     desplazada un 15 % hacia abajo (5 % en móvil). Gira mientras la sección
+     entra, hasta centrar la primera ciudad, y durante los 200vh que queda fija,
+     hasta centrar la última. El nombre y la cifra de la ciudad centrada son HTML
+     colocado sobre y bajo la imagen central. */
+  var ciudades = document.querySelector('[data-ciudades]');
+  if (ciudades && window.gsap && window.ScrollTrigger && !menosMovimiento) {
+    document.addEventListener('DOMContentLoaded', function () {
+      var gsap = window.gsap;
+      gsap.registerPlugin(window.ScrollTrigger);
+      var escena = ciudades.querySelector('.tr-ciudades__escena');
+      var items = Array.prototype.slice.call(ciudades.querySelectorAll('.tr-ciudad'));
+      var n = items.length;
+      var lienzo = document.createElement('canvas');
+      var gl = n > 1 && lienzo.getContext('webgl', { antialias: true, alpha: true });
+      if (!gl) return; // sin WebGL se quedan apiladas, como en Figma
+
+      var RADIO = 15, CAMARA = 22, FOCAL = 22.5628, ANCHO = 5, ALTO = 480 / 720 * 0.85 * 5;
+      var ARCO = ANCHO / (2 * Math.PI * RADIO);          // ancho de cada tarjeta, en vueltas
+      var BASE = (161 / (2 * Math.PI * RADIO)) % 1;     // desfase de las tarjetas en la original
+      var FRENTE = 0.75;                                // punto del cilindro delante de la cámara
+      var config = function () {
+        return window.innerWidth < 768
+          ? { inicio: 0.18025, paso: 0.056, desvio: -0.05 }
+          : { inicio: 0.16225, paso: 0.065, desvio: -0.15 };
+      };
+      var cfg = config();
+
+      lienzo.className = 'tr-ciudades__lienzo';
+      lienzo.setAttribute('aria-hidden', 'true');
+      escena.insertBefore(lienzo, escena.firstChild);
+      ciudades.classList.add('is-animado');
+
+      var compilar = function (tipo, codigo) {
+        var s = gl.createShader(tipo);
+        gl.shaderSource(s, codigo);
+        gl.compileShader(s);
+        return s;
+      };
+      var prog = gl.createProgram();
+      gl.attachShader(prog, compilar(gl.VERTEX_SHADER, [
+        'attribute vec2 aUv;',
+        'uniform float uPos;',     // centro de la tarjeta en el cilindro (vueltas)
+        'uniform vec2 uPend;',     // campo de visión (pendiente horizontal y vertical)
+        'uniform float uDesvio;',  // desplazamiento vertical de la escena
+        'uniform vec4 uRecorte;',  // recorte de la imagen (tipo cover)
+        'varying vec2 vUv;',
+        'void main() {',
+        '  float a = 6.2831853 * (uPos + (aUv.x - 0.5) * ' + ARCO.toFixed(6) + ');',
+        '  float d = ' + RADIO.toFixed(1) + ' * sin(a) + ' + CAMARA.toFixed(1) + ';',
+        '  float x = ' + RADIO.toFixed(1) + ' * cos(a);',
+        '  float y = (aUv.y - 0.5) * ' + ALTO.toFixed(6) + ';',
+        '  gl_Position = vec4(x / uPend.x, y / uPend.y + uDesvio * d, 0.0, d);',
+        '  vUv = uRecorte.xy + aUv * uRecorte.zw;',
+        '}'
+      ].join('\n')));
+      gl.attachShader(prog, compilar(gl.FRAGMENT_SHADER, [
+        'precision mediump float;',
+        'uniform sampler2D uTex;',
+        'varying vec2 vUv;',
+        'void main() { gl_FragColor = texture2D(uTex, vUv); }'
+      ].join('\n')));
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        ciudades.classList.remove('is-animado');
+        lienzo.remove();
+        return;
+      }
+      gl.useProgram(prog);
+
+      // Malla de cada tarjeta: 64 tramos a lo ancho (la curva) y 1 a lo alto
+      var TRAMOS = 64, malla = [];
+      for (var k = 0; k <= TRAMOS; k++) malla.push(k / TRAMOS, 0, k / TRAMOS, 1);
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(malla), gl.STATIC_DRAW);
+      var aUv = gl.getAttribLocation(prog, 'aUv');
+      gl.enableVertexAttribArray(aUv);
+      gl.vertexAttribPointer(aUv, 2, gl.FLOAT, false, 0, 0);
+      var uPos = gl.getUniformLocation(prog, 'uPos');
+      var uPend = gl.getUniformLocation(prog, 'uPend');
+      var uDesvio = gl.getUniformLocation(prog, 'uDesvio');
+      var uRecorte = gl.getUniformLocation(prog, 'uRecorte');
+      gl.uniform1i(gl.getUniformLocation(prog, 'uTex'), 0);
+      gl.clearColor(0, 0, 0, 0);
+
+      var giro = 0;        // vueltas que han girado las tarjetas
+      var pend = [1, 1];
+      var activa = -1;
+      var tarjetas = [];
+      var pendiente = false;
+      var pintar = function () {
+        pendiente = false;
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform2f(uPend, pend[0], pend[1]);
+        gl.uniform1f(uDesvio, 2 * cfg.desvio);
+        var centrada = 0, menor = Infinity;
+        tarjetas.forEach(function (t, i) {
+          var pos = BASE + cfg.inicio + i * cfg.paso - giro;
+          if (Math.abs(pos - FRENTE) < menor) { menor = Math.abs(pos - FRENTE); centrada = i; }
+          if (!t.tex) return;
+          gl.bindTexture(gl.TEXTURE_2D, t.tex);
+          gl.uniform1f(uPos, pos);
+          gl.uniform4f(uRecorte, t.recorte[0], t.recorte[1], t.recorte[2], t.recorte[3]);
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, (TRAMOS + 1) * 2);
+        });
+        // Nombre y cifra de la ciudad que está delante
+        if (centrada !== activa) {
+          activa = centrada;
+          items.forEach(function (item, i) {
+            item.classList.toggle('is-activa', i === centrada);
+            item.classList.toggle('is-pasada', i < centrada);
+          });
+        }
+      };
+      var pedirPintado = function () {
+        if (!pendiente) { pendiente = true; requestAnimationFrame(pintar); }
+      };
+
+      // Texturas: cada foto se copia a un lienzo de potencia de 2 (mipmaps: la
+      // imagen se ve nítida aunque se reduzca) y se recorta al formato de la tarjeta
+      var FORMATO = ANCHO / ALTO;
+      tarjetas = items.map(function (item) {
+        var t = { tex: null, recorte: [0, 0, 1, 1], img: item.querySelector('img') };
+        var cargar = function () {
+          var img = t.img;
+          if (!img.naturalWidth || t.tex) return;
+          var c = document.createElement('canvas');
+          c.width = Math.min(2048, Math.pow(2, Math.ceil(Math.log2(img.naturalWidth))));
+          c.height = Math.min(2048, Math.pow(2, Math.ceil(Math.log2(img.naturalHeight))));
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          t.tex = gl.createTexture();
+          gl.bindTexture(gl.TEXTURE_2D, t.tex);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c);
+          gl.generateMipmap(gl.TEXTURE_2D);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          var a = img.naturalWidth / img.naturalHeight;
+          t.recorte = a > FORMATO
+            ? [(1 - FORMATO / a) / 2, 0, FORMATO / a, 1]
+            : [0, (1 - a / FORMATO) / 2, 1, a / FORMATO];
+          pedirPintado();
+        };
+        if (t.img.complete) cargar();
+        t.img.addEventListener('load', cargar);
+        return t;
+      });
+      // Las fotos se cargan al acercarse la sección
+      if ('IntersectionObserver' in window) {
+        var cerca = new IntersectionObserver(function (entradas) {
+          if (!entradas[0].isIntersecting) return;
+          tarjetas.forEach(function (t) { t.img.loading = 'eager'; });
+          cerca.disconnect();
+        }, { rootMargin: '100% 0px' });
+        cerca.observe(ciudades);
+      }
+
+      // Campo de visión como PerspectiveCamera.setFocalLength de three.js y
+      // posición del nombre y la cifra respecto a la tarjeta centrada (a 7 de la cámara)
+      var medir = function () {
+        cfg = config();
+        var w = escena.clientWidth, h = escena.clientHeight;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        lienzo.width = Math.round(w * dpr);
+        lienzo.height = Math.round(h * dpr);
+        gl.viewport(0, 0, lienzo.width, lienzo.height);
+        var pv = 0.5 * (35 / Math.max(w / h, 1)) / FOCAL;
+        pend = [pv * w / h, pv];
+        var mitad = ALTO / 2 / ((CAMARA - RADIO) * pv);
+        var desvio = 2 * cfg.desvio;
+        ciudades.style.setProperty('--tr-arriba', ((1 - desvio - mitad) / 2 * h).toFixed(1) + 'px');
+        ciudades.style.setProperty('--tr-abajo', ((1 - desvio + mitad) / 2 * h).toFixed(1) + 'px');
+        pedirPintado();
+      };
+      medir();
+      window.ScrollTrigger.addEventListener('refresh', medir);
+
+      // Giro con el scroll: entrando la sección llega la primera ciudad (frenando)
+      // y, con la escena fija, pasan las demás hasta parar en la última
+      var estado = { giro: 0 };
+      gsap.timeline({
+        defaults: { ease: 'none' },
+        onUpdate: function () { giro = estado.giro; pedirPintado(); },
+        scrollTrigger: { trigger: ciudades, start: 'top bottom', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true }
+      })
+        .to(estado, { giro: function () { return BASE + cfg.inicio - FRENTE; }, ease: 'power1.out', duration: 1 })
+        .to(estado, { giro: function () { return BASE + cfg.inicio + (n - 1) * cfg.paso - FRENTE; }, ease: 'sine.inOut', duration: 2 });
+      window.ScrollTrigger.refresh();
+    });
+  }
+
+  /* ---------- Carrusel con arrastre (Track Record, producto nacional) ----------
+     [data-carrusel]: lista con scroll horizontal (dedo, trackpad o rueda con
+     mayúsculas). Con ratón también se arrastra; tras arrastrar no se abre el enlace. */
+  document.querySelectorAll('[data-carrusel]').forEach(function (pista) {
+    var arrastrando = false, movido = false, inicioX = 0, inicioScroll = 0;
+    pista.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      arrastrando = true;
+      movido = false;
+      inicioX = e.clientX;
+      inicioScroll = pista.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!arrastrando) return;
+      var dx = e.clientX - inicioX;
+      if (!movido && Math.abs(dx) > 5) { movido = true; pista.classList.add('is-arrastrando'); }
+      if (movido) pista.scrollLeft = inicioScroll - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!arrastrando) return;
+      arrastrando = false;
+      pista.classList.remove('is-arrastrando');
+    });
+    pista.addEventListener('click', function (e) {
+      if (movido) { e.preventDefault(); movido = false; }
+    }, true);
+    pista.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  });
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {
