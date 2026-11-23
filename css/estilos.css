@@ -1313,19 +1313,19 @@ em { font-style: italic; }
 .sv-card__texto p { margin-top: 12px; color: #000; font: 300 15px/1.1 var(--sans); }
 
 @media (min-width: 768px) {
-  .sv-circulo { --c: 520px; --punto: 30px; }
+  .sv-circulo { --c: 440px; --punto: 28px; }
+  /* El texto del servicio, centrado en el círculo en vertical y en horizontal */
   .sv-circulo__info {
     position: absolute;
     inset: 0 0 auto;
     height: var(--c);
     margin: 0;
-    padding-top: calc(var(--c) * 0.16);
+    place-items: center;
     pointer-events: none; /* deja pulsar los puntos que quedan debajo */
   }
-  .sv-servicio { pointer-events: auto; }
-  .sv-servicio { width: 72%; margin-inline: auto; }
-  .sv-servicio__num { font-size: 64px; }
-  .sv-servicio__titulo { font-size: 34px; }
+  .sv-servicio { width: 70%; pointer-events: auto; align-self: center; }
+  .sv-servicio__num { font-size: 52px; }
+  .sv-servicio__titulo { font-size: 28px; }
   .sv-servicio__texto { font-size: 14px; }
 
   .sv-card__caja { grid-template-columns: 42% 1fr; gap: 32px; padding: 9px; height: 280px; }
@@ -1342,12 +1342,11 @@ em { font-style: italic; }
     margin-top: calc(37.6 * var(--s));
     font-size: max(12px, calc(14 * var(--s)));
   }
-  .sv-circulo { --c: calc(582 * var(--s)); --punto: calc(35 * var(--s)); margin-top: calc(87.5 * var(--s)); }
-  .sv-circulo__info { padding-top: calc(93 * var(--s)); }
-  .sv-servicio { width: calc(410 * var(--s)); }
-  .sv-servicio__num { font-size: calc(85 * var(--s)); }
-  .sv-servicio__titulo { margin-top: calc(8.5 * var(--s)); font-size: calc(45 * var(--s)); }
-  .sv-servicio__texto { margin-top: calc(23 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+  .sv-circulo { --c: calc(480 * var(--s)); --punto: calc(30 * var(--s)); margin-top: calc(87.5 * var(--s)); }
+  .sv-servicio { width: calc(340 * var(--s)); }
+  .sv-servicio__num { font-size: calc(68 * var(--s)); }
+  .sv-servicio__titulo { margin-top: calc(6 * var(--s)); font-size: calc(36 * var(--s)); }
+  .sv-servicio__texto { margin-top: calc(18 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
 
   .sv-tipos { padding: calc(134 * var(--s)) 0 calc(137 * var(--s)); }
   .sv-tipos__titulo { max-width: calc(1061 * var(--s)); padding: 0; font-size: calc(45 * var(--s)); }
