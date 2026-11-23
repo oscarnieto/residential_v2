@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es" data-sk-lerp="0.08">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-CwWbBf7jQqvh/bJnN8zix/pIAcILUmqMV5j4DXi/Lmo='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Servicios | Savills Residencial</title>
+  <meta name="description" content="Servicios integrales para promotores de obra nueva: análisis de suelo, estudios de mercado, estrategia, comercialización y gestión de ventas.">
+
+  <!-- Favicon: logotipo de Savills -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- ScrollKit: siempre primero en el head -->
+  <script>document.documentElement.classList.add('sk-js');try{var s=sessionStorage,d=document.documentElement;if(s.getItem('sk-intro'))d.classList.add('sk-intro-seen');if(s.getItem('sk-transition'))d.classList.add('sk-arriving')}catch(e){}</script>
+  <link rel="stylesheet" href="scroll-kit/css/scroll-kit.css">
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap">
+
+  <!-- CSS del proyecto (diseño) -->
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body data-pagina="servicios">
+
+  <header class="cabecera" data-reveal="up" data-distance="-80" data-delay="0.1">
+    <button class="cabecera__menu" type="button" aria-expanded="false" aria-controls="menu">
+      <img src="icons/menu.svg" width="22" height="5" alt="">
+      <span>Menú</span>
+    </button>
+    <a class="cabecera__logo" href="index.html" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
+    </a>
+    <a class="cabecera__web" href="https://www.savills.es" target="_blank" rel="noopener noreferrer">savills.es</a>
+  </header>
+
+  <main>
+    <!-- HERO: parallax de la imagen de fondo (E16) -->
+    <section class="hero" id="inicio" data-image-move="25">
+      <picture>
+        <source srcset="img/hero-servicios.avif" type="image/avif">
+        <img class="hero__video" src="img/hero-servicios.jpg" width="1440" height="1080" alt="" fetchpriority="high">
+      </picture>
+      <h1 class="hero__titulo">
+        <span class="hero__sub" data-reveal="lines" data-delay="0.2">Servicios</span>
+        <span class="hero__main" data-reveal="lines" data-delay="0.4">INTEGRALES</span>
+      </h1>
+      <a class="hero__scroll" href="#enfoque" aria-label="Bajar al contenido">
+        <img src="icons/scroll.svg" width="42" height="42" alt="">
+      </a>
+    </section>
+
+    <!-- ENFOQUE: textos (E09 / E13) y círculo de servicios. La línea se dibuja con
+         el scroll y los puntos crecen al pasar la línea por ellos; cada punto
+         muestra su servicio al pulsarlo (js/main.js) -->
+    <section class="sv-intro" id="enfoque">
+      <h2 class="sv-intro__titulo" data-reveal="lines"><em>Cada proyecto presenta decisiones clave desde sus fases iniciales.</em></h2>
+      <div class="sv-intro__texto" data-reveal="up">
+        <p>Por eso, acompañamos a promotores inmobiliarios en todas las fases del desarrollo, desde la definición del producto hasta su comercialización.</p>
+        <p>Un enfoque integral que combina conocimiento de mercado, estrategia y capacidad comercial para maximizar el valor de cada proyecto y optimizar su salida al mercado.</p>
+      </div>
+
+      <div class="sv-circulo" data-circulo>
+        <svg class="sv-circulo__linea" viewBox="0 0 582 582" aria-hidden="true">
+          <path class="sv-circulo__arco" d="M291 1.5 A289.5 289.5 0 1 1 216.07 11.37" fill="none" stroke="#25273A" stroke-width="3"/>
+          <path class="sv-circulo__flecha" d="M221.87 9.82 L206.29 21.24 L202.67 7.72 Z" fill="#25273A"/>
+        </svg>
+        <ol class="sv-circulo__puntos" role="tablist" aria-label="Servicios">
+          <li><button class="sv-punto sv-punto--1 is-activo" type="button" role="tab" id="sv-tab-1" aria-controls="sv-panel-1" aria-selected="true" aria-label="01. Análisis urbanístico y gestión de suelo"></button></li>
+          <li><button class="sv-punto sv-punto--2" type="button" role="tab" id="sv-tab-2" aria-controls="sv-panel-2" aria-selected="false" aria-label="02. Research y análisis de mercado" tabindex="-1"></button></li>
+          <li><button class="sv-punto sv-punto--3" type="button" role="tab" id="sv-tab-3" aria-controls="sv-panel-3" aria-selected="false" aria-label="03. Desarrollo de estrategia" tabindex="-1"></button></li>
+          <li><button class="sv-punto sv-punto--4" type="button" role="tab" id="sv-tab-4" aria-controls="sv-panel-4" aria-selected="false" aria-label="04. Sostenibilidad e innovación" tabindex="-1"></button></li>
+          <li><button class="sv-punto sv-punto--5" type="button" role="tab" id="sv-tab-5" aria-controls="sv-panel-5" aria-selected="false" aria-label="05. Estrategia de comercialización y marketing" tabindex="-1"></button></li>
+          <li><button class="sv-punto sv-punto--6" type="button" role="tab" id="sv-tab-6" aria-controls="sv-panel-6" aria-selected="false" aria-label="06. Gestión de ventas" tabindex="-1"></button></li>
+          <li><button class="sv-punto sv-punto--7" type="button" role="tab" id="sv-tab-7" aria-controls="sv-panel-7" aria-selected="false" aria-label="07. Seguimiento y optimización" tabindex="-1"></button></li>
+          <li><button class="sv-punto sv-punto--8" type="button" role="tab" id="sv-tab-8" aria-controls="sv-panel-8" aria-selected="false" aria-label="08. Cierre" tabindex="-1"></button></li>
+        </ol>
+        <div class="sv-circulo__info">
+          <div class="sv-servicio is-activo" id="sv-panel-1" role="tabpanel" aria-labelledby="sv-tab-1">
+            <p class="sv-servicio__num">01</p>
+            <h3 class="sv-servicio__titulo">Análisis urbanístico y gestión de suelo</h3>
+            <p class="sv-servicio__texto"><strong>Identificar el potencial real de un suelo es el primer paso para el éxito de una promoción.</strong> Analizamos su viabilidad urbanística y su capacidad de desarrollo para asegurar una base sólida desde el inicio.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-2" role="tabpanel" aria-labelledby="sv-tab-2" hidden>
+            <p class="sv-servicio__num">02</p>
+            <h3 class="sv-servicio__titulo">Research y análisis de mercado</h3>
+            <p class="sv-servicio__texto"><strong>Tomar decisiones sin entender la demanda puede comprometer el resultado del proyecto.</strong> Elaboramos estudios de mercado que permiten identificar oportunidades y respaldar la toma de decisiones estratégicas.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-3" role="tabpanel" aria-labelledby="sv-tab-3" hidden>
+            <p class="sv-servicio__num">03</p>
+            <h3 class="sv-servicio__titulo">Desarrollo de estrategia</h3>
+            <p class="sv-servicio__texto"><strong>Definir el posicionamiento adecuado desde el inicio es clave para la competitividad del proyecto.</strong> Desarrollamos estrategias que aseguran su encaje en el mercado y maximizan su valor.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-4" role="tabpanel" aria-labelledby="sv-tab-4" hidden>
+            <p class="sv-servicio__num">04</p>
+            <h3 class="sv-servicio__titulo">Sostenibilidad e innovación</h3>
+            <p class="sv-servicio__texto"><strong>Las exigencias del mercado están evolucionando hacia modelos más eficientes y sostenibles.</strong> Integramos criterios ESG y tendencias del sector para asegurar la competitividad futura del proyecto.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-5" role="tabpanel" aria-labelledby="sv-tab-5" hidden>
+            <p class="sv-servicio__num">05</p>
+            <h3 class="sv-servicio__titulo">Estrategia de comercialización y marketing</h3>
+            <p class="sv-servicio__texto"><strong>Llegar al comprador adecuado en el momento correcto es uno de los mayores retos en obra nueva.</strong> Diseñamos planes de comercialización y comunicación alineados con el público objetivo y los objetivos del proyecto.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-6" role="tabpanel" aria-labelledby="sv-tab-6" hidden>
+            <p class="sv-servicio__num">06</p>
+            <h3 class="sv-servicio__titulo">Gestión de ventas</h3>
+            <p class="sv-servicio__texto"><strong>Mantener un flujo constante de ventas sin comprometer el valor requiere una ejecución sólida.</strong> Gestionamos el proceso comercial optimizando la captación, cualificación y conversión de la demanda.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-7" role="tabpanel" aria-labelledby="sv-tab-7" hidden>
+            <p class="sv-servicio__num">07</p>
+            <h3 class="sv-servicio__titulo">Seguimiento y optimización</h3>
+            <p class="sv-servicio__texto"><strong>El mercado cambia y la estrategia debe adaptarse.</strong> Monitorizamos el rendimiento comercial y ajustamos las decisiones en función de la evolución del mercado.</p>
+          </div>
+          <div class="sv-servicio" id="sv-panel-8" role="tabpanel" aria-labelledby="sv-tab-8" hidden>
+            <p class="sv-servicio__num">08</p>
+            <h3 class="sv-servicio__titulo">Cierre</h3>
+            <p class="sv-servicio__texto"><strong>El proceso no termina con la venta.</strong> Acompañamos hasta la formalización final, asegurando una gestión eficiente y controlada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Capas que se apilan (E24): el pie sube por encima de la última sección -->
+  <div class="pila" data-stack data-shade="0.5">
+    <!-- TIPOLOGÍAS: las tarjetas se apilan unas sobre otras con el scroll
+         (sticky + js/main.js), como en la plantilla Orchid -->
+    <section class="sv-tipos" id="tipologias">
+      <h2 class="sv-tipos__titulo" data-reveal="lines"><em>Sabemos que cada proyecto es único.</em><br> Por eso abordamos cada proyecto con una estrategia<br> a medida, de principio a fin.</h2>
+      <ol class="sv-cards" data-apilar>
+        <li class="sv-card">
+          <div class="sv-card__caja">
+            <div class="sv-card__foto">
+              <picture>
+                <source srcset="img/sv-high-end.avif" type="image/avif">
+                <img src="img/sv-high-end.jpg" width="800" height="1200" alt="Salón de una vivienda de alto standing con sofá blanco y ventanales" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="sv-card__texto" data-reveal="up">
+              <h3 class="sv-card__titulo">High End Residences</h3>
+              <p>Proyectos de alto nivel orientados a segmentos premium, donde la estrategia se centra en posicionamiento, exclusividad y valor.</p>
+            </div>
+          </div>
+        </li>
+        <li class="sv-card">
+          <div class="sv-card__caja">
+            <div class="sv-card__foto">
+              <picture>
+                <source srcset="img/sv-boutique.avif" type="image/avif">
+                <img src="img/sv-boutique.jpg" width="1004" height="670" alt="Interior de diseño con escultura de ramas y piezas de cerámica" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="sv-card__texto" data-reveal="up">
+              <h3 class="sv-card__titulo">Boutique Collection</h3>
+              <p>Proyectos exclusivos con un alto nivel de diseño y posicionamiento diferencial, orientados a un comprador que prioriza singularidad y calidad.</p>
+            </div>
+          </div>
+        </li>
+        <li class="sv-card">
+          <div class="sv-card__caja">
+            <div class="sv-card__foto">
+              <picture>
+                <source srcset="img/sv-city.avif" type="image/avif">
+                <img src="img/sv-city.jpg" width="1022" height="682" alt="Edificio residencial urbano al atardecer con las ventanas iluminadas" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="sv-card__texto" data-reveal="up">
+              <h3 class="sv-card__titulo">City Residences</h3>
+              <p>Promociones orientadas a demanda urbana, ubicadas en zonas consolidadas con alta liquidez y rotación.</p>
+            </div>
+          </div>
+        </li>
+        <li class="sv-card">
+          <div class="sv-card__caja">
+            <div class="sv-card__foto">
+              <picture>
+                <source srcset="img/sv-urban.avif" type="image/avif">
+                <img src="img/sv-urban.jpg" width="1022" height="682" alt="Salón luminoso con zona de lectura y vistas a la ciudad" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="sv-card__texto" data-reveal="up">
+              <h3 class="sv-card__titulo">Urban Living</h3>
+              <p>Promociones adaptadas a nuevos estilos de vida, con un enfoque flexible y atractivo para comprador internacional.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+  <!-- FOOTER -->
+  <footer class="pie">
+    <a class="pie__logo" href="index.html" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="58" height="58" alt="Savills">
+    </a>
+    <nav aria-label="Pie de página">
+      <ul class="pie__nav" data-reveal="children" data-stagger="0.06" data-distance="20">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="red-internacional.html">Red internacional</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="#track-record">Track Record</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="pie__centro" data-reveal="up"><p class="pie__lema" data-foco>Sabemos<br> lo que significa<br> encontrar<br> tu <em>nuevo hogar</em></p></div>
+    <a class="pie__subir" href="#inicio" aria-label="Volver arriba">
+      <img src="icons/subir.svg" width="34" height="34" alt="">
+    </a>
+    <p class="pie__marca" data-reveal="chars" data-stagger="0.03" data-start="top bottom">Savills residencial</p>
+  </footer>
+  </div>
+
+  <!-- MENÚ DESPLEGADO -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" inert>
+    <nav class="menu__nav" aria-label="Principal">
+      <ul>
+        <li><a href="index.html" data-foto="inicio">Inicio</a></li>
+        <li><a href="red-internacional.html" data-foto="red">Red Internacional</a></li>
+        <li><a href="servicios.html" data-foto="servicios">Servicios</a></li>
+        <li><a href="#track-record" data-foto="track">Track Record</a></li>
+        <li><a href="#equipo" data-foto="equipo">Equipo</a></li>
+        <li><a href="#contacto" data-foto="contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu__lateral">
+      <button class="menu__cerrar" type="button" aria-label="Cerrar menú">
+        <img src="icons/cerrar.svg" width="24" height="24" alt="">
+      </button>
+      <!-- Imagen del hero de cada sección; cambia al pasar el ratón por cada enlace -->
+      <div class="menu__imagen" aria-hidden="true">
+        <img class="menu__foto is-activa" data-foto="inicio" src="img/hero-poster.jpg" width="1280" height="720" alt="" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="img/hero-red.avif" type="image/avif">
+          <img class="menu__foto" data-foto="red" src="img/hero-red.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-servicios.avif" type="image/avif">
+          <img class="menu__foto" data-foto="servicios" src="img/hero-servicios.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-track.avif" type="image/avif">
+          <img class="menu__foto" data-foto="track" src="img/hero-track.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-equipo.avif" type="image/avif">
+          <img class="menu__foto" data-foto="equipo" src="img/hero-equipo.jpg" width="1440" height="1080" alt="" loading="lazy" decoding="async">
+        </picture>
+        <picture>
+          <source srcset="img/hero-contacto.avif" type="image/avif">
+          <img class="menu__foto" data-foto="contacto" src="img/hero-contacto.jpg" width="1440" height="960" alt="" loading="lazy" decoding="async">
+        </picture>
+      </div>
+    </div>
+
+    <a class="menu__logo" href="index.html" aria-label="Savills, ir al inicio">
+      <img src="icons/logo-savills.svg" width="77" height="77" alt="Savills">
+    </a>
+
+    <div class="menu__pie">
+      <div class="menu__contacto">
+        <p class="menu__contacto-titulo">CONTACTO</p>
+        <p class="menu__oficina"><span>Barcelona</span>(+34) <a href="tel:+34934395454">934 39 54 54</a></p>
+        <p class="menu__oficina"><span>Madrid</span>(+34) <a href="tel:+34913191314">913 19 13 14</a></p>
+        <p class="menu__oficina"><span>Málaga</span>(+34) <a href="tel:+34952062782">952 06 27 82</a></p>
+      </div>
+      <a class="menu__web" href="https://www.savills.es" target="_blank" rel="noopener noreferrer">savills.es</a>
+    </div>
+  </div>
+
+  <!-- ScrollKit: librerías al final, en este orden -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha384-SWJ0lLVRoipvHh59xj0pL7uC7Ih51F+5smaFtrG+2nr+TlDZU5SYJHmxfolbeNTr" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous"></script>
+  <script src="scroll-kit/js/scroll-kit.js"></script>
+
+  <!-- JS del proyecto -->
+  <script src="js/main.js"></script>
+</body>
+</html>

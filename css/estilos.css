@@ -36,8 +36,8 @@ body {
 
 img { display: block; max-width: 100%; height: auto; }
 picture { display: contents; }
-h1, h2, h3, p, ul { margin: 0; }
-ul { padding: 0; list-style: none; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 em { font-style: italic; }
@@ -1206,4 +1206,164 @@ em { font-style: italic; }
   }
   .ri-ver__caja { padding-right: calc(14.9 * var(--s)); }
   .ri-ver__txt { font-size: max(12px, calc(14 * var(--s))); }
+}
+
+/* =========================================================
+   Página Servicios (servicios.html)
+   ========================================================= */
+
+/* ---------- Enfoque + círculo de servicios ---------- */
+.sv-intro { padding: 64px var(--pad) 80px; color: var(--navy); text-align: center; }
+.sv-intro__titulo {
+  max-width: 840px;
+  margin-inline: auto;
+  font: 400 clamp(28px, 4vw, 45px)/1.06 var(--serif);
+}
+.sv-intro__texto {
+  max-width: 840px;
+  margin: 28px auto 0;
+  color: #000;
+  font: 300 16px/1.1 var(--sans);
+}
+.sv-intro__texto p + p { margin-top: 1.1em; }
+
+.sv-circulo {
+  --c: min(calc(100vw - 2 * var(--pad)), 420px);
+  --punto: 26px;
+  position: relative;
+  width: var(--c);
+  margin: 48px auto 0;
+}
+.sv-circulo__linea { display: block; width: 100%; height: var(--c); overflow: visible; }
+.sv-circulo__puntos { position: absolute; inset: 0 0 auto; height: var(--c); }
+.sv-circulo__puntos li { position: absolute; }
+.sv-punto {
+  display: block;
+  width: var(--punto);
+  height: var(--punto);
+  margin: calc(var(--punto) / -2) 0 0 calc(var(--punto) / -2);
+  border: 2px solid var(--crema);
+  border-radius: 50%;
+  background: var(--navy);
+  transition: background-color 0.3s ease;
+}
+.sv-punto:hover { background: #4a4d6a; }
+.sv-punto.is-activo { background: var(--amarillo); }
+/* Posición de cada punto sobre el círculo (Figma, sentido horario desde arriba) */
+.sv-circulo__puntos li:nth-child(1) { left: 61.43%; top: 2.32%; }
+.sv-circulo__puntos li:nth-child(2) { left: 92.87%; top: 25.69%; }
+.sv-circulo__puntos li:nth-child(3) { left: 95.96%; top: 68.47%; }
+.sv-circulo__puntos li:nth-child(4) { left: 70.7%;  top: 94.76%; }
+.sv-circulo__puntos li:nth-child(5) { left: 29.12%; top: 94.76%; }
+.sv-circulo__puntos li:nth-child(6) { left: 3.01%;  top: 68.47%; }
+.sv-circulo__puntos li:nth-child(7) { left: 4.21%;  top: 30.15%; }
+.sv-circulo__puntos li:nth-child(8) { left: 24.31%; top: 8.33%; }
+
+/* En móvil el servicio activo va debajo del círculo; desde tablet, dentro */
+.sv-circulo__info { display: grid; margin-top: 32px; }
+.sv-servicio { grid-area: 1 / 1; }
+.sv-servicio.is-activo { animation: sv-aparecer 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes sv-aparecer { from { opacity: 0; transform: translateY(14px); } }
+.sv-servicio__num { font: 400 48px/1.218 var(--serif); }
+.sv-servicio__titulo { margin-top: 4px; color: #000; font: 400 26px/1.06 var(--serif); }
+.sv-servicio__texto { max-width: 410px; margin: 16px auto 0; color: #000; font: 300 15px/1.1 var(--sans); }
+.sv-servicio__texto strong { display: block; font-weight: 600; }
+
+/* ---------- Tipologías: tarjetas que se apilan ---------- */
+.sv-tipos { padding: 64px 0 80px; background: #e6dbd3; color: var(--navy); }
+.sv-tipos__titulo {
+  max-width: 1061px;
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  font: 400 clamp(26px, 4vw, 45px)/1.06 var(--serif);
+  text-align: center;
+}
+.sv-cards {
+  --apilar-top: 76px;
+  --apilar-paso: 14px;
+  margin-top: 40px;
+  padding-inline: var(--pad);
+}
+/* Cada tarjeta se queda fija un poco más abajo que la anterior (como Orchid) */
+.sv-card {
+  position: sticky;
+  top: calc(var(--apilar-top) + var(--i, 0) * var(--apilar-paso));
+  margin-bottom: 16px;
+}
+.sv-card:last-child { margin-bottom: 0; }
+.sv-card:nth-child(2) { --i: 1; }
+.sv-card:nth-child(3) { --i: 2; }
+.sv-card:nth-child(4) { --i: 3; }
+.sv-card__caja {
+  display: grid;
+  gap: 16px;
+  padding: 8px 8px 20px;
+  background: var(--crema);
+  transform-origin: 50% 0;
+}
+.sv-card__foto { position: relative; height: 200px; overflow: hidden; }
+.sv-card__foto picture { display: contents; }
+.sv-card__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sv-card__texto { padding-inline: 8px; }
+.sv-card__titulo { font: 400 26px/1.06 var(--serif); }
+.sv-card__texto p { margin-top: 12px; color: #000; font: 300 15px/1.1 var(--sans); }
+
+@media (min-width: 768px) {
+  .sv-circulo { --c: 520px; --punto: 30px; }
+  .sv-circulo__info {
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--c);
+    margin: 0;
+    padding-top: calc(var(--c) * 0.16);
+    pointer-events: none; /* deja pulsar los puntos que quedan debajo */
+  }
+  .sv-servicio { pointer-events: auto; }
+  .sv-servicio { width: 72%; margin-inline: auto; }
+  .sv-servicio__num { font-size: 64px; }
+  .sv-servicio__titulo { font-size: 34px; }
+  .sv-servicio__texto { font-size: 14px; }
+
+  .sv-card__caja { grid-template-columns: 42% 1fr; gap: 32px; padding: 9px; height: 280px; }
+  .sv-card__foto { height: auto; }
+  .sv-card__texto { padding: 56px 16px 0 0; }
+  .sv-card__titulo { font-size: 34px; }
+}
+
+@media (min-width: 1024px) {
+  .sv-intro { padding: calc(109 * var(--s)) var(--pad) calc(182.7 * var(--s)); }
+  .sv-intro__titulo { max-width: calc(840 * var(--s)); font-size: calc(45 * var(--s)); }
+  .sv-intro__texto {
+    max-width: calc(840 * var(--s));
+    margin-top: calc(37.6 * var(--s));
+    font-size: max(12px, calc(14 * var(--s)));
+  }
+  .sv-circulo { --c: calc(582 * var(--s)); --punto: calc(35 * var(--s)); margin-top: calc(87.5 * var(--s)); }
+  .sv-circulo__info { padding-top: calc(93 * var(--s)); }
+  .sv-servicio { width: calc(410 * var(--s)); }
+  .sv-servicio__num { font-size: calc(85 * var(--s)); }
+  .sv-servicio__titulo { margin-top: calc(8.5 * var(--s)); font-size: calc(45 * var(--s)); }
+  .sv-servicio__texto { margin-top: calc(23 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+
+  .sv-tipos { padding: calc(134 * var(--s)) 0 calc(137 * var(--s)); }
+  .sv-tipos__titulo { max-width: calc(1061 * var(--s)); padding: 0; font-size: calc(45 * var(--s)); }
+  .sv-cards {
+    --apilar-top: max(90px, calc(50vh - 166 * var(--s) - 30px));
+    --apilar-paso: 20px;
+    margin-top: calc(93 * var(--s));
+  }
+  .sv-card { margin-bottom: calc(19.6 * var(--s)); }
+  .sv-card__caja {
+    grid-template-columns: calc(493.3 * var(--s)) 1fr;
+    column-gap: calc(46 * var(--s));
+    height: calc(331.86 * var(--s));
+    padding: calc(9.77 * var(--s)) calc(9.25 * var(--s));
+  }
+  .sv-card__texto { padding: calc(86 * var(--s)) 0 0; max-width: calc(660 * var(--s)); }
+  .sv-card__titulo { font-size: calc(45 * var(--s)); }
+  .sv-card__texto p { margin-top: calc(21.9 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-servicio.is-activo { animation: none; }
 }

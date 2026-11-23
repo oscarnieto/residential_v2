@@ -249,6 +249,91 @@
     });
   }
 
+  /* ---------- Servicios: círculo ----------
+     - Al pulsar un punto se muestra su servicio (pestañas accesibles: flechas,
+       Inicio y Fin también funcionan).
+     - Con el scroll, la línea se dibuja siguiendo el círculo y cada punto crece
+       (de pequeño a su tamaño) cuando la línea llega a él; al final, la flecha.
+     ScrollKit no tiene este efecto combinado; se monta con GSAP + ScrollTrigger. */
+  var circulo = document.querySelector('[data-circulo]');
+  if (circulo) {
+    var puntos = Array.prototype.slice.call(circulo.querySelectorAll('.sv-punto'));
+    var paneles = puntos.map(function (b) { return document.getElementById(b.getAttribute('aria-controls')); });
+    var mostrarServicio = function (i, foco) {
+      puntos.forEach(function (b, k) {
+        var activo = k === i;
+        b.classList.toggle('is-activo', activo);
+        b.setAttribute('aria-selected', String(activo));
+        b.tabIndex = activo ? 0 : -1;
+        paneles[k].hidden = !activo;
+        paneles[k].classList.toggle('is-activo', activo);
+      });
+      if (foco) puntos[i].focus();
+    };
+    puntos.forEach(function (b, i) {
+      b.addEventListener('click', function () { mostrarServicio(i); });
+      b.addEventListener('keydown', function (e) {
+        var n = puntos.length, j = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % n;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + n) % n;
+        else if (e.key === 'Home') j = 0;
+        else if (e.key === 'End') j = n - 1;
+        if (j !== null) { e.preventDefault(); mostrarServicio(j, true); }
+      });
+    });
+
+    if (window.gsap && window.ScrollTrigger && !menosMovimiento) {
+      document.addEventListener('DOMContentLoaded', function () {
+        var gsap = window.gsap;
+        gsap.registerPlugin(window.ScrollTrigger);
+        var arco = circulo.querySelector('.sv-circulo__arco');
+        var flecha = circulo.querySelector('.sv-circulo__flecha');
+        var largo = arco.getTotalLength();
+        // Ángulo de cada punto desde arriba, en sentido horario; el arco mide 345°
+        var angulos = [13.5, 60.4, 111.9, 155.2, 205, 248.5, 293.4, 328.3];
+        gsap.set(arco, { strokeDasharray: largo, strokeDashoffset: largo });
+        gsap.set(flecha, { autoAlpha: 0 });
+        gsap.set(puntos, { scale: 0 });
+        var tl = gsap.timeline({
+          scrollTrigger: { trigger: circulo, start: 'top 85%', end: 'center 45%', scrub: 0.6 }
+        });
+        tl.to(arco, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0);
+        puntos.forEach(function (b, i) {
+          tl.to(b, { scale: 1, ease: 'back.out(2.5)', duration: 0.1 }, angulos[i] / 345 - 0.02);
+        });
+        tl.to(flecha, { autoAlpha: 1, duration: 0.05 }, 0.96);
+      });
+    }
+  }
+
+  /* ---------- Servicios: tarjetas que se apilan (como Orchid) ----------
+     Cada tarjeta es sticky un poco más abajo que la anterior (CSS). Aquí, al
+     taparse, las de debajo se reducen un poco para que asome su borde. */
+  var apilar = document.querySelector('[data-apilar]');
+  if (apilar && window.gsap && window.ScrollTrigger && !menosMovimiento) {
+    document.addEventListener('DOMContentLoaded', function () {
+      var gsap = window.gsap;
+      gsap.registerPlugin(window.ScrollTrigger);
+      var tarjetas = Array.prototype.slice.call(apilar.querySelectorAll('.sv-card'));
+      var ultima = tarjetas[tarjetas.length - 1];
+      tarjetas.forEach(function (t, i) {
+        if (t === ultima) return;
+        gsap.to(t.querySelector('.sv-card__caja'), {
+          scale: 1 - 0.04 * (tarjetas.length - 1 - i),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: tarjetas[i + 1],
+            start: 'top bottom',
+            endTrigger: ultima,
+            end: function () { return 'top ' + (parseFloat(getComputedStyle(ultima).top) || 0) + 'px'; },
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        });
+      });
+    });
+  }
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {
