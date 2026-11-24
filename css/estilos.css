@@ -1494,20 +1494,20 @@ em { font-style: italic; }
 .tr-producto__texto strong { font-weight: 700; }
 /* Flechas: retroceden o avanzan una tarjeta (js/main.js); en los extremos se
    atenúan. El área pulsable es mayor que el dibujo: se compensa con márgenes */
-.tr-producto__flechas { flex: none; display: flex; gap: 6px; margin: 0 -7px -5px 0; }
+.tr-producto__flechas { flex: none; display: flex; gap: 0; margin: 0 -7px -1px 0; }
 .tr-producto__flecha {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   transition: opacity 0.3s ease;
 }
-.tr-producto__flecha svg { width: 35px; height: auto; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.tr-producto__flecha svg { width: 26px; height: auto; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .tr-producto__flecha--anterior svg { transform: scaleX(-1); }
 .tr-producto__flecha:disabled { opacity: 0.3; cursor: default; }
 @media (hover: hover) {
-  .tr-producto__flecha:not(:disabled):hover svg { transform: translateX(6px); }
-  .tr-producto__flecha--anterior:not(:disabled):hover svg { transform: translateX(-6px) scaleX(-1); }
+  .tr-producto__flecha:not(:disabled):hover svg { transform: translateX(4px); }
+  .tr-producto__flecha--anterior:not(:disabled):hover svg { transform: translateX(-4px) scaleX(-1); }
 }
 
 /* Barra de desplazamiento bajo el carrusel: línea fina hasta el borde derecho
@@ -1711,12 +1711,12 @@ em { font-style: italic; }
   .tr-slide__nombre { margin-top: calc(4 * var(--s)); font-size: calc(50 * var(--s)); }
   .tr-slide__ciudad { margin-top: calc(10 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
   .tr-producto__titulo { font-size: calc(45 * var(--s)); }
-  .tr-producto__flechas { gap: calc(6.7 * var(--s)); margin: 0 calc(-6.7 * var(--s)) calc(-5 * var(--s)) 0; }
-  .tr-producto__flecha { width: calc(48 * var(--s)); height: calc(48 * var(--s)); }
+  .tr-producto__flechas { gap: 0; margin: 0 calc(-7 * var(--s)) calc(-1 * var(--s)) 0; }
+  .tr-producto__flecha { width: calc(40 * var(--s)); height: calc(40 * var(--s)); }
   .tr-barra { height: calc(2.5 * var(--s)); margin-top: calc(62 * var(--s)); }
   .tr-barra::before { top: calc(0.75 * var(--s)); }
   .tr-barra__pulgar { width: calc(139 * var(--s)); height: calc(2.5 * var(--s)); }
-  .tr-producto__flecha svg { width: calc(34.67 * var(--s)); }
+  .tr-producto__flecha svg { width: calc(26 * var(--s)); }
   .tr-producto__texto { max-width: calc(717.37 * var(--s)); margin-top: calc(19.7 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
   .tr-carrusel { gap: calc(15.55 * var(--s)); margin-top: calc(33.5 * var(--s)); }
   .tr-producto--internacional .tr-carrusel { margin-top: calc(70 * var(--s)); }
