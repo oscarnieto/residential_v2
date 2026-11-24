@@ -54,20 +54,27 @@
       </a>
     </section>
 
-    <!-- TRAYECTORIA: el titular aparece letra a letra por opacidad (E11) -->
+    <!-- TRAYECTORIA: el titular aparece letra a letra por opacidad (E11). Las
+         imágenes aparecen con cortina (E18, en el marco exterior; su zoom se aplica
+         al marco interior [data-media]) y la foto se desplaza suavemente dentro
+         del marco interior (E16) -->
     <section class="tr-intro" id="trayectoria">
       <h2 class="tr-intro__titulo" data-reveal="fade-chars">Contamos con una trayectoria consolidada en proyectos que destacan por su <span class="sin-corte"><em>ubicación</em>,</span> <em>diseño</em> y <span class="sin-corte"><em>calidad</em>,</span> concebidos para responder a las necesidades del comprador actual</h2>
-      <div class="tr-intro__foto tr-intro__foto--salon">
-        <picture>
-          <source srcset="img/tr-salon.avif" type="image/avif">
-          <img src="img/tr-salon.jpg" width="630" height="788" alt="Salón con sofá curvo, mesa baja de madera y estantes en la pared" loading="lazy" decoding="async">
-        </picture>
+      <div class="tr-intro__foto tr-intro__foto--salon" data-reveal="clip">
+        <div class="tr-intro__marco" data-media data-image-move="15">
+          <picture>
+            <source srcset="img/tr-salon.avif" type="image/avif">
+            <img src="img/tr-salon.jpg" width="630" height="788" alt="Salón con sofá curvo, mesa baja de madera y estantes en la pared" loading="lazy" decoding="async">
+          </picture>
+        </div>
       </div>
-      <div class="tr-intro__foto tr-intro__foto--cocina">
-        <picture>
-          <source srcset="img/tr-cocina.avif" type="image/avif">
-          <img src="img/tr-cocina.jpg" width="1206" height="1780" alt="Cocina abierta con isla oscura, taburetes de madera y lámparas colgantes" loading="lazy" decoding="async">
-        </picture>
+      <div class="tr-intro__foto tr-intro__foto--cocina" data-reveal="clip">
+        <div class="tr-intro__marco" data-media data-image-move="15">
+          <picture>
+            <source srcset="img/tr-cocina.avif" type="image/avif">
+            <img src="img/tr-cocina.jpg" width="1206" height="1780" alt="Cocina abierta con isla oscura, taburetes de madera y lámparas colgantes" loading="lazy" decoding="async">
+          </picture>
+        </div>
       </div>
     </section>
 

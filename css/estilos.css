@@ -1388,6 +1388,10 @@ em { font-style: italic; }
 }
 /* Evita que la coma tras una palabra en cursiva baje sola a la línea siguiente */
 .sin-corte { white-space: nowrap; }
+/* Marco exterior: cortina (E18). Marco interior absoluto, con alto definido
+   aunque el exterior use aspect-ratio en móvil (E16 lo necesita en Safari) */
+.tr-intro__foto { position: relative; overflow: hidden; }
+.tr-intro__foto > .tr-intro__marco { position: absolute; inset: 0; }
 .tr-intro__foto img { width: 100%; height: 100%; object-fit: cover; }
 .tr-intro__foto--salon { aspect-ratio: 410 / 488.5; }
 .tr-intro__foto--cocina { aspect-ratio: 625 / 891; }
