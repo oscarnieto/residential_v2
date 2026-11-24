@@ -1536,16 +1536,32 @@ em { font-style: italic; }
   transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .tr-proyecto__pie {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 12px;
   margin-top: 8px;
-  padding-left: 3px;
+  padding: 0 0 8px 3px;
   font: 500 12px/1.1 var(--sans);
+}
+/* Línea bajo el nombre: se dibuja de izquierda a derecha al pasar el ratón
+   y, al salir, se recoge hacia la derecha */
+.tr-proyecto__pie::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #25273a;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .tr-proyecto__enlace:focus-visible .tr-proyecto__media::after,
 .tr-proyecto__enlace:focus-visible .tr-proyecto__ver { opacity: 1; }
 .tr-proyecto__enlace:focus-visible .tr-proyecto__ver { transform: translate(-50%, -50%); }
+.tr-proyecto__enlace:focus-visible .tr-proyecto__pie::after { transform: none; transform-origin: left center; }
 @media (hover: hover) and (pointer: fine) {
   .tr-carrusel { cursor: grab; }
   .tr-carrusel.is-arrastrando { cursor: grabbing; scroll-snap-type: none; }
@@ -1554,6 +1570,7 @@ em { font-style: italic; }
   .tr-proyecto__enlace:hover .tr-proyecto__media::after,
   .tr-proyecto__enlace:hover .tr-proyecto__ver { opacity: 1; }
   .tr-proyecto__enlace:hover .tr-proyecto__ver { transform: translate(-50%, -50%); }
+  .tr-proyecto__enlace:hover .tr-proyecto__pie::after { transform: none; transform-origin: left center; }
 }
 
 @media (min-width: 768px) {
@@ -1602,6 +1619,10 @@ em { font-style: italic; }
   .tr-producto__texto { max-width: calc(717.37 * var(--s)); margin-top: calc(19.7 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
   .tr-carrusel { gap: calc(15.55 * var(--s)); margin-top: calc(33.5 * var(--s)); }
   .tr-proyecto { flex-basis: calc(348.34 * var(--s)); }
-  .tr-proyecto__pie { margin-top: calc(7.4 * var(--s)); padding-left: calc(3 * var(--s)); font-size: max(12px, calc(12 * var(--s))); }
+  .tr-proyecto__pie {
+    margin-top: calc(7.4 * var(--s));
+    padding: 0 0 calc(8 * var(--s)) calc(3 * var(--s));
+    font-size: max(12px, calc(12 * var(--s)));
+  }
   .tr-proyecto__ver { padding: calc(16 * var(--s)) calc(30 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
 }
