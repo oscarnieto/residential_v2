@@ -651,20 +651,41 @@
     pista.addEventListener('dragstart', function (e) { e.preventDefault(); });
   });
 
-  // Flecha de cada carrusel ([data-carrusel-siguiente], aria-controls = id del
-  // carrusel): avanza una tarjeta y se desactiva al llegar al final
-  document.querySelectorAll('[data-carrusel-siguiente]').forEach(function (boton) {
-    var pista = document.getElementById(boton.getAttribute('aria-controls'));
-    if (!pista) return;
+  // Controles de cada carrusel (aria-controls / data-carrusel-barra = id del
+  // carrusel): las flechas avanzan o retroceden una tarjeta y se atenúan en los
+  // extremos; en la barra, el tramo grueso se desplaza con el scroll del carrusel
+  document.querySelectorAll('[data-carrusel][id]').forEach(function (pista) {
+    var anterior = document.querySelector('[data-carrusel-anterior][aria-controls="' + pista.id + '"]');
+    var siguiente = document.querySelector('[data-carrusel-siguiente][aria-controls="' + pista.id + '"]');
+    var barra = document.querySelector('[data-carrusel-barra="' + pista.id + '"]');
+    var pulgar = barra && barra.querySelector('.tr-barra__pulgar');
     var actualizar = function () {
-      boton.disabled = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2;
+      var max = pista.scrollWidth - pista.clientWidth;
+      if (anterior) anterior.disabled = pista.scrollLeft <= 2;
+      if (siguiente) siguiente.disabled = pista.scrollLeft >= max - 2;
+      if (pulgar) {
+        var avance = max > 0 ? Math.min(1, Math.max(0, pista.scrollLeft / max)) : 0;
+        pulgar.style.transform = 'translateX(' + (avance * (barra.clientWidth - pulgar.offsetWidth)).toFixed(1) + 'px)';
+      }
     };
-    boton.addEventListener('click', function () {
+    // Cada pulsación suma a la anterior aunque el desplazamiento no haya terminado
+    var destino = null, reposo;
+    var mover = function (sentido) {
       var tarjeta = pista.firstElementChild;
       var hueco = parseFloat(getComputedStyle(pista).columnGap) || 0;
-      pista.scrollBy({ left: tarjeta ? tarjeta.offsetWidth + hueco : pista.clientWidth * 0.8, behavior: 'smooth' });
-    });
-    pista.addEventListener('scroll', actualizar, { passive: true });
+      var paso = tarjeta ? tarjeta.offsetWidth + hueco : pista.clientWidth * 0.8;
+      var max = pista.scrollWidth - pista.clientWidth;
+      var base = destino === null ? pista.scrollLeft : destino;
+      destino = Math.min(max, Math.max(0, (Math.round(base / paso) + sentido) * paso));
+      pista.scrollTo({ left: destino, behavior: 'smooth' });
+    };
+    if (anterior) anterior.addEventListener('click', function () { mover(-1); });
+    if (siguiente) siguiente.addEventListener('click', function () { mover(1); });
+    pista.addEventListener('scroll', function () {
+      actualizar();
+      clearTimeout(reposo);
+      reposo = setTimeout(function () { destino = null; }, 150);
+    }, { passive: true });
     window.addEventListener('resize', actualizar);
     actualizar();
   });

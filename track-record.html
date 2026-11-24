@@ -134,7 +134,10 @@
           <h2 class="tr-producto__titulo" data-reveal="lines">Producto <em>Nacional</em></h2>
           <p class="tr-producto__texto" data-reveal="up"><strong>Una muestra de promociones residenciales</strong> que han formado parte de nuestra trayectoria.</p>
         </div>
-        <button class="tr-producto__flecha" type="button" data-carrusel-siguiente aria-controls="carrusel-nacional" aria-label="Ver más promociones de producto nacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+        <div class="tr-producto__flechas">
+          <button class="tr-producto__flecha tr-producto__flecha--anterior" type="button" data-carrusel-anterior aria-controls="carrusel-nacional" aria-label="Promociones anteriores de producto nacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+          <button class="tr-producto__flecha" type="button" data-carrusel-siguiente aria-controls="carrusel-nacional" aria-label="Más promociones de producto nacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+        </div>
       </div>
       <ul class="tr-carrusel" id="carrusel-nacional" data-carrusel aria-label="Promociones de producto nacional">
         <li class="tr-proyecto">
@@ -222,6 +225,7 @@
           </a>
         </li>
       </ul>
+      <div class="tr-barra" data-carrusel-barra="carrusel-nacional" aria-hidden="true"><span class="tr-barra__pulgar"></span></div>
     </section>
 
     <!-- PRODUCTO INTERNACIONAL: mismo carrusel, sobre azul marino. Imágenes y
@@ -235,7 +239,10 @@
             <p>Proyectos que destacan por su ubicación, diseño y calidad, concebidos para responder a las necesidades de un comprador global.</p>
           </div>
         </div>
-        <button class="tr-producto__flecha" type="button" data-carrusel-siguiente aria-controls="carrusel-internacional" aria-label="Ver más promociones de producto internacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+        <div class="tr-producto__flechas">
+          <button class="tr-producto__flecha tr-producto__flecha--anterior" type="button" data-carrusel-anterior aria-controls="carrusel-internacional" aria-label="Promociones anteriores de producto internacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+          <button class="tr-producto__flecha" type="button" data-carrusel-siguiente aria-controls="carrusel-internacional" aria-label="Más promociones de producto internacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+        </div>
       </div>
       <ul class="tr-carrusel" id="carrusel-internacional" data-carrusel aria-label="Promociones de producto internacional">
         <li class="tr-proyecto">
@@ -299,33 +306,22 @@
           </a>
         </li>
       </ul>
-    </section>
-
-    <!-- TRACK RECORD: titular y textos de la web anterior (residential/producto.html) -->
-    <section class="tr-producto tr-producto--track" id="track-record">
-      <div class="tr-producto__cabecera">
-        <div>
-          <h2 class="tr-producto__titulo" data-reveal="lines"><em>Track Record</em></h2>
-          <div class="tr-producto__texto" data-reveal="up">
-            <p><strong>Una muestra de promociones residenciales que han formado parte de nuestra trayectoria.</strong></p>
-            <p>Proyectos de obra nueva seleccionados por su calidad, ubicación y relevancia dentro de algunos de los mercados residenciales más atractivos a nivel mundial.</p>
-          </div>
-        </div>
-      </div>
+      <div class="tr-barra" data-carrusel-barra="carrusel-internacional" aria-hidden="true"><span class="tr-barra__pulgar"></span></div>
     </section>
   </main>
 
-  <!-- Capas que se apilan (E24): cada proyecto de Track Record queda fijo y el
-       siguiente sube por encima; al final, el pie sube sobre el último -->
+  <!-- Capas que se apilan (E24): cada proyecto de Track Record (imágenes y textos
+       de la web anterior) queda fijo y el siguiente sube por encima; al final, el
+       pie sube sobre el último -->
   <div class="pila" data-stack data-shade="0.5">
-    <article class="tr-slide">
+    <article class="tr-slide" id="track-record">
       <picture>
         <source srcset="img/trk-mandarin.avif" type="image/avif">
         <img class="tr-slide__foto" src="img/trk-mandarin.jpg" width="2000" height="966" alt="Mandarín Oriental, Barcelona" loading="lazy" decoding="async">
       </picture>
       <div class="tr-slide__texto">
         <p class="tr-slide__etiqueta">Track Record</p>
-        <h3 class="tr-slide__nombre">Mandarín Oriental</h3>
+        <h2 class="tr-slide__nombre">Mandarín Oriental</h2>
         <p class="tr-slide__ciudad">Barcelona</p>
       </div>
     </article>
@@ -336,7 +332,7 @@
       </picture>
       <div class="tr-slide__texto">
         <p class="tr-slide__etiqueta">Track Record</p>
-        <h3 class="tr-slide__nombre">Rambla Catalunya</h3>
+        <h2 class="tr-slide__nombre">Rambla Catalunya</h2>
         <p class="tr-slide__ciudad">Barcelona</p>
       </div>
     </article>
@@ -347,7 +343,7 @@
       </picture>
       <div class="tr-slide__texto">
         <p class="tr-slide__etiqueta">Track Record</p>
-        <h3 class="tr-slide__nombre">Embajadores</h3>
+        <h2 class="tr-slide__nombre">Embajadores</h2>
         <p class="tr-slide__ciudad">Madrid</p>
       </div>
     </article>
@@ -358,7 +354,7 @@
       </picture>
       <div class="tr-slide__texto">
         <p class="tr-slide__etiqueta">Track Record</p>
-        <h3 class="tr-slide__nombre">Arturo Soria</h3>
+        <h2 class="tr-slide__nombre">Arturo Soria</h2>
         <p class="tr-slide__ciudad">Madrid</p>
       </div>
     </article>
@@ -369,7 +365,7 @@
       </picture>
       <div class="tr-slide__texto">
         <p class="tr-slide__etiqueta">Track Record</p>
-        <h3 class="tr-slide__nombre">Medhills</h3>
+        <h2 class="tr-slide__nombre">Medhills</h2>
         <p class="tr-slide__ciudad">Málaga</p>
       </div>
     </article>
@@ -380,7 +376,7 @@
       </picture>
       <div class="tr-slide__texto">
         <p class="tr-slide__etiqueta">Track Record</p>
-        <h3 class="tr-slide__nombre">Halia</h3>
+        <h2 class="tr-slide__nombre">Halia</h2>
         <p class="tr-slide__ciudad">Málaga</p>
       </div>
     </article>
