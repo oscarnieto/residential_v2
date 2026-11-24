@@ -1417,7 +1417,7 @@ em { font-style: italic; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(37, 39, 58, 0.82);
+  background: rgba(0, 0, 0, 0.88);
 }
 .tr-ciudades__lienzo { z-index: 2; }
 .tr-ciudades__lista { position: relative; z-index: 3; display: grid; row-gap: 72px; padding: 80px var(--pad); }
