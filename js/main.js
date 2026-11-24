@@ -554,8 +554,8 @@
 
       // Campo de visión como PerspectiveCamera.setFocalLength de three.js. La
       // tarjeta centrada (a 7 de la cámara) se coloca para que el conjunto nombre
-      // (sobresale 0,735em por arriba) + imagen + cifra (0,39em + 1,06em por
-      // abajo) quede centrado en vertical
+      // (sobresale 0,735em por arriba) + imagen + cifra (su margen superior +
+      // 1,06em por abajo) quede centrado en vertical
       var medir = function () {
         cfg = config();
         var w = escena.clientWidth, h = escena.clientHeight;
@@ -567,7 +567,8 @@
         pend = [pv * w / h, pv];
         var alto = ALTO / ((CAMARA - RADIO) * pv) / 2 * h;
         var sobre = 0.735 * parseFloat(getComputedStyle(items[0].querySelector('.tr-ciudad__nombre')).fontSize);
-        var bajo = 1.45 * parseFloat(getComputedStyle(items[0].querySelector('.tr-ciudad__dato')).fontSize);
+        var dato = getComputedStyle(items[0].querySelector('.tr-ciudad__dato'));
+        var bajo = parseFloat(dato.marginTop) + 1.06 * parseFloat(dato.fontSize);
         var arriba = (h - alto - sobre - bajo) / 2 + sobre;
         desvio = 1 - 2 * (arriba + alto / 2) / h;
         ciudades.style.setProperty('--tr-arriba', arriba.toFixed(1) + 'px');

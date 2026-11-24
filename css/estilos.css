@@ -1431,7 +1431,8 @@ em { font-style: italic; }
 .tr-ciudad__nombre > span { display: block; }
 .tr-ciudad__foto { max-width: 840px; margin: -14px auto 0; }
 .tr-ciudad__foto img { width: 100%; aspect-ratio: 840 / 504; object-fit: cover; }
-.tr-ciudad__dato { margin-top: 9px; font: 400 16px/1.06 var(--sans); letter-spacing: -0.03em; }
+/* El margen superior es la separación con la foto, también en la escena animada */
+.tr-ciudad__dato { margin-top: 11px; font: 400 12.5px/1.06 var(--sans); letter-spacing: -0.03em; }
 .tr-ciudad__dato strong { font-weight: 700; }
 
 .tr-ciudades.is-animado { height: 300vh; }
@@ -1469,8 +1470,8 @@ em { font-style: italic; }
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--tr-abajo, 80vh) + 0.39em);
-  margin: 0;
+  top: var(--tr-abajo, 80vh);
+  margin-bottom: 0;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1701,7 +1702,7 @@ em { font-style: italic; }
   .tr-ciudades__lista { row-gap: calc(92 * var(--s)); padding: calc(177.8 * var(--s)) 0 calc(145.6 * var(--s)); }
   .tr-ciudad__nombre { font-size: calc(85 * var(--s)); }
   .tr-ciudad__foto { width: calc(840 * var(--s)); max-width: none; margin-top: calc(-27.5 * var(--s)); }
-  .tr-ciudad__dato { margin-top: calc(8.6 * var(--s)); font-size: calc(22 * var(--s)); }
+  .tr-ciudad__dato { margin-top: calc(13.6 * var(--s)); font-size: calc(18.5 * var(--s)); }
 
   .tr-producto { padding: calc(179.4 * var(--s)) 0 calc(148.6 * var(--s)); }
   .tr-producto--internacional { padding-top: calc(148.45 * var(--s)); }
