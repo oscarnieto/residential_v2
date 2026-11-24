@@ -1402,7 +1402,25 @@ em { font-style: italic; }
    el nombre y la cifra de la ciudad centrada se colocan sobre y bajo la imagen
    del centro (--tr-arriba / --tr-abajo, calculadas en js/main.js) */
 .tr-ciudades { position: relative; background: var(--navy); color: #fff; text-align: center; }
-.tr-ciudades__lista { display: grid; row-gap: 72px; padding: 80px var(--pad); }
+.tr-ciudades__escena { position: relative; }
+/* Fondo: vídeo, velo oscuro, canvas de las imágenes y textos, por capas */
+.tr-ciudades__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tr-ciudades__escena::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(37, 39, 58, 0.82);
+}
+.tr-ciudades__lienzo { z-index: 2; }
+.tr-ciudades__lista { position: relative; z-index: 3; display: grid; row-gap: 72px; padding: 80px var(--pad); }
 .tr-ciudad { position: relative; }
 .tr-ciudad__nombre {
   position: relative;

@@ -84,6 +84,12 @@
          movimiento reducido se ven apiladas, como en Figma -->
     <section class="tr-ciudades" id="ciudades" data-ciudades aria-label="Promociones activas por ciudad">
       <div class="tr-ciudades__escena">
+        <!-- Vídeo de fondo oscurecido con un velo (CSS). Las fuentes se cargan al
+             acercarse la sección y solo se reproduce mientras se ve (js/main.js) -->
+        <video class="tr-ciudades__video" data-fondo muted loop playsinline preload="none" poster="img/bg-ciudades-poster.jpg" aria-hidden="true">
+          <source data-src="video/bg-ciudades-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source data-src="video/bg-ciudades.mp4" type="video/mp4">
+        </video>
         <ol class="tr-ciudades__lista">
           <li class="tr-ciudad">
             <h3 class="tr-ciudad__nombre"><span>Málaga</span></h3>

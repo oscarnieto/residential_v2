@@ -339,6 +339,38 @@
     });
   }
 
+  /* ---------- Vídeo de fondo (Track Record, ciudades) ----------
+     video[data-fondo]: en bucle y sin sonido. Sus fuentes (data-src) se cargan
+     al acercarse la sección y solo se reproduce mientras se ve. Se observa la
+     sección y no el vídeo porque este va dentro de una escena sticky. Con
+     movimiento reducido se queda el póster. */
+  if ('IntersectionObserver' in window && !menosMovimiento) {
+    document.querySelectorAll('video[data-fondo]').forEach(function (video) {
+      var seccion = video.closest('section') || video;
+      var visible = false;
+      var reproducir = function () {
+        var p = video.play();
+        if (p) p.catch(function () {});
+      };
+      video.muted = true;
+      // Si aún estaba cargando al llegar a la sección, arranca en cuanto pueda
+      video.addEventListener('canplay', function () { if (visible && video.paused) reproducir(); });
+      new IntersectionObserver(function (entradas) {
+        visible = entradas[0].isIntersecting;
+        if (visible) {
+          var fuentes = video.querySelectorAll('source[data-src]');
+          if (fuentes.length) {
+            fuentes.forEach(function (s) { s.src = s.getAttribute('data-src'); s.removeAttribute('data-src'); });
+            video.load();
+          }
+          reproducir();
+        } else if (!video.paused) {
+          video.pause();
+        }
+      }, { rootMargin: '25% 0px' }).observe(seccion);
+    });
+  }
+
   /* ---------- Track Record: ciudades sobre un cilindro ----------
      [data-ciudades]: efecto de «The three worlds» de sobha-privy-collection.com,
      pedido expresamente (ScrollKit no lo tiene). Las imágenes se dibujan con
@@ -437,9 +469,10 @@
       var desvio = 0;      // desplazamiento vertical de la escena (coordenadas de -1 a 1)
       var activa = -1;
       var tarjetas = [];
-      var pendiente = false;
+      // Se pinta en el momento: las actualizaciones del scroll ya llegan dentro
+      // del ciclo de GSAP, y así no depende de un requestAnimationFrame aparte
+      // (que el navegador puede retrasar con la pestaña en segundo plano)
       var pintar = function () {
-        pendiente = false;
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.uniform2f(uPend, pend[0], pend[1]);
         gl.uniform1f(uDesvio, desvio);
@@ -462,18 +495,16 @@
           });
         }
       };
-      var pedirPintado = function () {
-        if (!pendiente) { pendiente = true; requestAnimationFrame(pintar); }
-      };
 
       // Texturas: cada foto se copia a un lienzo de potencia de 2 (mipmaps: la
-      // imagen se ve nítida aunque se reduzca) y se recorta al formato de la tarjeta
+      // imagen se ve nítida aunque se reduzca) y se recorta al formato de la tarjeta.
+      // Se usa una copia descodificada (decode) de la imagen ya elegida por el
+      // <picture>: la <img> diferida puede darse por cargada desde la caché sin
+      // tener aún los píxeles, y la textura saldría vacía
       var FORMATO = ANCHO / ALTO;
       tarjetas = items.map(function (item) {
-        var t = { tex: null, recorte: [0, 0, 1, 1], img: item.querySelector('img') };
-        var cargar = function () {
-          var img = t.img;
-          if (!img.naturalWidth || t.tex) return;
+        var t = { tex: null, cargando: false, recorte: [0, 0, 1, 1], img: item.querySelector('img') };
+        var subir = function (img) {
           var c = document.createElement('canvas');
           c.width = Math.min(2048, Math.pow(2, Math.ceil(Math.log2(img.naturalWidth))));
           c.height = Math.min(2048, Math.pow(2, Math.ceil(Math.log2(img.naturalHeight))));
@@ -491,20 +522,34 @@
           t.recorte = a > FORMATO
             ? [(1 - FORMATO / a) / 2, 0, FORMATO / a, 1]
             : [0, (1 - a / FORMATO) / 2, 1, a / FORMATO];
-          pedirPintado();
+          pintar();
         };
-        if (t.img.complete) cargar();
-        t.img.addEventListener('load', cargar);
+        t.cargar = function () {
+          if (t.tex || t.cargando || !t.img.complete || !t.img.currentSrc) return;
+          t.cargando = true;
+          var copia = new Image();
+          copia.src = t.img.currentSrc;
+          copia.decode().then(function () { subir(copia); }, function () {
+            if (copia.naturalWidth) subir(copia); else t.cargando = false;
+          });
+        };
+        t.img.addEventListener('load', t.cargar);
+        t.cargar();
         return t;
       });
       // Las fotos se cargan al acercarse la sección
+      var cargarTodas = function () {
+        tarjetas.forEach(function (t) { t.img.loading = 'eager'; t.cargar(); });
+      };
       if ('IntersectionObserver' in window) {
         var cerca = new IntersectionObserver(function (entradas) {
           if (!entradas[0].isIntersecting) return;
-          tarjetas.forEach(function (t) { t.img.loading = 'eager'; });
+          cargarTodas();
           cerca.disconnect();
         }, { rootMargin: '100% 0px' });
         cerca.observe(ciudades);
+      } else {
+        cargarTodas();
       }
 
       // Campo de visión como PerspectiveCamera.setFocalLength de three.js. La
@@ -527,7 +572,7 @@
         desvio = 1 - 2 * (arriba + alto / 2) / h;
         ciudades.style.setProperty('--tr-arriba', arriba.toFixed(1) + 'px');
         ciudades.style.setProperty('--tr-abajo', (arriba + alto).toFixed(1) + 'px');
-        pedirPintado();
+        pintar();
       };
       medir();
       window.ScrollTrigger.addEventListener('refresh', medir);
@@ -558,7 +603,7 @@
       var estado = { giro: 0 };
       var tl = gsap.timeline({
         defaults: { ease: 'none' },
-        onUpdate: function () { giro = estado.giro; pedirPintado(); },
+        onUpdate: function () { giro = estado.giro; pintar(); },
         scrollTrigger: {
           trigger: ciudades,
           start: 'top bottom',
