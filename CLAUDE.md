@@ -5,6 +5,7 @@
 - Trabajar siempre directamente sobre `main`, sin ramas ni pull requests.
 - Si `git push` o `curl` fallan con «SSL certificate … unable to get local issuer certificate», es la red corporativa (inspección HTTPS de Versa Networks): usar `/usr/bin/git` y `/usr/bin/curl` del sistema, que confían en los certificados del llavero de macOS. No desactivar la verificación SSL.
 - **Cada vez que se haga un cambio**, terminar la respuesta con el enlace de GitHub Pages para verlo, con `?v=<hash corto del commit>` al final para evitar la caché (p. ej. `https://oscarnieto.github.io/residential_v2/?v=a1b2c3d`). Si el cambio es en otra página, enlazar esa página.
+- GitHub Pages deja `css/estilos.css` y `js/main.js` 10 minutos en la caché del navegador y el `?v=` del enlace solo renueva la página: al cambiar cualquiera de los dos, actualizar el `?v=AAAAMMDDhhmm` de su `<link>`/`<script>` en **todas** las páginas HTML para que el cambio se vea al momento.
 - Antes de dar el enlace, esperar a que el despliegue termine: consultar `https://api.github.com/repos/oscarnieto/residential_v2/actions/runs?per_page=1` hasta que `head_sha` coincida con el commit subido y `status` sea `completed` (si `conclusion` no es `success`, avisar).
 
 ## Maquetación desde Figma
