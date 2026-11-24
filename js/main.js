@@ -651,6 +651,24 @@
     pista.addEventListener('dragstart', function (e) { e.preventDefault(); });
   });
 
+  // Flecha de cada carrusel ([data-carrusel-siguiente], aria-controls = id del
+  // carrusel): avanza una tarjeta y se desactiva al llegar al final
+  document.querySelectorAll('[data-carrusel-siguiente]').forEach(function (boton) {
+    var pista = document.getElementById(boton.getAttribute('aria-controls'));
+    if (!pista) return;
+    var actualizar = function () {
+      boton.disabled = pista.scrollLeft >= pista.scrollWidth - pista.clientWidth - 2;
+    };
+    boton.addEventListener('click', function () {
+      var tarjeta = pista.firstElementChild;
+      var hueco = parseFloat(getComputedStyle(pista).columnGap) || 0;
+      pista.scrollBy({ left: tarjeta ? tarjeta.offsetWidth + hueco : pista.clientWidth * 0.8, behavior: 'smooth' });
+    });
+    pista.addEventListener('scroll', actualizar, { passive: true });
+    window.addEventListener('resize', actualizar);
+    actualizar();
+  });
+
   /* ---------- Pie: foco de luz que sigue al ratón sobre el lema ---------- */
   var lema = document.querySelector('[data-foco]');
   if (lema && window.matchMedia('(hover: hover)').matches) {

@@ -124,16 +124,19 @@
         </ol>
       </div>
     </section>
-  </main>
 
-  <!-- Capas que se apilan (E24): el pie sube por encima de la última sección -->
-  <div class="pila" data-stack data-shade="0.5">
-    <!-- PRODUCTO NACIONAL: carrusel horizontal (arrastrar, deslizar o trackpad).
-         Al pasar el ratón, la imagen se oscurece, se desenfoca y aparece el botón -->
+    <!-- PRODUCTO NACIONAL: carrusel horizontal (arrastrar, deslizar, trackpad o la
+         flecha). Al pasar el ratón, la imagen se oscurece, se desenfoca, aparece el
+         botón y se dibuja una línea bajo el nombre -->
     <section class="tr-producto" id="producto-nacional">
-      <h2 class="tr-producto__titulo" data-reveal="lines">Producto <em>Nacional</em></h2>
-      <p class="tr-producto__texto" data-reveal="up"><strong>Una muestra de promociones residenciales</strong> que han formado parte de nuestra trayectoria.</p>
-      <ul class="tr-carrusel" data-carrusel aria-label="Promociones de producto nacional">
+      <div class="tr-producto__cabecera">
+        <div>
+          <h2 class="tr-producto__titulo" data-reveal="lines">Producto <em>Nacional</em></h2>
+          <p class="tr-producto__texto" data-reveal="up"><strong>Una muestra de promociones residenciales</strong> que han formado parte de nuestra trayectoria.</p>
+        </div>
+        <button class="tr-producto__flecha" type="button" data-carrusel-siguiente aria-controls="carrusel-nacional" aria-label="Ver más promociones de producto nacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+      </div>
+      <ul class="tr-carrusel" id="carrusel-nacional" data-carrusel aria-label="Promociones de producto nacional">
         <li class="tr-proyecto">
           <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmalgmlg250085" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Artemisa, Málaga (se abre en otra pestaña)">
             <span class="tr-proyecto__media">
@@ -182,43 +185,120 @@
             <span class="tr-proyecto__pie"><span>SAGITTA SILVA</span><span>Huelva</span></span>
           </a>
         </li>
-        <!-- PENDIENTE: enlace a la ficha de la propiedad -->
         <li class="tr-proyecto">
-          <a class="tr-proyecto__enlace">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmalgmlg250126" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: The Views Residences, Marbella (se abre en otra pestaña)">
             <span class="tr-proyecto__media">
               <picture>
                 <source srcset="img/tr-the-views.avif" type="image/avif">
                 <img src="img/tr-the-views.jpg" width="900" height="506" alt="Porche con salón y comedor exterior frente al mar al atardecer" loading="lazy" decoding="async">
               </picture>
-              <span class="tr-proyecto__ver">Enlace PENDIENTE</span>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
             </span>
-            <span class="tr-proyecto__pie"><span>THE VIEWS RESIDENCIES</span><span>Marbella</span></span>
+            <span class="tr-proyecto__pie"><span>THE VIEWS RESIDENCES</span><span>Marbella</span></span>
           </a>
         </li>
-        <!-- PENDIENTE: enlace a la ficha de la propiedad -->
         <li class="tr-proyecto">
-          <a class="tr-proyecto__enlace">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbmadrmad260042" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Santa Engracia 96, Madrid (se abre en otra pestaña)">
             <span class="tr-proyecto__media">
               <picture>
                 <source srcset="img/tr-santa-engracia.avif" type="image/avif">
                 <img src="img/tr-santa-engracia.jpg" width="900" height="506" alt="Salón luminoso con sofá blanco y ventanal abierto a la terraza" loading="lazy" decoding="async">
               </picture>
-              <span class="tr-proyecto__ver">Enlace PENDIENTE</span>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
             </span>
             <span class="tr-proyecto__pie"><span>SANTA ENGRACIA 96</span><span>Madrid</span></span>
           </a>
         </li>
-        <!-- PENDIENTE: enlace a la ficha de la propiedad -->
         <li class="tr-proyecto">
-          <a class="tr-proyecto__enlace">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/es/es/detalle-inmueble/gbbarcbrc250225" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Signature Collection, Barcelona (se abre en otra pestaña)">
             <span class="tr-proyecto__media">
               <picture>
                 <source srcset="img/tr-signature.avif" type="image/avif">
                 <img src="img/tr-signature.jpg" width="900" height="506" alt="Dormitorio con paredes de madera y salón con muro de ladrillo visto" loading="lazy" decoding="async">
               </picture>
-              <span class="tr-proyecto__ver">Enlace PENDIENTE</span>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
             </span>
             <span class="tr-proyecto__pie"><span>SIGNATURE COLLECTION</span><span>Barcelona</span></span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Capas que se apilan (E24): el pie sube por encima de la última sección -->
+  <div class="pila" data-stack data-shade="0.5">
+    <!-- PRODUCTO INTERNACIONAL: mismo carrusel, sobre azul marino. Imágenes y
+         enlaces de la web anterior (residential/producto.html) -->
+    <section class="tr-producto tr-producto--internacional" id="producto-internacional">
+      <div class="tr-producto__cabecera">
+        <div>
+          <h2 class="tr-producto__titulo" data-reveal="lines">Producto <em>Internacional</em></h2>
+          <div class="tr-producto__texto" data-reveal="up">
+            <p><strong>Una selección de promociones residenciales de obra nueva en algunos de los mercados internacionales más atractivos y consolidados.</strong></p>
+            <p>Proyectos que destacan por su ubicación, diseño y calidad, concebidos para responder a las necesidades de un comprador global.</p>
+          </div>
+        </div>
+        <button class="tr-producto__flecha" type="button" data-carrusel-siguiente aria-controls="carrusel-internacional" aria-label="Ver más promociones de producto internacional"><svg viewBox="0 0 35.67 14.73" width="35" height="15" aria-hidden="true"><path d="M0 7.36396V8.36396H34.6719V7.36396V6.36396H0V7.36396ZM35.379 8.07107C35.7695 7.68054 35.7695 7.04738 35.379 6.65685L29.015 0.292893C28.6245 -0.097631 27.9913 -0.097631 27.6008 0.292893C27.2103 0.683418 27.2103 1.31658 27.6008 1.70711L33.2577 7.36396L27.6008 13.0208C27.2103 13.4113 27.2103 14.0445 27.6008 14.435C27.9913 14.8256 28.6245 14.8256 29.015 14.435L35.379 8.07107Z" fill="currentColor"/></svg></button>
+      </div>
+      <ul class="tr-carrusel" id="carrusel-internacional" data-carrusel aria-label="Promociones de producto internacional">
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/property-detail/gbsroeroe240182" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: DONO, Roma (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-dono.avif" type="image/avif">
+                <img src="img/tr-dono.jpg" width="900" height="506" alt="Edificio residencial DONO en Roma" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>DONO</span><span>Roma</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://residencial.savills.pt/empreendimento/miramar-tower/21209127" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Miramar Tower, Oporto (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-miramar.avif" type="image/avif">
+                <img src="img/tr-miramar.jpg" width="900" height="506" alt="Torre residencial Miramar Tower en Oporto" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>MIRAMAR TOWER</span><span>Oporto</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/property-detail/gbgnhxlai260032" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Six Senses Residences, Comporta (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-six-senses.avif" type="image/avif">
+                <img src="img/tr-six-senses.jpg" width="900" height="506" alt="Six Senses Residences en Comporta" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>SIX SENSES RESIDENCES</span><span>Comporta</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://search.savills.com/property-detail/gbgnhxlai260087" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Flow25, Abu Dhabi (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-flow25.avif" type="image/avif">
+                <img src="img/tr-flow25.jpg" width="900" height="506" alt="Promoción Flow25 en Abu Dhabi" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>FLOW25</span><span>Abu Dhabi</span></span>
+          </a>
+        </li>
+        <li class="tr-proyecto">
+          <a class="tr-proyecto__enlace" href="https://riviera.savills.fr/en/le-provencal/" target="_blank" rel="noopener noreferrer" aria-label="Ver propiedad: Le Provençal, Cap d’Antibes (se abre en otra pestaña)">
+            <span class="tr-proyecto__media">
+              <picture>
+                <source srcset="img/tr-le-provencal.avif" type="image/avif">
+                <img src="img/tr-le-provencal.jpg" width="900" height="506" alt="Le Provençal en Cap d’Antibes" loading="lazy" decoding="async">
+              </picture>
+              <span class="tr-proyecto__ver">Ver propiedad</span>
+            </span>
+            <span class="tr-proyecto__pie"><span>LE PROVENÇAL</span><span>Cap d’Antibes</span></span>
           </a>
         </li>
       </ul>
