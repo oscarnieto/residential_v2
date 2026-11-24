@@ -1604,6 +1604,38 @@ em { font-style: italic; }
   .tr-proyecto__enlace:hover .tr-proyecto__pie::after { transform: none; transform-origin: left center; }
 }
 
+/* ---------- Track Record: proyectos a pantalla completa ----------
+   Cada <article> es una capa de la pila (E24): queda fija y la siguiente sube
+   por encima. Sin z-index, para que el oscurecido del kit (::after) cubra todo */
+.tr-slide {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 480px;
+  overflow: hidden;
+  background: var(--navy);
+  color: #fff;
+}
+.tr-slide > picture { position: absolute; inset: 0; display: block; }
+.tr-slide__foto { width: 100%; height: 100%; object-fit: cover; }
+/* Texto abajo a la izquierda, sobre un degradado para que se lea */
+.tr-slide__texto {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 120px var(--pad) 32px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+}
+.tr-slide__etiqueta { font: italic 400 clamp(28px, 4vw, 45px)/1.1 var(--serif); }
+.tr-slide__nombre { margin-top: 4px; font: 700 clamp(30px, 4.5vw, 50px)/1.1 var(--sans); }
+.tr-slide__ciudad {
+  margin-top: 8px;
+  font: 600 14px/1.2 var(--sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 @media (min-width: 768px) {
   .tr-proyecto { flex-basis: 40%; }
 }
@@ -1647,6 +1679,11 @@ em { font-style: italic; }
 
   .tr-producto { padding: calc(179.4 * var(--s)) 0 calc(221.5 * var(--s)); }
   .tr-producto--internacional { padding-top: calc(148.45 * var(--s)); }
+  .tr-producto--track { padding-bottom: calc(148.45 * var(--s)); }
+  .tr-slide__texto { padding: calc(200 * var(--s)) var(--pad) calc(38.7 * var(--s)); }
+  .tr-slide__etiqueta { font-size: calc(45 * var(--s)); }
+  .tr-slide__nombre { margin-top: calc(4 * var(--s)); font-size: calc(50 * var(--s)); }
+  .tr-slide__ciudad { margin-top: calc(10 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
   .tr-producto__titulo { font-size: calc(45 * var(--s)); }
   .tr-producto__flecha {
     width: calc(48 * var(--s));

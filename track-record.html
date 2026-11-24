@@ -223,10 +223,7 @@
         </li>
       </ul>
     </section>
-  </main>
 
-  <!-- Capas que se apilan (E24): el pie sube por encima de la última sección -->
-  <div class="pila" data-stack data-shade="0.5">
     <!-- PRODUCTO INTERNACIONAL: mismo carrusel, sobre azul marino. Imágenes y
          enlaces de la web anterior (residential/producto.html) -->
     <section class="tr-producto tr-producto--internacional" id="producto-internacional">
@@ -303,6 +300,90 @@
         </li>
       </ul>
     </section>
+
+    <!-- TRACK RECORD: titular y textos de la web anterior (residential/producto.html) -->
+    <section class="tr-producto tr-producto--track" id="track-record">
+      <div class="tr-producto__cabecera">
+        <div>
+          <h2 class="tr-producto__titulo" data-reveal="lines"><em>Track Record</em></h2>
+          <div class="tr-producto__texto" data-reveal="up">
+            <p><strong>Una muestra de promociones residenciales que han formado parte de nuestra trayectoria.</strong></p>
+            <p>Proyectos de obra nueva seleccionados por su calidad, ubicación y relevancia dentro de algunos de los mercados residenciales más atractivos a nivel mundial.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Capas que se apilan (E24): cada proyecto de Track Record queda fijo y el
+       siguiente sube por encima; al final, el pie sube sobre el último -->
+  <div class="pila" data-stack data-shade="0.5">
+    <article class="tr-slide">
+      <picture>
+        <source srcset="img/trk-mandarin.avif" type="image/avif">
+        <img class="tr-slide__foto" src="img/trk-mandarin.jpg" width="2000" height="966" alt="Mandarín Oriental, Barcelona" loading="lazy" decoding="async">
+      </picture>
+      <div class="tr-slide__texto">
+        <p class="tr-slide__etiqueta">Track Record</p>
+        <h3 class="tr-slide__nombre">Mandarín Oriental</h3>
+        <p class="tr-slide__ciudad">Barcelona</p>
+      </div>
+    </article>
+    <article class="tr-slide">
+      <picture>
+        <source srcset="img/trk-rambla.avif" type="image/avif">
+        <img class="tr-slide__foto" src="img/trk-rambla.jpg" width="2000" height="1334" alt="Rambla Catalunya, Barcelona" loading="lazy" decoding="async">
+      </picture>
+      <div class="tr-slide__texto">
+        <p class="tr-slide__etiqueta">Track Record</p>
+        <h3 class="tr-slide__nombre">Rambla Catalunya</h3>
+        <p class="tr-slide__ciudad">Barcelona</p>
+      </div>
+    </article>
+    <article class="tr-slide">
+      <picture>
+        <source srcset="img/trk-embajadores.avif" type="image/avif">
+        <img class="tr-slide__foto" src="img/trk-embajadores.jpg" width="2000" height="1110" alt="Embajadores, Madrid" loading="lazy" decoding="async">
+      </picture>
+      <div class="tr-slide__texto">
+        <p class="tr-slide__etiqueta">Track Record</p>
+        <h3 class="tr-slide__nombre">Embajadores</h3>
+        <p class="tr-slide__ciudad">Madrid</p>
+      </div>
+    </article>
+    <article class="tr-slide">
+      <picture>
+        <source srcset="img/trk-arturo-soria.avif" type="image/avif">
+        <img class="tr-slide__foto" src="img/trk-arturo-soria.jpg" width="2000" height="1124" alt="Arturo Soria, Madrid" loading="lazy" decoding="async">
+      </picture>
+      <div class="tr-slide__texto">
+        <p class="tr-slide__etiqueta">Track Record</p>
+        <h3 class="tr-slide__nombre">Arturo Soria</h3>
+        <p class="tr-slide__ciudad">Madrid</p>
+      </div>
+    </article>
+    <article class="tr-slide">
+      <picture>
+        <source srcset="img/trk-medhills.avif" type="image/avif">
+        <img class="tr-slide__foto" src="img/trk-medhills.jpg" width="840" height="434" alt="Medhills, Málaga" loading="lazy" decoding="async">
+      </picture>
+      <div class="tr-slide__texto">
+        <p class="tr-slide__etiqueta">Track Record</p>
+        <h3 class="tr-slide__nombre">Medhills</h3>
+        <p class="tr-slide__ciudad">Málaga</p>
+      </div>
+    </article>
+    <article class="tr-slide">
+      <picture>
+        <source srcset="img/trk-halia.avif" type="image/avif">
+        <img class="tr-slide__foto" src="img/trk-halia.jpg" width="1920" height="1080" alt="Halia, Málaga" loading="lazy" decoding="async">
+      </picture>
+      <div class="tr-slide__texto">
+        <p class="tr-slide__etiqueta">Track Record</p>
+        <h3 class="tr-slide__nombre">Halia</h3>
+        <p class="tr-slide__ciudad">Málaga</p>
+      </div>
+    </article>
 
   <!-- FOOTER -->
   <footer class="pie">
