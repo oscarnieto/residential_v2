@@ -1269,48 +1269,39 @@ em { font-style: italic; }
 .sv-servicio__texto { max-width: 410px; margin: 16px auto 0; color: #000; font: 300 15px/1.1 var(--sans); }
 .sv-servicio__texto strong { display: block; font-weight: 600; }
 
-/* ---------- Tipologías: tarjetas que se apilan ---------- */
-.sv-tipos { padding: 64px 0 80px; background: #e6dbd3; color: var(--navy); }
-.sv-tipos__titulo {
-  max-width: 1061px;
-  margin-inline: auto;
-  padding-inline: var(--pad);
-  font: 400 clamp(26px, 4vw, 45px)/1.06 var(--serif);
-  text-align: center;
-}
-.sv-cards {
-  margin-top: 40px;
-  padding-inline: var(--pad);
-}
-.sv-card { margin-bottom: 16px; }
-.sv-card:last-child { margin-bottom: 0; }
+/* ---------- Tipologías ----------
+   Sin animación: titular y, debajo, cada tipología (imagen, título y texto).
+   Con .is-animado (js/main.js): escena fija a pantalla completa con el titular
+   arriba a la izquierda, la imagen a la derecha y el título y el texto abajo a
+   la izquierda (Figma); las cuatro tipologías comparten esas celdas y el scroll
+   las va cambiando */
+.sv-tipos { background: #e6dbd3; color: var(--navy); }
+.sv-tipos__escena { display: flex; align-items: center; padding: 64px var(--pad) 80px; }
+.sv-tipos__marco { display: grid; gap: 40px; width: 100%; }
+.sv-tipos__titulo { font: 400 clamp(26px, 4vw, 45px)/1.06 var(--serif); }
+.sv-tipo { display: grid; gap: 16px; }
+.sv-tipo__foto { position: relative; aspect-ratio: 680.125 / 519.264; overflow: hidden; }
+.sv-tipo__foto picture { display: contents; }
+.sv-tipo__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sv-tipo__titulo { font: 400 26px/1.06 var(--serif); }
+.sv-tipo__texto p { margin-top: 12px; color: #000; font: 300 15px/1.1 var(--sans); }
 
-/* Con JS (.is-animado): la escena (titular + tarjetas) queda fija a pantalla
-   completa mientras se recorre la sección; las tarjetas ocupan la misma celda
-   y js/main.js sube cada una desde abajo hasta tapar la anterior */
-.sv-tipos.is-animado { height: calc(100vh + (var(--tarjetas, 4) - 1) * 80vh); padding: 0; }
+.sv-tipos.is-animado { height: calc(var(--tipos, 4) * 100vh); }
 .sv-tipos.is-animado .sv-tipos__escena {
   position: sticky;
   top: 0;
   height: 100vh;
-  padding-top: 64px;
+  height: 100svh;
+  padding-block: 72px 32px;
   overflow: clip;
 }
-.sv-tipos.is-animado .sv-cards { display: grid; }
-.sv-tipos.is-animado .sv-card { grid-area: 1 / 1; margin: 0; }
-.sv-card__caja {
-  display: grid;
-  gap: 16px;
-  padding: 8px 8px 20px;
-  background: var(--crema);
-  transform-origin: 50% 0;
-}
-.sv-card__foto { position: relative; height: 200px; overflow: hidden; }
-.sv-card__foto picture { display: contents; }
-.sv-card__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.sv-card__texto { padding-inline: 8px; }
-.sv-card__titulo { font: 400 26px/1.06 var(--serif); }
-.sv-card__texto p { margin-top: 12px; color: #000; font: 300 15px/1.1 var(--sans); }
+.sv-tipos.is-animado .sv-tipos__marco { grid-template-rows: auto auto 1fr; gap: 24px; }
+.sv-tipos.is-animado .sv-tipo { display: contents; }
+.sv-tipos.is-animado .sv-tipo__foto { grid-row: 2; grid-column: 1; }
+.sv-tipos.is-animado .sv-tipo__texto { grid-row: 3; grid-column: 1; align-self: start; }
+/* Máscaras de cada línea (SplitText): ampliadas para no cortar acentos ni g, p, y */
+.sv-tipos.is-animado .sv-tipo__titulo > div,
+.sv-tipos.is-animado .sv-tipo__texto p > div { padding: 0.12em 0 0.22em; margin: -0.12em 0 -0.22em; }
 
 @media (min-width: 768px) {
   .sv-circulo { --c: 440px; --punto: 28px; }
@@ -1328,10 +1319,18 @@ em { font-style: italic; }
   .sv-servicio__titulo { font-size: 28px; }
   .sv-servicio__texto { font-size: 14px; }
 
-  .sv-card__caja { grid-template-columns: 42% 1fr; gap: 32px; padding: 9px; height: 280px; }
-  .sv-card__foto { height: auto; }
-  .sv-card__texto { padding: 56px 16px 0 0; }
-  .sv-card__titulo { font-size: 34px; }
+  /* Tipologías en dos columnas: texto (1fr) e imagen (680 de 1270 en Figma) */
+  .sv-tipos__marco { grid-template-columns: 1fr 53.553%; column-gap: 4.681%; row-gap: 64px; }
+  .sv-tipos__titulo { grid-column: 1 / -1; }
+  .sv-tipo { grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .sv-tipo__foto { grid-column: 2; }
+  .sv-tipo__texto { grid-column: 1; grid-row: 1; align-self: end; }
+  .sv-tipo__titulo { font-size: 34px; }
+  .sv-tipos.is-animado .sv-tipos__escena { padding-block: 80px 48px; }
+  .sv-tipos.is-animado .sv-tipos__marco { grid-template-rows: auto 1fr; column-gap: 4.681%; row-gap: 0; }
+  .sv-tipos.is-animado .sv-tipos__titulo { grid-column: 1; grid-row: 1; }
+  .sv-tipos.is-animado .sv-tipo__foto { grid-column: 2; grid-row: 1 / 3; }
+  .sv-tipos.is-animado .sv-tipo__texto { grid-column: 1; grid-row: 2; align-self: end; }
 }
 
 @media (min-width: 1024px) {
@@ -1348,20 +1347,13 @@ em { font-style: italic; }
   .sv-servicio__titulo { margin-top: calc(6 * var(--s)); font-size: calc(36 * var(--s)); }
   .sv-servicio__texto { margin-top: calc(18 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
 
-  .sv-tipos { padding: calc(134 * var(--s)) 0 calc(137 * var(--s)); }
-  .sv-tipos__titulo { max-width: calc(1061 * var(--s)); padding: 0; font-size: calc(45 * var(--s)); }
-  .sv-cards { margin-top: calc(93 * var(--s)); }
-  .sv-tipos.is-animado .sv-tipos__escena { padding-top: calc(134 * var(--s)); }
-  .sv-card { margin-bottom: calc(19.6 * var(--s)); }
-  .sv-card__caja {
-    grid-template-columns: calc(493.3 * var(--s)) 1fr;
-    column-gap: calc(46 * var(--s));
-    height: calc(331.86 * var(--s));
-    padding: calc(9.77 * var(--s)) calc(9.25 * var(--s));
-  }
-  .sv-card__texto { padding: calc(86 * var(--s)) 0 0; max-width: calc(660 * var(--s)); }
-  .sv-card__titulo { font-size: calc(45 * var(--s)); }
-  .sv-card__texto p { margin-top: calc(21.9 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+  .sv-tipos__escena { padding: calc(117.13 * var(--s)) var(--pad); }
+  .sv-tipos__marco { column-gap: calc(59.45 * var(--s)); row-gap: calc(117.13 * var(--s)); }
+  .sv-tipos__titulo { max-width: calc(530.43 * var(--s)); font-size: calc(45 * var(--s)); }
+  .sv-tipo__titulo { max-width: calc(485.26 * var(--s)); font-size: calc(45 * var(--s)); }
+  .sv-tipo__texto p { max-width: calc(498.82 * var(--s)); margin-top: calc(21.9 * var(--s)); font-size: max(12px, calc(14 * var(--s))); }
+  .sv-tipos.is-animado .sv-tipos__escena { padding-block: calc(117.13 * var(--s)); }
+  .sv-tipos.is-animado .sv-tipos__marco { column-gap: calc(59.45 * var(--s)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

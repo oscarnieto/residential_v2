@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap">
 
   <!-- CSS del proyecto (diseño) -->
-  <link rel="stylesheet" href="css/estilos.css?v=202611241252">
+  <link rel="stylesheet" href="css/estilos.css?v=202611270922">
 </head>
 <body data-pagina="servicios">
 
@@ -127,70 +127,62 @@
 
   <!-- Capas que se apilan (E24): el pie sube por encima de la última sección -->
   <div class="pila" data-stack data-shade="0.5">
-    <!-- TIPOLOGÍAS: el titular y la primera tarjeta quedan fijos; las demás suben
-         desde abajo y se apilan encima de la primera, en la misma posición
-         (escena sticky + js/main.js) -->
-    <section class="sv-tipos" id="tipologias" data-apilar>
+    <!-- TIPOLOGÍAS: escena fija (sticky). El titular no cambia y, con el scroll,
+         cada tipología sustituye a la anterior: la imagen entra con una cortina y
+         el título y el texto salen y entran línea a línea (js/main.js) -->
+    <section class="sv-tipos" id="tipologias" data-tipologias>
       <div class="sv-tipos__escena">
-      <h2 class="sv-tipos__titulo" data-reveal="lines"><em>Sabemos que cada proyecto es único.</em><br> Por eso abordamos cada proyecto con una estrategia<br> a medida, de principio a fin.</h2>
-      <ol class="sv-cards">
-        <li class="sv-card">
-          <div class="sv-card__caja">
-            <div class="sv-card__foto">
+        <div class="sv-tipos__marco">
+          <h2 class="sv-tipos__titulo" data-reveal="lines"><em>Sabemos que cada proyecto es único.</em> Por eso abordamos cada proyecto con una estrategia a medida, de principio a fin.</h2>
+          <div class="sv-tipo">
+            <div class="sv-tipo__foto">
               <picture>
                 <source srcset="img/sv-high-end.avif" type="image/avif">
                 <img src="img/sv-high-end.jpg" width="800" height="1200" alt="Salón de una vivienda de alto standing con sofá blanco y ventanales" loading="lazy" decoding="async">
               </picture>
             </div>
-            <div class="sv-card__texto">
-              <h3 class="sv-card__titulo">High End Residences</h3>
+            <div class="sv-tipo__texto">
+              <h3 class="sv-tipo__titulo">High End Residences</h3>
               <p>Proyectos de alto nivel orientados a segmentos premium, donde la estrategia se centra en posicionamiento, exclusividad y valor.</p>
             </div>
           </div>
-        </li>
-        <li class="sv-card">
-          <div class="sv-card__caja">
-            <div class="sv-card__foto">
+          <div class="sv-tipo">
+            <div class="sv-tipo__foto">
               <picture>
                 <source srcset="img/sv-boutique.avif" type="image/avif">
                 <img src="img/sv-boutique.jpg" width="1004" height="670" alt="Interior de diseño con escultura de ramas y piezas de cerámica" loading="lazy" decoding="async">
               </picture>
             </div>
-            <div class="sv-card__texto">
-              <h3 class="sv-card__titulo">Boutique Collection</h3>
+            <div class="sv-tipo__texto">
+              <h3 class="sv-tipo__titulo">Boutique Collection</h3>
               <p>Proyectos exclusivos con un alto nivel de diseño y posicionamiento diferencial, orientados a un comprador que prioriza singularidad y calidad.</p>
             </div>
           </div>
-        </li>
-        <li class="sv-card">
-          <div class="sv-card__caja">
-            <div class="sv-card__foto">
+          <div class="sv-tipo">
+            <div class="sv-tipo__foto">
               <picture>
                 <source srcset="img/sv-city.avif" type="image/avif">
                 <img src="img/sv-city.jpg" width="1022" height="682" alt="Edificio residencial urbano al atardecer con las ventanas iluminadas" loading="lazy" decoding="async">
               </picture>
             </div>
-            <div class="sv-card__texto">
-              <h3 class="sv-card__titulo">City Residences</h3>
+            <div class="sv-tipo__texto">
+              <h3 class="sv-tipo__titulo">City Residences</h3>
               <p>Promociones orientadas a demanda urbana, ubicadas en zonas consolidadas con alta liquidez y rotación.</p>
             </div>
           </div>
-        </li>
-        <li class="sv-card">
-          <div class="sv-card__caja">
-            <div class="sv-card__foto">
+          <div class="sv-tipo">
+            <div class="sv-tipo__foto">
               <picture>
                 <source srcset="img/sv-urban.avif" type="image/avif">
                 <img src="img/sv-urban.jpg" width="1022" height="682" alt="Salón luminoso con zona de lectura y vistas a la ciudad" loading="lazy" decoding="async">
               </picture>
             </div>
-            <div class="sv-card__texto">
-              <h3 class="sv-card__titulo">Urban Living</h3>
+            <div class="sv-tipo__texto">
+              <h3 class="sv-tipo__titulo">Urban Living</h3>
               <p>Promociones adaptadas a nuevos estilos de vida, con un enfoque flexible y atractivo para comprador internacional.</p>
             </div>
           </div>
-        </li>
-      </ol>
+        </div>
       </div>
     </section>
 
@@ -283,6 +275,6 @@
   <script src="scroll-kit/js/scroll-kit.js"></script>
 
   <!-- JS del proyecto -->
-  <script src="js/main.js?v=202611241252"></script>
+  <script src="js/main.js?v=202611270922"></script>
 </body>
 </html>

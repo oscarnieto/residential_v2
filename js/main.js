@@ -309,33 +309,88 @@
     }
   }
 
-  /* ---------- Servicios: tarjetas que se apilan ----------
-     La escena (titular + tarjetas) es sticky; con el scroll, cada tarjeta sube
-     desde abajo y se apila sobre la anterior, dejando ver una franja de ella. */
-  var apilar = document.querySelector('[data-apilar]');
-  if (apilar && window.gsap && window.ScrollTrigger && !menosMovimiento) {
+  /* ---------- Servicios: tipologías ----------
+     [data-tipologias]: escena fija (sticky) pedida expresamente. El titular no
+     cambia y el scroll recorre las tipologías (un tramo igual para cada una):
+     - la imagen nueva se descubre encima de la anterior con una cortina de
+       abajo arriba (de arriba abajo al volver) y un zoom que se asienta,
+       mientras la anterior se aleja un poco;
+     - el título y el texto salen línea a línea por arriba y los nuevos entran
+       por abajo (al revés al volver), con máscaras de SplitText.
+     GSAP + ScrollTrigger + SplitText del kit. */
+  var tipologias = document.querySelector('[data-tipologias]');
+  if (tipologias && window.gsap && window.ScrollTrigger && window.SplitText && !menosMovimiento) {
     document.addEventListener('DOMContentLoaded', function () {
-      var gsap = window.gsap;
-      gsap.registerPlugin(window.ScrollTrigger);
-      var tarjetas = Array.prototype.slice.call(apilar.querySelectorAll('.sv-card'));
-      if (tarjetas.length < 2) return;
-      apilar.style.setProperty('--tarjetas', tarjetas.length);
-      apilar.classList.add('is-animado');
-      var tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: { trigger: apilar, start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true }
+      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
+        var gsap = window.gsap;
+        gsap.registerPlugin(window.ScrollTrigger, window.SplitText);
+        var tipos = Array.prototype.slice.call(tipologias.querySelectorAll('.sv-tipo'));
+        var n = tipos.length;
+        if (n < 2) return;
+        tipologias.style.setProperty('--tipos', n);
+        tipologias.classList.add('is-animado');
+
+        var activo = 0;
+        var capa = 1;
+        var FUERA = 140; // % que se desplaza cada línea para quedar fuera de su máscara
+        var datos = tipos.map(function (tipo, i) {
+          var d = {
+            foto: tipo.querySelector('.sv-tipo__foto'),
+            img: tipo.querySelector('.sv-tipo__foto img'),
+            piezas: [],
+            lineas: function () { return [].concat.apply([], d.piezas); }
+          };
+          // Cada texto se divide en líneas con máscara; al cambiar el ancho se
+          // vuelve a dividir y cada línea recupera su estado (visible o fuera)
+          tipo.querySelectorAll('.sv-tipo__titulo, .sv-tipo__texto p').forEach(function (el, k) {
+            window.SplitText.create(el, {
+              type: 'lines',
+              mask: 'lines',
+              autoSplit: true,
+              onSplit: function (self) {
+                d.piezas[k] = self.lines;
+                gsap.set(self.lines, { yPercent: i === activo ? 0 : FUERA });
+              }
+            });
+          });
+          gsap.set(d.foto, { zIndex: i === 0 ? 1 : 0, clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' });
+          return d;
+        });
+
+        var ir = function (j) {
+          if (j === activo) return;
+          var adelante = j > activo;
+          var de = datos[activo];
+          var a = datos[j];
+          activo = j;
+          // Texto: salen las líneas de la tipología anterior y entran las nuevas
+          gsap.to(de.lineas(), {
+            yPercent: adelante ? -FUERA : FUERA, duration: 0.55, ease: 'power3.in', stagger: 0.035, overwrite: true
+          });
+          gsap.fromTo(a.lineas(), { yPercent: adelante ? FUERA : -FUERA }, {
+            yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06, delay: 0.4, overwrite: true
+          });
+          // Imagen: la nueva se descubre encima con una cortina y un zoom que se
+          // asienta; la anterior se aleja un poco por debajo
+          capa += 1;
+          gsap.set(a.foto, { zIndex: capa });
+          gsap.fromTo(a.foto, { clipPath: adelante ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, {
+            clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut', overwrite: true
+          });
+          gsap.fromTo(a.img, { scale: 1.25, yPercent: adelante ? 8 : -8 }, {
+            scale: 1, yPercent: 0, duration: 1.6, ease: 'expo.out', overwrite: true
+          });
+          gsap.to(de.img, { scale: 1.1, yPercent: adelante ? -6 : 6, duration: 1.2, ease: 'expo.inOut', overwrite: true });
+        };
+
+        window.ScrollTrigger.create({
+          trigger: tipologias,
+          start: 'top top',
+          end: 'bottom bottom',
+          onUpdate: function (self) { ir(Math.min(n - 1, Math.floor(self.progress * n))); }
+        });
+        window.ScrollTrigger.refresh();
       });
-      // Cada tarjeta queda un poco más abajo que la anterior y las de debajo se
-      // reducen un poco: así asoma una franja de cada una por arriba (como Orchid)
-      var paso = function () { return Math.max(10, Math.round(window.innerWidth / 1440 * 18)); };
-      tarjetas.forEach(function (t, i) {
-        if (i === 0) return;
-        tl.fromTo(t, { y: function () { return window.innerHeight; } }, { y: function () { return i * paso(); }, duration: 1 }, i - 1);
-        for (var j = 0; j < i; j++) {
-          tl.to(tarjetas[j].querySelector('.sv-card__caja'), { scale: 1 - (i - j) * 0.03, duration: 1 }, i - 1);
-        }
-      });
-      window.ScrollTrigger.refresh();
     });
   }
 
