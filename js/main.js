@@ -312,13 +312,15 @@
   /* ---------- Servicios: tipologías ----------
      [data-tipologias], desde 768 px (en móvil se recorren con scroll horizontal,
      solo CSS): escena fija (sticky) pedida expresamente. El titular no cambia y
-     el scroll recorre las tipologías (un tramo igual para cada una):
+     el scroll recorre las tipologías:
      - la imagen nueva se descubre encima de la anterior con una cortina de
-       abajo arriba (de arriba abajo al volver) y un zoom que se asienta,
+       abajo arriba al ritmo del scroll (scrub), con un zoom que se asienta,
        mientras la anterior se aleja un poco;
-     - el título y el texto salen línea a línea por arriba y los nuevos entran
-       por abajo (al revés al volver), con máscaras de SplitText.
-     Con gsap.matchMedia: al bajar de 768 px se deshace todo y vuelve el carrusel.
+     - a mitad de la cortina, el título y el texto salen línea a línea por
+       arriba y los nuevos entran por abajo (al revés al volver), con máscaras
+       de SplitText.
+     Sin snap: la escena responde siempre al scroll, como los proyectos de Red
+     Internacional. Con gsap.matchMedia: al bajar de 768 px se deshace todo y vuelve el carrusel.
      GSAP + ScrollTrigger + SplitText del kit. */
   var tipologias = document.querySelector('[data-tipologias]');
   if (tipologias && window.gsap && window.ScrollTrigger && window.SplitText && !menosMovimiento) {
@@ -335,7 +337,6 @@
           tipologias.classList.add('is-animado');
 
           var activo = 0;
-          var capa = 1;
           var FUERA = 140; // % que se desplaza cada línea para quedar fuera de su máscara
           var divisiones = [];
           var datos = tipos.map(function (tipo, i) {
@@ -358,42 +359,48 @@
                 }
               }));
             });
-            gsap.set(d.foto, { zIndex: i === 0 ? 1 : 0, clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' });
+            gsap.set(d.foto, { zIndex: i + 1 }); // cada imagen tapa a las anteriores
             return d;
           });
 
-          var ir = function (j) {
+          // Texto: salen las líneas de la tipología anterior y entran las nuevas
+          var cambiarTexto = function (j) {
             if (j === activo) return;
             var adelante = j > activo;
             var de = datos[activo];
             var a = datos[j];
             activo = j;
-            // Texto: salen las líneas de la tipología anterior y entran las nuevas
             gsap.to(de.lineas(), {
-              yPercent: adelante ? -FUERA : FUERA, duration: 0.55, ease: 'power3.in', stagger: 0.035, overwrite: true
+              yPercent: adelante ? -FUERA : FUERA, duration: 0.45, ease: 'power3.in', stagger: 0.03, overwrite: true
             });
             gsap.fromTo(a.lineas(), { yPercent: adelante ? FUERA : -FUERA }, {
-              yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06, delay: 0.4, overwrite: true
+              yPercent: 0, duration: 0.9, ease: 'expo.out', stagger: 0.05, delay: 0.3, overwrite: true
             });
-            // Imagen: la nueva se descubre encima con una cortina y un zoom que se
-            // asienta; la anterior se aleja un poco por debajo
-            capa += 1;
-            gsap.set(a.foto, { zIndex: capa });
-            gsap.fromTo(a.foto, { clipPath: adelante ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, {
-              clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut', overwrite: true
-            });
-            gsap.fromTo(a.img, { scale: 1.25, yPercent: adelante ? 8 : -8 }, {
-              scale: 1, yPercent: 0, duration: 1.6, ease: 'expo.out', overwrite: true
-            });
-            gsap.to(de.img, { scale: 1.1, yPercent: adelante ? -6 : 6, duration: 1.2, ease: 'expo.inOut', overwrite: true });
           };
 
-          window.ScrollTrigger.create({
-            trigger: tipologias,
-            start: 'top top',
-            end: 'bottom bottom',
-            onUpdate: function (self) { ir(Math.min(n - 1, Math.floor(self.progress * n))); }
+          // Imágenes ligadas al scroll: un tramo por cada cambio de tipología, con
+          // una pequeña pausa (PAUSA) antes y después para ver cada una completa
+          var PAUSA = 0.15;
+          var tl = gsap.timeline({
+            defaults: { ease: 'none' },
+            scrollTrigger: {
+              trigger: tipologias,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: true,
+              invalidateOnRefresh: true,
+              onUpdate: function (self) { cambiarTexto(Math.round(self.progress * (n - 1))); }
+            }
           });
+          datos.forEach(function (d, i) {
+            if (i === 0) return;
+            var t = i - 1 + PAUSA;
+            var dur = 1 - 2 * PAUSA;
+            tl.fromTo(d.foto, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', duration: dur }, t)
+              .fromTo(d.img, { scale: 1.2, yPercent: 8 }, { scale: 1, yPercent: 0, ease: 'power2.out', duration: dur }, t)
+              .fromTo(datos[i - 1].img, { scale: 1, yPercent: 0 }, { scale: 1.08, yPercent: -5, ease: 'power2.inOut', duration: dur }, t);
+          });
+          tl.to({}, { duration: PAUSA }, n - 1 - PAUSA); // la línea de tiempo dura n - 1 tramos
           window.ScrollTrigger.refresh();
 
           // Al bajar de 768 px: fuera la escena, las líneas y los estilos puestos
