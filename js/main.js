@@ -310,13 +310,15 @@
   }
 
   /* ---------- Servicios: tipologías ----------
-     [data-tipologias]: escena fija (sticky) pedida expresamente. El titular no
-     cambia y el scroll recorre las tipologías (un tramo igual para cada una):
+     [data-tipologias], desde 768 px (en móvil se recorren con scroll horizontal,
+     solo CSS): escena fija (sticky) pedida expresamente. El titular no cambia y
+     el scroll recorre las tipologías (un tramo igual para cada una):
      - la imagen nueva se descubre encima de la anterior con una cortina de
        abajo arriba (de arriba abajo al volver) y un zoom que se asienta,
        mientras la anterior se aleja un poco;
      - el título y el texto salen línea a línea por arriba y los nuevos entran
        por abajo (al revés al volver), con máscaras de SplitText.
+     Con gsap.matchMedia: al bajar de 768 px se deshace todo y vuelve el carrusel.
      GSAP + ScrollTrigger + SplitText del kit. */
   var tipologias = document.querySelector('[data-tipologias]');
   if (tipologias && window.gsap && window.ScrollTrigger && window.SplitText && !menosMovimiento) {
@@ -327,69 +329,84 @@
         var tipos = Array.prototype.slice.call(tipologias.querySelectorAll('.sv-tipo'));
         var n = tipos.length;
         if (n < 2) return;
-        tipologias.style.setProperty('--tipos', n);
-        tipologias.classList.add('is-animado');
 
-        var activo = 0;
-        var capa = 1;
-        var FUERA = 140; // % que se desplaza cada línea para quedar fuera de su máscara
-        var datos = tipos.map(function (tipo, i) {
-          var d = {
-            foto: tipo.querySelector('.sv-tipo__foto'),
-            img: tipo.querySelector('.sv-tipo__foto img'),
-            piezas: [],
-            lineas: function () { return [].concat.apply([], d.piezas); }
-          };
-          // Cada texto se divide en líneas con máscara; al cambiar el ancho se
-          // vuelve a dividir y cada línea recupera su estado (visible o fuera)
-          tipo.querySelectorAll('.sv-tipo__titulo, .sv-tipo__texto p').forEach(function (el, k) {
-            window.SplitText.create(el, {
-              type: 'lines',
-              mask: 'lines',
-              autoSplit: true,
-              onSplit: function (self) {
-                d.piezas[k] = self.lines;
-                gsap.set(self.lines, { yPercent: i === activo ? 0 : FUERA });
-              }
+        gsap.matchMedia().add('(min-width: 768px)', function () {
+          tipologias.style.setProperty('--tipos', n);
+          tipologias.classList.add('is-animado');
+
+          var activo = 0;
+          var capa = 1;
+          var FUERA = 140; // % que se desplaza cada línea para quedar fuera de su máscara
+          var divisiones = [];
+          var datos = tipos.map(function (tipo, i) {
+            var d = {
+              foto: tipo.querySelector('.sv-tipo__foto'),
+              img: tipo.querySelector('.sv-tipo__foto img'),
+              piezas: [],
+              lineas: function () { return [].concat.apply([], d.piezas); }
+            };
+            // Cada texto se divide en líneas con máscara; al cambiar el ancho se
+            // vuelve a dividir y cada línea recupera su estado (visible o fuera)
+            tipo.querySelectorAll('.sv-tipo__titulo, .sv-tipo__texto p').forEach(function (el, k) {
+              divisiones.push(window.SplitText.create(el, {
+                type: 'lines',
+                mask: 'lines',
+                autoSplit: true,
+                onSplit: function (self) {
+                  d.piezas[k] = self.lines;
+                  gsap.set(self.lines, { yPercent: i === activo ? 0 : FUERA });
+                }
+              }));
             });
+            gsap.set(d.foto, { zIndex: i === 0 ? 1 : 0, clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' });
+            return d;
           });
-          gsap.set(d.foto, { zIndex: i === 0 ? 1 : 0, clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' });
-          return d;
-        });
 
-        var ir = function (j) {
-          if (j === activo) return;
-          var adelante = j > activo;
-          var de = datos[activo];
-          var a = datos[j];
-          activo = j;
-          // Texto: salen las líneas de la tipología anterior y entran las nuevas
-          gsap.to(de.lineas(), {
-            yPercent: adelante ? -FUERA : FUERA, duration: 0.55, ease: 'power3.in', stagger: 0.035, overwrite: true
-          });
-          gsap.fromTo(a.lineas(), { yPercent: adelante ? FUERA : -FUERA }, {
-            yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06, delay: 0.4, overwrite: true
-          });
-          // Imagen: la nueva se descubre encima con una cortina y un zoom que se
-          // asienta; la anterior se aleja un poco por debajo
-          capa += 1;
-          gsap.set(a.foto, { zIndex: capa });
-          gsap.fromTo(a.foto, { clipPath: adelante ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, {
-            clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut', overwrite: true
-          });
-          gsap.fromTo(a.img, { scale: 1.25, yPercent: adelante ? 8 : -8 }, {
-            scale: 1, yPercent: 0, duration: 1.6, ease: 'expo.out', overwrite: true
-          });
-          gsap.to(de.img, { scale: 1.1, yPercent: adelante ? -6 : 6, duration: 1.2, ease: 'expo.inOut', overwrite: true });
-        };
+          var ir = function (j) {
+            if (j === activo) return;
+            var adelante = j > activo;
+            var de = datos[activo];
+            var a = datos[j];
+            activo = j;
+            // Texto: salen las líneas de la tipología anterior y entran las nuevas
+            gsap.to(de.lineas(), {
+              yPercent: adelante ? -FUERA : FUERA, duration: 0.55, ease: 'power3.in', stagger: 0.035, overwrite: true
+            });
+            gsap.fromTo(a.lineas(), { yPercent: adelante ? FUERA : -FUERA }, {
+              yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06, delay: 0.4, overwrite: true
+            });
+            // Imagen: la nueva se descubre encima con una cortina y un zoom que se
+            // asienta; la anterior se aleja un poco por debajo
+            capa += 1;
+            gsap.set(a.foto, { zIndex: capa });
+            gsap.fromTo(a.foto, { clipPath: adelante ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, {
+              clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut', overwrite: true
+            });
+            gsap.fromTo(a.img, { scale: 1.25, yPercent: adelante ? 8 : -8 }, {
+              scale: 1, yPercent: 0, duration: 1.6, ease: 'expo.out', overwrite: true
+            });
+            gsap.to(de.img, { scale: 1.1, yPercent: adelante ? -6 : 6, duration: 1.2, ease: 'expo.inOut', overwrite: true });
+          };
 
-        window.ScrollTrigger.create({
-          trigger: tipologias,
-          start: 'top top',
-          end: 'bottom bottom',
-          onUpdate: function (self) { ir(Math.min(n - 1, Math.floor(self.progress * n))); }
+          window.ScrollTrigger.create({
+            trigger: tipologias,
+            start: 'top top',
+            end: 'bottom bottom',
+            onUpdate: function (self) { ir(Math.min(n - 1, Math.floor(self.progress * n))); }
+          });
+          window.ScrollTrigger.refresh();
+
+          // Al bajar de 768 px: fuera la escena, las líneas y los estilos puestos
+          return function () {
+            var fotos = datos.map(function (d) { return d.foto; });
+            var imgs = datos.map(function (d) { return d.img; });
+            gsap.killTweensOf(fotos.concat(imgs));
+            divisiones.forEach(function (div) { div.revert(); });
+            gsap.set(fotos.concat(imgs), { clearProps: 'all' });
+            tipologias.classList.remove('is-animado');
+            tipologias.style.removeProperty('--tipos');
+          };
         });
-        window.ScrollTrigger.refresh();
       });
     });
   }

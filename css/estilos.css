@@ -1260,13 +1260,21 @@ em { font-style: italic; }
 .sv-circulo__puntos li:nth-child(8) { left: 24.31%; top: 8.33%; }
 
 /* En móvil el servicio activo va debajo del círculo; desde tablet, dentro */
-.sv-circulo__info { display: grid; margin-top: 32px; }
-.sv-servicio { grid-area: 1 / 1; align-self: start; } /* solo el alto de su texto: no tapa los puntos de abajo */
+/* El texto del servicio, centrado en el círculo en vertical y en horizontal */
+.sv-circulo__info {
+  position: absolute;
+  inset: 0 0 auto;
+  display: grid;
+  place-items: center;
+  height: var(--c);
+  pointer-events: none; /* deja pulsar los puntos que quedan debajo */
+}
+.sv-servicio { grid-area: 1 / 1; width: 68%; align-self: center; pointer-events: auto; }
 .sv-servicio.is-activo { animation: sv-aparecer 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes sv-aparecer { from { opacity: 0; transform: translateY(14px); } }
-.sv-servicio__num { font: 400 48px/1.218 var(--serif); }
-.sv-servicio__titulo { margin-top: 4px; color: #000; font: 400 26px/1.06 var(--serif); }
-.sv-servicio__texto { max-width: 410px; margin: 16px auto 0; color: #000; font: 300 15px/1.1 var(--sans); }
+.sv-servicio__num { font: 400 30px/1.218 var(--serif); }
+.sv-servicio__titulo { margin-top: 2px; color: #000; font: 400 17px/1.06 var(--serif); }
+.sv-servicio__texto { max-width: 410px; margin: 8px auto 0; color: #000; font: 300 12px/1.1 var(--sans); }
 .sv-servicio__texto strong { display: block; font-weight: 600; }
 
 /* ---------- Tipologías ----------
@@ -1279,7 +1287,7 @@ em { font-style: italic; }
 .sv-tipos__escena { display: flex; align-items: center; padding: 64px var(--pad) 80px; }
 .sv-tipos__marco { display: grid; gap: 40px; width: 100%; }
 .sv-tipos__titulo { font: 400 clamp(26px, 4vw, 45px)/1.06 var(--serif); }
-.sv-tipo { display: grid; gap: 16px; }
+.sv-tipo { display: grid; gap: 16px; align-content: start; }
 .sv-tipo__foto { position: relative; aspect-ratio: 680.125 / 519.264; overflow: hidden; }
 .sv-tipo__foto picture { display: contents; }
 .sv-tipo__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -1296,32 +1304,41 @@ em { font-style: italic; }
   overflow: clip;
 }
 .sv-tipos.is-animado .sv-tipos__marco { grid-template-rows: auto auto 1fr; gap: 24px; }
+.sv-tipos.is-animado .sv-tipos__lista,
 .sv-tipos.is-animado .sv-tipo { display: contents; }
 .sv-tipos.is-animado .sv-tipo__foto { grid-row: 2; grid-column: 1; }
 .sv-tipos.is-animado .sv-tipo__texto { grid-row: 3; grid-column: 1; align-self: start; }
+/* Móvil: las tipologías se recorren con scroll horizontal (deslizando) */
+@media (max-width: 767px) {
+  .sv-tipos__lista {
+    display: flex;
+    gap: 12px;
+    margin-inline: calc(-1 * var(--pad));
+    padding-inline: var(--pad);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--pad);
+    scrollbar-width: none;
+  }
+  .sv-tipos__lista::-webkit-scrollbar { display: none; }
+  .sv-tipo { flex: 0 0 82%; scroll-snap-align: start; }
+}
 /* Máscaras de cada línea (SplitText): ampliadas para no cortar acentos ni g, p, y */
 .sv-tipos.is-animado .sv-tipo__titulo > div,
 .sv-tipos.is-animado .sv-tipo__texto p > div { padding: 0.12em 0 0.22em; margin: -0.12em 0 -0.22em; }
 
 @media (min-width: 768px) {
   .sv-circulo { --c: 440px; --punto: 28px; }
-  /* El texto del servicio, centrado en el círculo en vertical y en horizontal */
-  .sv-circulo__info {
-    position: absolute;
-    inset: 0 0 auto;
-    height: var(--c);
-    margin: 0;
-    place-items: center;
-    pointer-events: none; /* deja pulsar los puntos que quedan debajo */
-  }
-  .sv-servicio { width: 70%; pointer-events: auto; align-self: center; }
+  .sv-servicio { width: 70%; }
   .sv-servicio__num { font-size: 52px; }
-  .sv-servicio__titulo { font-size: 28px; }
-  .sv-servicio__texto { font-size: 14px; }
+  .sv-servicio__titulo { margin-top: 4px; font-size: 28px; }
+  .sv-servicio__texto { margin-top: 16px; font-size: 14px; }
 
   /* Tipologías en dos columnas: texto (1fr) e imagen (680 de 1270 en Figma) */
   .sv-tipos__marco { grid-template-columns: 1fr 53.553%; column-gap: 4.681%; row-gap: 64px; }
   .sv-tipos__titulo { grid-column: 1 / -1; }
+  .sv-tipos__lista { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; row-gap: 64px; }
   .sv-tipo { grid-column: 1 / -1; grid-template-columns: subgrid; }
   .sv-tipo__foto { grid-column: 2; }
   .sv-tipo__texto { grid-column: 1; grid-row: 1; align-self: end; }
